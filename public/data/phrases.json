@@ -1,0 +1,868 @@
+{
+ "countries": {
+  "Nhật Bản": {
+   "lang": "Tiếng Nhật",
+   "voice": "ja-JP",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "こんにちは",
+      "r": "Konnichiwa",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "ありがとうございます",
+      "r": "Arigatou gozaimasu",
+      "vi": "Cảm ơn nhiều"
+     },
+     {
+      "t": "さようなら",
+      "r": "Sayounara",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "この住所までお願いします",
+      "r": "Kono juusho made onegaishimasu",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "一番近い駅はどこですか？",
+      "r": "Ichiban chikai eki wa doko desu ka?",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "タクシーを呼んでください",
+      "r": "Takushii wo yonde kudasai",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "メニューを見せてください",
+      "r": "Menyuu wo misete kudasai",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "辛くしないでください",
+      "r": "Karaku shinaide kudasai",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "お会計をお願いします",
+      "r": "Okaikei wo onegaishimasu",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "これはいくらですか？",
+      "r": "Kore wa ikura desu ka?",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "高すぎます",
+      "r": "Takasugimasu",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "割引できますか？",
+      "r": "Waribiki dekimasu ka?",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "予約しました",
+      "r": "Yoyaku shimashita",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "チェックインをお願いします",
+      "r": "Chekkuin wo onegaishimasu",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "部屋の鍵をください",
+      "r": "Heya no kagi wo kudasai",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "助けてください",
+      "r": "Tasukete kudasai",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "警察を呼んでください",
+      "r": "Keisatsu wo yonde kudasai",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "道に迷いました",
+      "r": "Michi ni mayoimashita",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Hàn Quốc": {
+   "lang": "Tiếng Hàn",
+   "voice": "ko-KR",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "안녕하세요",
+      "r": "Annyeonghaseyo",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "감사합니다",
+      "r": "Gamsahamnida",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "안녕히 가세요",
+      "r": "Annyeonghi gaseyo",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "이 주소로 가주세요",
+      "r": "I jusoro gajuseyo",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "가장 가까운 역이 어디예요?",
+      "r": "Gajang gakkaun yeogi eodiyeyo?",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "택시를 불러주세요",
+      "r": "Taeksireul bulleojuseyo",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "메뉴를 보여주세요",
+      "r": "Menyureul boyeojuseyo",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "맵지 않게 해주세요",
+      "r": "Maepji anke haejuseyo",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "계산해 주세요",
+      "r": "Gyesanhae juseyo",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "이거 얼마예요?",
+      "r": "Igeo eolmayeyo?",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "너무 비싸요",
+      "r": "Neomu bissayo",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "할인해 주실 수 있나요?",
+      "r": "Harinhae jusil su innayo?",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "예약했어요",
+      "r": "Yeyakhaesseoyo",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "체크인하고 싶어요",
+      "r": "Chekeuin hago sipeoyo",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "방 열쇠를 주세요",
+      "r": "Bang yeolsoereul juseyo",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "도와주세요",
+      "r": "Dowajuseyo",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "경찰을 불러주세요",
+      "r": "Gyeongchareul bulleojuseyo",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "길을 잃었어요",
+      "r": "Gireul ireosseoyo",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Thái Lan": {
+   "lang": "Tiếng Thái",
+   "voice": "th-TH",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "สวัสดี",
+      "r": "Sawatdee",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "ขอบคุณ",
+      "r": "Khop khun",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "ลาก่อน",
+      "r": "Laa kon",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "ไปตามที่อยู่นี้ครับ",
+      "r": "Pai taam tee yoo nee khrap",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "สถานีที่ใกล้ที่สุดอยู่ที่ไหน?",
+      "r": "Sathanee tee klai tee sut yoo tee nai?",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "เรียกแท็กซี่ให้หน่อย",
+      "r": "Riak taxi hai noi",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "ขอดูเมนูหน่อย",
+      "r": "Kho du menu noi",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "ไม่เผ็ดนะครับ",
+      "r": "Mai phet na khrap",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "คิดเงินด้วยครับ",
+      "r": "Khit ngoen duay khrap",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "อันนี้เท่าไหร่?",
+      "r": "An nee thao rai?",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "แพงเกินไป",
+      "r": "Phaeng koen pai",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "ลดราคาได้ไหม?",
+      "r": "Lot raakhaa dai mai?",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "ผมจองห้องไว้ครับ",
+      "r": "Phom jong hong wai khrap",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "ขอเช็คอินครับ",
+      "r": "Kho check-in khrap",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "ขอกุญแจห้องครับ",
+      "r": "Kho kunjae hong khrap",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "ช่วยด้วย",
+      "r": "Chuay duay",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "เรียกตำรวจให้หน่อย",
+      "r": "Riak tamruat hai noi",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "ผมหลงทาง",
+      "r": "Phom long thaang",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Trung Quốc": {
+   "lang": "Tiếng Trung",
+   "voice": "zh-CN",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "你好",
+      "r": "Nǐ hǎo",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "谢谢",
+      "r": "Xièxie",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "再见",
+      "r": "Zàijiàn",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "请带我去这个地址",
+      "r": "Qǐng dài wǒ qù zhège dìzhǐ",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "最近的地铁站在哪里？",
+      "r": "Zuìjìn de dìtiě zhàn zài nǎlǐ?",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "请帮我叫一辆出租车",
+      "r": "Qǐng bāng wǒ jiào yí liàng chūzūchē",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "请给我看菜单",
+      "r": "Qǐng gěi wǒ kàn càidān",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "不要辣",
+      "r": "Bú yào là",
+      "vi": "Không cay"
+     },
+     {
+      "t": "请买单",
+      "r": "Qǐng mǎidān",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "这个多少钱？",
+      "r": "Zhège duōshǎo qián?",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "太贵了",
+      "r": "Tài guì le",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "可以打折吗？",
+      "r": "Kěyǐ dǎzhé ma?",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "我预订了房间",
+      "r": "Wǒ yùdìng le fángjiān",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "我想办理入住",
+      "r": "Wǒ xiǎng bànlǐ rùzhù",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "请给我房间钥匙",
+      "r": "Qǐng gěi wǒ fángjiān yàoshi",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "我需要帮助",
+      "r": "Wǒ xūyào bāngzhù",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "请叫警察",
+      "r": "Qǐng jiào jǐngchá",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "我迷路了",
+      "r": "Wǒ mílù le",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Đài Loan": {
+   "lang": "Tiếng Trung",
+   "voice": "zh-TW",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "你好",
+      "r": "Nǐ hǎo",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "謝謝",
+      "r": "Xièxie",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "再見",
+      "r": "Zàijiàn",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "請帶我去這個地址",
+      "r": "Qǐng dài wǒ qù zhège dìzhǐ",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "最近的捷運站在哪裡？",
+      "r": "Zuìjìn de jiéyùn zhàn zài nǎlǐ?",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "請幫我叫一輛計程車",
+      "r": "Qǐng bāng wǒ jiào yí liàng jìchéngchē",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "請給我看菜單",
+      "r": "Qǐng gěi wǒ kàn càidān",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "不要辣",
+      "r": "Bú yào là",
+      "vi": "Không cay"
+     },
+     {
+      "t": "請買單",
+      "r": "Qǐng mǎidān",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "這個多少錢？",
+      "r": "Zhège duōshǎo qián?",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "太貴了",
+      "r": "Tài guì le",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "可以打折嗎？",
+      "r": "Kěyǐ dǎzhé ma?",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "我預訂了房間",
+      "r": "Wǒ yùdìng le fángjiān",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "我想辦理入住",
+      "r": "Wǒ xiǎng bànlǐ rùzhù",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "請給我房間鑰匙",
+      "r": "Qǐng gěi wǒ fángjiān yàoshi",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "我需要幫助",
+      "r": "Wǒ xūyào bāngzhù",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "請叫警察",
+      "r": "Qǐng jiào jǐngchá",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "我迷路了",
+      "r": "Wǒ mílù le",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Pháp": {
+   "lang": "Tiếng Pháp",
+   "voice": "fr-FR",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Bonjour",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Merci beaucoup",
+      "r": "",
+      "vi": "Cảm ơn nhiều"
+     },
+     {
+      "t": "Au revoir",
+      "r": "",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Emmenez-moi à cette adresse, s'il vous plaît",
+      "r": "",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "Où est la gare la plus proche ?",
+      "r": "",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "Appelez-moi un taxi, s'il vous plaît",
+      "r": "",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Le menu, s'il vous plaît",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Pas épicé, s'il vous plaît",
+      "r": "",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "L'addition, s'il vous plaît",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Combien ça coûte ?",
+      "r": "",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "C'est trop cher",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Vous pouvez faire une réduction ?",
+      "r": "",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "J'ai une réservation",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Je voudrais m'enregistrer",
+      "r": "",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "La clé de ma chambre, s'il vous plaît",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "J'ai besoin d'aide",
+      "r": "",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "Appelez la police, s'il vous plaît",
+      "r": "",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "Je suis perdu",
+      "r": "",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Đức": {
+   "lang": "Tiếng Đức",
+   "voice": "de-DE",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Guten Tag",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Vielen Dank",
+      "r": "",
+      "vi": "Cảm ơn nhiều"
+     },
+     {
+      "t": "Auf Wiedersehen",
+      "r": "",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Bringen Sie mich bitte zu dieser Adresse",
+      "r": "",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "Wo ist der nächste Bahnhof?",
+      "r": "",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "Rufen Sie mir bitte ein Taxi",
+      "r": "",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Die Speisekarte, bitte",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Nicht scharf, bitte",
+      "r": "",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "Die Rechnung, bitte",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Wie viel kostet das?",
+      "r": "",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "Das ist zu teuer",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Geht es etwas billiger?",
+      "r": "",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Ich habe eine Reservierung",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Ich möchte einchecken",
+      "r": "",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "Meinen Zimmerschlüssel, bitte",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Ich brauche Hilfe",
+      "r": "",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "Rufen Sie bitte die Polizei",
+      "r": "",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "Ich habe mich verirrt",
+      "r": "",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  },
+  "Anh": {
+   "lang": "Tiếng Anh",
+   "voice": "en-GB",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Hello",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Thank you very much",
+      "r": "",
+      "vi": "Cảm ơn nhiều"
+     },
+     {
+      "t": "Goodbye",
+      "r": "",
+      "vi": "Tạm biệt"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Please take me to this address",
+      "r": "",
+      "vi": "Cho tôi tới địa chỉ này"
+     },
+     {
+      "t": "Where is the nearest station?",
+      "r": "",
+      "vi": "Ga gần nhất ở đâu?"
+     },
+     {
+      "t": "Please call a taxi for me",
+      "r": "",
+      "vi": "Gọi taxi giúp tôi"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Could I see the menu, please?",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Not spicy, please",
+      "r": "",
+      "vi": "Không cay nhé"
+     },
+     {
+      "t": "The bill, please",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "How much is this?",
+      "r": "",
+      "vi": "Cái này bao nhiêu tiền?"
+     },
+     {
+      "t": "That's too expensive",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Can you give me a discount?",
+      "r": "",
+      "vi": "Giảm giá được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "I have a reservation",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "I would like to check in",
+      "r": "",
+      "vi": "Tôi muốn nhận phòng"
+     },
+     {
+      "t": "My room key, please",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "I need help",
+      "r": "",
+      "vi": "Tôi cần giúp đỡ"
+     },
+     {
+      "t": "Please call the police",
+      "r": "",
+      "vi": "Gọi cảnh sát giúp tôi"
+     },
+     {
+      "t": "I am lost",
+      "r": "",
+      "vi": "Tôi bị lạc đường"
+     }
+    ]
+   }
+  }
+ }
+}

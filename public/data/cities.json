@@ -1,0 +1,774 @@
+[
+ {
+  "name": "Hà Nội",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "TP. Hồ Chí Minh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Đà Nẵng",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hội An",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Huế",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Nha Trang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Đà Lạt",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Phú Quốc",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Sa Pa",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cần Thơ",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hạ Long",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Ninh Bình",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Quy Nhơn",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Phan Thiết",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Mũi Né",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Vũng Tàu",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Côn Đảo",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tuy Hòa",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Đồng Hới",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Vinh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Thanh Hóa",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hải Phòng",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cát Bà",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Mộc Châu",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hà Giang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cao Bằng",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Điện Biên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Lào Cai",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Thái Nguyên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Bắc Ninh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Nam Định",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Thái Bình",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Quảng Ninh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Móng Cái",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Phan Rang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Buôn Ma Thuột",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Pleiku",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Kon Tum",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Rạch Giá",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hà Tiên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Châu Đốc",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Long Xuyên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cà Mau",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Bạc Liêu",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Sóc Trăng",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Trà Vinh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Bến Tre",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Mỹ Tho",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tokyo",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kyoto",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Osaka",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Nara",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kobe",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Hiroshima",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Fukuoka",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Sapporo",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Nagoya",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Yokohama",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kanazawa",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Nagasaki",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Naha",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Sendai",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Hakone",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Nikko",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Takayama",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Matsuyama",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kagoshima",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Okinawa",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Seoul",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Busan",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Incheon",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Jeju",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Gyeongju",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Jeonju",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Daegu",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Suwon",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Bangkok",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Chiang Mai",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Phuket",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Pattaya",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Krabi",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Ayutthaya",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Hua Hin",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Koh Samui",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Chiang Rai",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Sukhothai",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Singapore",
+  "country": "Singapore"
+ },
+ {
+  "name": "Kuala Lumpur",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Penang",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Malacca",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Langkawi",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Bali",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Jakarta",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Yogyakarta",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Phnom Penh",
+  "country": "Campuchia"
+ },
+ {
+  "name": "Siem Reap",
+  "country": "Campuchia"
+ },
+ {
+  "name": "Luang Prabang",
+  "country": "Lào"
+ },
+ {
+  "name": "Vientiane",
+  "country": "Lào"
+ },
+ {
+  "name": "Yangon",
+  "country": "Myanmar"
+ },
+ {
+  "name": "Bagan",
+  "country": "Myanmar"
+ },
+ {
+  "name": "Manila",
+  "country": "Philippines"
+ },
+ {
+  "name": "Cebu",
+  "country": "Philippines"
+ },
+ {
+  "name": "Boracay",
+  "country": "Philippines"
+ },
+ {
+  "name": "Đài Bắc",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Đài Trung",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Đài Nam",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Cao Hùng",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Hoa Liên",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Bắc Kinh",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Thượng Hải",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Quảng Châu",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Thâm Quyến",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Hàng Châu",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Tô Châu",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Tây An",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Thành Đô",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Trùng Khánh",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Côn Minh",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Lệ Giang",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Đại Lý",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Quế Lâm",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Trương Gia Giới",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Hồng Kông",
+  "country": "Hồng Kông"
+ },
+ {
+  "name": "Ma Cao",
+  "country": "Ma Cao"
+ },
+ {
+  "name": "Paris",
+  "country": "Pháp"
+ },
+ {
+  "name": "Nice",
+  "country": "Pháp"
+ },
+ {
+  "name": "London",
+  "country": "Anh"
+ },
+ {
+  "name": "Edinburgh",
+  "country": "Anh"
+ },
+ {
+  "name": "Rome",
+  "country": "Ý"
+ },
+ {
+  "name": "Venice",
+  "country": "Ý"
+ },
+ {
+  "name": "Florence",
+  "country": "Ý"
+ },
+ {
+  "name": "Milan",
+  "country": "Ý"
+ },
+ {
+  "name": "Barcelona",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Madrid",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Lisbon",
+  "country": "Bồ Đào Nha"
+ },
+ {
+  "name": "Porto",
+  "country": "Bồ Đào Nha"
+ },
+ {
+  "name": "Amsterdam",
+  "country": "Hà Lan"
+ },
+ {
+  "name": "Brussels",
+  "country": "Bỉ"
+ },
+ {
+  "name": "Berlin",
+  "country": "Đức"
+ },
+ {
+  "name": "Munich",
+  "country": "Đức"
+ },
+ {
+  "name": "Hamburg",
+  "country": "Đức"
+ },
+ {
+  "name": "Vienna",
+  "country": "Áo"
+ },
+ {
+  "name": "Salzburg",
+  "country": "Áo"
+ },
+ {
+  "name": "Prague",
+  "country": "Séc"
+ },
+ {
+  "name": "Budapest",
+  "country": "Hungary"
+ },
+ {
+  "name": "Warsaw",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Krakow",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Athens",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Santorini",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Istanbul",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Zurich",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Lucerne",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Stockholm",
+  "country": "Thụy Điển"
+ },
+ {
+  "name": "Copenhagen",
+  "country": "Đan Mạch"
+ },
+ {
+  "name": "Oslo",
+  "country": "Na Uy"
+ },
+ {
+  "name": "Helsinki",
+  "country": "Phần Lan"
+ },
+ {
+  "name": "Dublin",
+  "country": "Ireland"
+ },
+ {
+  "name": "Reykjavik",
+  "country": "Iceland"
+ },
+ {
+  "name": "New York",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Los Angeles",
+  "country": "Mỹ"
+ },
+ {
+  "name": "San Francisco",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Las Vegas",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Chicago",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Miami",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Orlando",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Washington DC",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Boston",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Seattle",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Honolulu",
+  "country": "Mỹ"
+ },
+ {
+  "name": "San Diego",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Vancouver",
+  "country": "Canada"
+ },
+ {
+  "name": "Toronto",
+  "country": "Canada"
+ },
+ {
+  "name": "Sydney",
+  "country": "Úc"
+ },
+ {
+  "name": "Melbourne",
+  "country": "Úc"
+ },
+ {
+  "name": "Brisbane",
+  "country": "Úc"
+ },
+ {
+  "name": "Perth",
+  "country": "Úc"
+ },
+ {
+  "name": "Cairns",
+  "country": "Úc"
+ },
+ {
+  "name": "Auckland",
+  "country": "New Zealand"
+ },
+ {
+  "name": "Dubai",
+  "country": "UAE"
+ },
+ {
+  "name": "Abu Dhabi",
+  "country": "UAE"
+ },
+ {
+  "name": "Doha",
+  "country": "Qatar"
+ },
+ {
+  "name": "Muscat",
+  "country": "Oman"
+ },
+ {
+  "name": "New Delhi",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Mumbai",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Jaipur",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Agra",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Cairo",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Marrakech",
+  "country": "Morocco"
+ },
+ {
+  "name": "Cape Town",
+  "country": "Nam Phi"
+ },
+ {
+  "name": "Malé",
+  "country": "Maldives"
+ },
+ {
+  "name": "Mexico City",
+  "country": "Mexico"
+ },
+ {
+  "name": "Rio de Janeiro",
+  "country": "Brazil"
+ },
+ {
+  "name": "Buenos Aires",
+  "country": "Argentina"
+ }
+]

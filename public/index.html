@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Travel Plan — Kế hoạch du lịch</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFF7EC; --card:#FFFDF8; --peach:#FFE3D3; --peach2:#FFD9C0;
+  --coral:#FF7A59; --coral-d:#F0562F; --teal:#2BB3A3; --teal-d:#157F74;
+  --ink:#3E3A33; --muted:#8D8474; --line:#F3E3CF;
+  --shadow:0 6px 20px rgba(190,120,70,.16);
+  --r-lg:26px; --r-md:18px; --r-sm:12px;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  color:var(--ink); min-height:100vh; position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2;
+  background:url("assets/travel-bg.jpg") center/cover no-repeat, var(--cream);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(255,247,236,.62), rgba(255,247,236,.78));
+}
+h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
+input,select,textarea{font-family:inherit; font-size:16px; color:var(--ink)}
+img{display:block; max-width:100%}
+.wrap{max-width:540px; margin:0 auto; padding:14px 14px 40px}
+/* Trang chu: can giua toan bo khoi noi dung theo chieu doc trong khung nhin */
+.wrap:has(.home-frame){min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px}
+.card{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:18px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:12px 20px; font-weight:700; font-size:15px; transition:transform .08s, box-shadow .15s; border:2px solid transparent}
+.btn:active{transform:scale(.97)}
+.btn-coral{background:var(--coral); color:#fff; box-shadow:0 6px 14px rgba(255,122,89,.35)}
+.btn-coral:hover{background:var(--coral-d)}
+.btn-teal{background:var(--teal); color:#fff; box-shadow:0 6px 14px rgba(43,179,163,.3)}
+.btn-teal:hover{background:var(--teal-d)}
+.btn-ghost{background:#fff; border-color:var(--line); color:var(--ink)}
+.btn-sm{padding:8px 14px; font-size:13px}
+.btn:disabled{opacity:.45; cursor:not-allowed; box-shadow:none}
+.chip{display:inline-flex; align-items:center; gap:5px; background:var(--peach); color:#9A4A21; border-radius:999px; padding:3px 10px; font-size:12px; font-weight:700}
+.muted{color:var(--muted)} .small{font-size:13px} .tiny{font-size:12px}
+label.flabel{display:block; font-weight:700; font-size:13px; margin:0 0 6px 2px; color:#6B6252}
+.field{width:100%; background:#FFF9F0; border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; outline:none}
+.field:focus{border-color:var(--teal)}
+textarea.field{resize:vertical; min-height:64px}
+
+/* ===== Trang chu ===== */
+.home-frame{padding:20px 18px 18px}
+.home-head{display:flex; align-items:center; gap:10px}
+.home-head h1{font-size:38px; margin:0; line-height:1; color:#274156; font-weight:800; letter-spacing:.5px}
+.home-head img{width:128px; height:96px; object-fit:cover; border-radius:20px; margin-left:auto; border:2px solid var(--line)}
+.date-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px}
+.date-btn{width:100%; text-align:left; background:#FFF9F0; border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; font-size:15px; font-weight:600; display:flex; justify-content:space-between; align-items:center}
+.date-btn .ph{color:var(--muted); font-weight:500}
+.city-wrap{position:relative; margin-top:12px}
+.suggest{position:absolute; left:0; right:0; top:calc(100% + 6px); background:#fff; border:2px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); overflow:hidden; z-index:30}
+.suggest button{display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left; padding:11px 14px; font-size:15px; border-bottom:1px solid #FBF0DD}
+.suggest button:last-child{border-bottom:none}
+.suggest button:hover{background:#FFF4E4}
+.suggest .ct{color:var(--muted); font-size:12px; font-weight:700}
+.search-btn{width:100%; margin-top:16px; padding:15px; font-size:17px}
+.nav-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.nav-tile{background:var(--card); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
+.nav-tile .ic{font-size:24px; line-height:1}
+.nav-tile.on{background:var(--coral); border-color:var(--coral); color:#fff}
+.nav-row{display:flex; gap:8px; margin-bottom:14px}
+.nav-row button{flex:1; background:var(--card); border:2px solid var(--line); border-radius:999px; padding:9px 4px; font-weight:700; font-size:13px; box-shadow:var(--shadow)}
+.nav-row button.on{background:var(--coral); border-color:var(--coral); color:#fff}
+
+/* ===== Lich trinh ===== */
+.sec-title{font-size:24px; margin:6px 0 12px; color:#274156}
+.city-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.city-tile{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow); text-align:left; padding:0; width:100%; position:relative}
+.tile-del{position:absolute; top:8px; right:8px; z-index:2; min-width:28px; height:28px; padding:0 7px; border-radius:999px; background:rgba(255,255,255,.94); color:var(--coral-d); font-weight:900; font-size:13px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(90,50,20,.25); cursor:pointer}
+.tile-del.arm{background:var(--coral); color:#fff; font-size:12px}
+.city-tile.on{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral), var(--shadow)}
+.city-tile img,.city-tile .ph-img{width:100%; height:86px; object-fit:cover}
+.city-tile .in{padding:10px 12px 12px}
+.city-tile .nm{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:17px; color:#274156; line-height:1.15}
+.city-tile .dt{font-size:12px; color:var(--muted); margin-top:3px; font-weight:600}
+.ph-img{background:linear-gradient(135deg,var(--peach),#BDEBE2); display:flex; align-items:center; justify-content:center; font-size:30px}
+.city-head{display:flex; gap:12px; align-items:center}
+.city-head img,.city-head .ph-img{width:56px; height:56px; border-radius:16px; object-fit:cover; flex:none}
+.city-head .nm{font-family:"Baloo 2",sans-serif; font-size:21px; font-weight:800; color:#274156; line-height:1.1}
+.city-head .dt{font-size:12px; color:var(--muted); font-weight:600; margin-top:2px}
+.head-btns{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.day-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px}
+.day-tile{background:#fff; border:2px solid var(--line); border-radius:var(--r-md); padding:10px 8px; text-align:center; box-shadow:var(--shadow)}
+.day-tile .d1{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:17px; color:#274156}
+.day-tile .d2{font-size:11px; color:var(--muted); font-weight:600; margin-top:1px}
+.day-tile .d3{font-size:11px; margin-top:5px}
+.day-tile.on{background:var(--coral); border-color:var(--coral)}
+.day-tile.on .d1,.day-tile.on .d2{color:#fff}
+.day-big{font-family:"Baloo 2",sans-serif; font-size:32px; font-weight:800; color:#274156; line-height:1.05; margin:0}
+.day-sub{color:var(--teal-d); font-weight:700; font-size:16px; margin-top:2px}
+.day-divider{border:none; border-top:2px dashed var(--peach2); margin:12px 0 14px}
+.place-card{display:flex; gap:12px; background:#fff; border:2px solid var(--line); border-radius:var(--r-md); padding:10px; margin-bottom:10px}
+.place-card img,.place-card .ph-img{width:84px; height:84px; border-radius:12px; object-fit:cover; flex:none}
+.place-card .nm{font-weight:700; font-size:15px; line-height:1.25}
+.place-card .ds{font-size:12.5px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.place-card .go{font-size:12.5px; margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.stay-box{background:#F2FBF9; border:2px dashed var(--teal); border-radius:var(--r-md); padding:12px 14px}
+
+/* ===== Popup ===== */
+.modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:flex-end; justify-content:center; padding:0}
+.modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px 26px 0 0; padding:20px 18px 26px; animation:up .18s ease}
+@media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
+@keyframes up{from{transform:translateY(16px); opacity:.6} to{transform:none; opacity:1}}
+.modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
+.modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
+.pick-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.pick-tile{position:relative; background:#fff; border:2px solid var(--line); border-radius:var(--r-md); overflow:hidden; text-align:left; padding:0; width:100%}
+.pick-tile img,.pick-tile .ph-img{width:100%; aspect-ratio:4/3; object-fit:cover}
+.pick-tile .in{padding:8px 10px 10px}
+.pick-tile .nm{font-weight:700; font-size:13.5px; line-height:1.25; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:34px}
+.pick-tile .go{font-size:11.5px; color:var(--muted); margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.pick-tile .tick{position:absolute; top:8px; right:8px; width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,.92); border:2px solid var(--teal); display:flex; align-items:center; justify-content:center; font-size:15px; color:transparent; font-weight:900}
+.pick-tile.sel{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral)}
+.pick-tile.sel .tick{background:var(--coral); border-color:var(--coral); color:#fff}
+.pick-tile.added{opacity:.55}
+.pick-tile.added .tick{background:var(--muted); border-color:var(--muted); color:#fff}
+.sticky-foot{position:sticky; bottom:-26px; background:var(--card); padding:12px 0 2px; margin-top:14px}
+.near-group h4{margin:14px 0 6px; font-size:14px}
+.near-group li{font-size:14px; margin:3px 0}
+.steps li{margin:5px 0; font-size:14.5px; line-height:1.45}
+
+/* ===== Lich chon ngay (custom, chibi) ===== */
+.cal{background:#FFF9F0; border:2px solid var(--line); border-radius:22px; padding:14px}
+.cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+.cal-head .t{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:18px; color:#274156}
+.cal-nav{width:38px; height:38px; border-radius:50%; background:var(--peach); font-size:18px; font-weight:900; color:#9A4A21}
+.cal-nav:disabled{opacity:.35}
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
+.cal-grid .wd{text-align:center; font-size:11.5px; font-weight:800; color:var(--teal-d); padding:4px 0}
+.cal-day{aspect-ratio:1; border-radius:50%; font-size:14.5px; font-weight:600; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff; border:2px solid transparent; position:relative}
+.cal-day:hover{border-color:var(--peach2)}
+.cal-day.empty{background:transparent}
+.cal-day.dis{opacity:.28; pointer-events:none}
+.cal-day.today{border-color:var(--coral); color:var(--coral-d); font-weight:900; background:#FFF1E8}
+.cal-day.today::after{content:""; width:5px; height:5px; border-radius:50%; background:var(--coral); position:absolute; bottom:5px}
+.cal-day.sel{background:var(--coral); color:#fff; font-weight:900}
+.cal-day.sel::after{background:#fff}
+.cal-note{text-align:center; font-size:12px; color:var(--coral-d); font-weight:700; margin-top:10px}
+
+/* ===== Giao tiep ===== */
+.phrase-group{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:14px 16px; margin-bottom:12px}
+.phrase-group h3{margin:0 0 8px; font-size:18px; color:#274156}
+.phrase{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px dashed #F6E7CF}
+.phrase:last-child{border-bottom:none}
+.phrase .t{font-weight:700; font-size:16px}
+.phrase .r{color:var(--teal-d); font-size:13px; font-weight:600}
+.phrase .v{color:var(--muted); font-size:13px}
+.spk{flex:none; width:38px; height:38px; border-radius:50%; background:var(--peach); font-size:17px}
+
+/* ===== Chuan bi ===== */
+.progress{height:16px; background:#F6E7CF; border-radius:999px; overflow:hidden}
+.progress > div{height:100%; background:linear-gradient(90deg,var(--teal),#57D3C2); border-radius:999px; transition:width .3s}
+.prep-group{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:14px 16px; margin-bottom:12px}
+.prep-group.hot{border-color:var(--coral); background:#FFF6EF; box-shadow:0 0 0 2px var(--peach), var(--shadow)}
+.prep-group h3{margin:0; font-size:18px; color:#274156; display:flex; align-items:center; gap:8px}
+.prep-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed #F6E7CF}
+.prep-item:last-of-type{border-bottom:none}
+.prep-item .txt{flex:1; font-size:15px}
+.prep-item.done .txt{text-decoration:line-through; color:var(--muted)}
+.cbox{flex:none; width:27px; height:27px; border-radius:50%; border:2.5px solid var(--teal); background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; font-weight:900}
+.cbox.on{background:var(--teal)}
+.del-x{flex:none; width:28px; height:28px; border-radius:50%; background:#FFF1E8; color:var(--coral-d); font-weight:900}
+.add-row{display:flex; gap:8px; margin-top:10px}
+.add-row input{flex:1}
+.toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:#274156; color:#fff; padding:11px 18px; border-radius:999px; font-weight:700; font-size:14px; z-index:200; box-shadow:0 8px 24px rgba(0,0,0,.25); max-width:92vw; text-align:center}
+.empty-note{background:rgba(255,253,248,.85); border:2px dashed var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
+.mt{margin-top:14px} .mb{margin-bottom:14px}
+.row-between{display:flex; align-items:center; justify-content:space-between; gap:10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div id="view"><div class="empty-note">Đang tải Travel Plan… ✈️</div></div>
+</div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+
+<script>
+"use strict";
+/* ================= Tien ich ================= */
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "d").trim();
+const WD = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+const WD2 = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+function parseD(iso) { if (!iso) return null; const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); }
+function toISO(dt) { const p = (n) => String(n).padStart(2, "0"); return dt.getFullYear() + "-" + p(dt.getMonth() + 1) + "-" + p(dt.getDate()); }
+function todayISO() { return toISO(new Date()); }
+function fmtD(iso) { const d = parseD(iso); if (!d) return ""; return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear(); }
+function fmtFull(iso) { const d = parseD(iso); if (!d) return ""; return WD[d.getDay()] + ", " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear(); }
+function dayCount(a, b) { const d1 = parseD(a), d2 = parseD(b); if (!d1 || !d2) return 0; return Math.round((d2 - d1) / 86400000) + 1; }
+function addDays(iso, n) { const d = parseD(iso); d.setDate(d.getDate() + n); return toISO(d); }
+function toast(msg) {
+  const r = $("#toast-root"); r.innerHTML = '<div class="toast">' + esc(msg) + "</div>";
+  clearTimeout(toast._t); toast._t = setTimeout(() => r.innerHTML = "", 2600);
+}
+async function api(path, method, body) {
+  const r = await fetch(path, { method: method || "GET", headers: { "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || "Có lỗi xảy ra");
+  return j;
+}
+function phImg(cls) { return '<div class="ph-img ' + (cls || "") + '">🧳</div>'; }
+function imgOr(place, cls) {
+  return place && place.image ? '<img class="' + (cls || "") + '" src="' + esc(place.image) + '" alt="" loading="lazy" onerror="this.outerHTML=phImg(\'' + (cls || "") + '\')">' : phImg(cls);
+}
+
+/* ================= Trang thai ================= */
+let GUIDES = {}, CITYLIST = [], PHRASES = {};
+let trips = [];              // danh sach tom tat
+let tab = "home";
+let curTrip = null;          // chuyen dang mo (full)
+let selTripId = null;        // thanh pho dang chon trong Lich trinh
+let curDay = 1;
+let phraseState = { country: null, lang: null, custom: "" };
+let prepTripId = null;
+
+function guideOf(trip) { return trip && trip.guideKey ? GUIDES[trip.guideKey] : null; }
+function findGuideByCity(cityName) {
+  const n = norm(cityName);
+  for (const k in GUIDES) if (norm(GUIDES[k].name) === n) return GUIDES[k];
+  return null;
+}
+function countryOfCity(cityName) {
+  const n = norm(cityName);
+  const hit = CITYLIST.find(c => norm(c.name) === n);
+  if (hit) return hit.country;
+  const g = findGuideByCity(cityName);
+  return g ? g.country : "";
+}
+
+/* ================= Popup ================= */
+function openModal(html) {
+  const root = $("#modal-root");
+  root.innerHTML = '<div class="modal-bg"><div class="modal"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
+  const close = () => { root.innerHTML = ""; };
+  $("#modal-x").onclick = close;
+  $(".modal-bg", root).addEventListener("click", (e) => { if (e.target.classList.contains("modal-bg")) close(); });
+  return { root, close };
+}
+
+/* ================= Lich chon ngay (tu dung, phong cach chibi) =================
+   - Khong dung lich mac dinh cua trinh duyet.
+   - Ngay hien tai (hom nay) duoc danh dau: vien san ho + cham do + ghi chu. */
+function dateFieldHTML(id, value, placeholder) {
+  return '<button type="button" class="date-btn" id="' + id + '"><span class="' + (value ? "" : "ph") + '">' + (value ? fmtD(value) : placeholder) + '</span><span>📅</span></button>';
+}
+function attachDateField(id, getVal, setVal, opts) {
+  opts = opts || {};
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.onclick = () => openCalendar({
+    value: getVal(),
+    min: typeof opts.min === "function" ? opts.min() : (opts.min || null),
+    anchor: typeof opts.anchor === "function" ? opts.anchor() : (opts.anchor || null),
+    onPick: (iso) => { setVal(iso); }
+  });
+}
+function openCalendar({ value, min, anchor, onPick }) {
+  const today = todayISO();
+  // Mac dinh: chua co ngay -> chon san hom nay (hoac ngay min neu min o tuong lai)
+  let selected = value || (min && min > today ? min : today);
+  let view = parseD(value || anchor || selected);
+  view = new Date(view.getFullYear(), view.getMonth(), 1);
+  const { root, close } = openModal('<h3>Chọn ngày 📅</h3><div class="cal" id="cal-box"></div><div class="row-between mt"><button class="btn btn-ghost btn-sm" id="cal-clear">Xóa ngày</button><button class="btn btn-coral btn-sm" id="cal-ok">Xong</button></div>');
+  function render() {
+    const y = view.getFullYear(), m = view.getMonth();
+    const first = new Date(y, m, 1);
+    const startOffset = (first.getDay() + 6) % 7; // tuan bat dau Thu 2
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    let cells = "";
+    ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].forEach(w => cells += '<div class="wd">' + w + "</div>");
+    for (let i = 0; i < startOffset; i++) cells += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const iso = toISO(new Date(y, m, d));
+      const cls = ["cal-day"];
+      if (iso === today) cls.push("today");
+      if (iso === selected) cls.push("sel");
+      if (min && iso < min) cls.push("dis");
+      cells += '<button class="' + cls.join(" ") + '" data-iso="' + iso + '">' + d + "</button>";
+    }
+    $("#cal-box", root).innerHTML =
+      '<div class="cal-head"><button class="cal-nav" id="cal-prev">‹</button><div class="t">Tháng ' + (m + 1) + " năm " + y + '</div><button class="cal-nav" id="cal-next">›</button></div>' +
+      '<div class="cal-grid">' + cells + "</div>" +
+      (cells.includes(today) && new Date(y, m, 1).getTime() === new Date(parseD(today).getFullYear(), parseD(today).getMonth(), 1).getTime() ? '<div class="cal-note">🔴 Hôm nay: ' + fmtFull(today) + "</div>" : "");
+    $("#cal-prev", root).onclick = () => { view = new Date(y, m - 1, 1); render(); };
+    $("#cal-next", root).onclick = () => { view = new Date(y, m + 1, 1); render(); };
+    $$(".cal-day[data-iso]", root).forEach(b => b.onclick = () => { selected = b.dataset.iso; render(); });
+  }
+  render();
+  $("#cal-clear", root).onclick = () => { onPick(""); close(); };
+  $("#cal-ok", root).onclick = () => { if (selected) onPick(selected); close(); };
+}
+
+/* ================= Dieu huong ================= */
+const TABS = [
+  { id: "home", label: "Trang chủ", icon: "🏠" },
+  { id: "itinerary", label: "Lịch trình", icon: "🗓️" },
+  { id: "phrases", label: "Giao tiếp", icon: "💬" },
+  { id: "prep", label: "Chuẩn bị", icon: "🎒" }
+];
+function navRowHTML() {
+  return '<div class="nav-row">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '">' + t.icon + " " + t.label + "</button>").join("") + "</div>";
+}
+function bindNav(scope) {
+  $$("[data-tab]", scope).forEach(b => b.onclick = () => goTab(b.dataset.tab));
+}
+async function goTab(t) {
+  tab = t;
+  if (t === "itinerary" && selTripId && (!curTrip || curTrip.id !== selTripId)) {
+    try { curTrip = await api("/api/trips/" + selTripId); } catch {}
+  }
+  render();
+}
+function render() {
+  const v = $("#view");
+  if (tab === "home") renderHome(v);
+  else if (tab === "itinerary") renderItinerary(v);
+  else if (tab === "phrases") renderPhrases(v);
+  else if (tab === "prep") renderPrep(v);
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= TRANG CHU ================= */
+let homeForm = { start: "", end: "", city: "" };
+function renderHome(v) {
+  v.innerHTML =
+    '<div class="card home-frame">' +
+      '<div class="home-head"><h1>Travel Plan</h1><img src="assets/plane-hero.webp" alt="Máy bay chibi"></div>' +
+      '<div class="date-row">' +
+        '<div><label class="flabel">Ngày đi</label>' + dateFieldHTML("f-start", homeForm.start, "Chọn ngày đi") + "</div>" +
+        '<div><label class="flabel">Ngày về</label>' + dateFieldHTML("f-end", homeForm.end, "Chọn ngày về") + "</div>" +
+      "</div>" +
+      '<div class="city-wrap"><label class="flabel">Thành phố</label>' +
+        '<input class="field" id="f-city" placeholder="VD: Kyoto, Đà Nẵng, Seoul, Paris…" autocomplete="off" value="' + esc(homeForm.city) + '">' +
+        '<div class="suggest" id="f-suggest" style="display:none"></div>' +
+      "</div>" +
+      '<button class="btn btn-coral search-btn" id="f-search">🔍 Tìm kiếm</button>' +
+    "</div>" +
+    '<div class="nav-grid">' + TABS.map(t => '<button class="nav-tile ' + (tab === t.id ? "on" : "") + '" data-tab="' + t.id + '"><span class="ic">' + t.icon + '</span>' + t.label + "</button>").join("") + "</div>";
+
+  attachDateField("f-start", () => homeForm.start, (iso) => { homeForm.start = iso; if (homeForm.end && iso && homeForm.end < iso) homeForm.end = ""; renderHome(v); });
+  attachDateField("f-end", () => homeForm.end, (iso) => { homeForm.end = iso; renderHome(v); }, { min: () => homeForm.start || null, anchor: () => homeForm.start || null });
+
+  const cityIn = $("#f-city", v), sug = $("#f-suggest", v);
+  function showSuggest() {
+    const q = norm(cityIn.value);
+    if (!q) { sug.style.display = "none"; return; }
+    const past = trips.map(t => t.city);
+    const pool = [];
+    const seen = new Set();
+    const push = (name, country) => { const k = norm(name); if (!seen.has(k)) { seen.add(k); pool.push({ name, country }); } };
+    past.forEach(c => push(c, countryOfCity(c)));
+    CITYLIST.forEach(c => push(c.name, c.country));
+    const scored = pool.map(c => {
+      const nn = norm(c.name), nc = norm(c.country);
+      let s = -1;
+      if (nn.startsWith(q)) s = 0; else if (nn.includes(q)) s = 1; else if (nc.includes(q)) s = 2;
+      return { c, s };
+    }).filter(x => x.s >= 0).sort((a, b) => a.s - b.s).slice(0, 8);
+    if (!scored.length || (scored.length === 1 && norm(scored[0].c.name) === q)) { sug.style.display = "none"; return; }
+    sug.innerHTML = scored.map(x => '<button data-city="' + esc(x.c.name) + '"><span>📍 ' + esc(x.c.name) + '</span><span class="ct">' + esc(x.c.country) + "</span></button>").join("");
+    sug.style.display = "block";
+    $$("button", sug).forEach(b => b.onmousedown = (e) => { e.preventDefault(); cityIn.value = b.dataset.city; homeForm.city = b.dataset.city; sug.style.display = "none"; });
+  }
+  cityIn.addEventListener("input", () => { homeForm.city = cityIn.value; showSuggest(); });
+  cityIn.addEventListener("focus", showSuggest);
+  cityIn.addEventListener("blur", () => setTimeout(() => sug.style.display = "none", 150));
+
+  $("#f-search", v).onclick = async () => {
+    const city = cityIn.value.trim();
+    if (!city) return toast("Bạn nhập thành phố muốn đến nhé ✈️");
+    if (!homeForm.start || !homeForm.end) return toast("Bạn chọn ngày đi và ngày về nhé 📅");
+    if (homeForm.end < homeForm.start) return toast("Ngày về phải sau ngày đi nhé");
+    const guide = findGuideByCity(city);
+    try {
+      const trip = await api("/api/trips", "POST", { city, country: countryOfCity(city), guideKey: guide ? guide.key : null, startDate: homeForm.start, endDate: homeForm.end });
+      trips = await api("/api/trips");
+      curTrip = trip; selTripId = trip.id; curDay = 1; prepTripId = trip.id;
+      tab = "itinerary";
+      toast("Đã tạo chuyến đi " + city + " 🎉");
+      render();
+    } catch (e) { toast(e.message); }
+  };
+  bindNav(v);
+}
+
+/* ================= LICH TRINH ================= */
+function tripHero(t) {
+  const g = GUIDES[t.guideKey];
+  if (g && g.hero) return g.hero;
+  if (g && g.places && g.places.length && g.places[0].image) return g.places[0].image;
+  return null;
+}
+function renderItinerary(v) {
+  let html = navRowHTML() + '<h2 class="sec-title font-round">Lịch trình của bạn 🗓️</h2>';
+  if (!trips.length) {
+    html += '<div class="empty-note">Chưa có chuyến đi nào.<br>Vào Trang chủ, tìm một thành phố để bắt đầu nhé ✈️</div>';
+    v.innerHTML = html; bindNav(v); return;
+  }
+  html += '<div class="city-grid">' + trips.map(t => {
+    const hero = tripHero(t);
+    const n = dayCount(t.startDate, t.endDate);
+    return '<button class="city-tile ' + (selTripId === t.id ? "on" : "") + '" data-trip="' + t.id + '">' +
+      '<span class="tile-del" data-del-trip="' + t.id + '" title="Xóa chuyến này">✕</span>' +
+      (hero ? '<img src="' + esc(hero) + '" alt="" loading="lazy" onerror="this.outerHTML=phImg()">' : phImg()) +
+      '<div class="in"><div class="nm">' + esc(t.city) + '</div><div class="dt">' + fmtD(t.startDate) + " → " + fmtD(t.endDate) + " · " + n + " ngày</div></div></button>";
+  }).join("") + "</div>";
+  html += '<div id="trip-detail" class="mt"></div>';
+  v.innerHTML = html; bindNav(v);
+  $$("[data-trip]", v).forEach(b => b.onclick = async () => {
+    selTripId = b.dataset.trip; curDay = 1;
+    try { curTrip = await api("/api/trips/" + selTripId); } catch (e) { toast(e.message); }
+    prepTripId = selTripId;
+    render();
+  });
+  $$("[data-del-trip]", v).forEach(x => x.onclick = (e) => {
+    e.stopPropagation(); e.preventDefault();
+    const id = x.dataset.delTrip;
+    if (x.dataset.arm) {
+      api("/api/trips/" + id, "DELETE").then(async () => {
+        trips = await api("/api/trips");
+        if (curTrip && curTrip.id === id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
+        else if (selTripId === id) { selTripId = trips.length ? trips[0].id : null; }
+        toast("Đã xóa chuyến đi");
+        render();
+      }).catch(err => toast(err.message));
+    } else { x.dataset.arm = "1"; x.classList.add("arm"); x.textContent = "⚠️ Xóa?"; setTimeout(() => { x.dataset.arm = ""; x.classList.remove("arm"); x.textContent = "✕"; }, 3000); }
+  });
+  if (curTrip && selTripId === curTrip.id) renderTripDetail($("#trip-detail", v));
+  else if (selTripId) { api("/api/trips/" + selTripId).then(t => { curTrip = t; render(); }).catch(() => {}); }
+}
+
+function renderTripDetail(box) {
+  if (!box || !curTrip) return;
+  const t = curTrip, g = guideOf(t);
+  const n = dayCount(t.startDate, t.endDate);
+  const hero = tripHero(t);
+  if (curDay > n) curDay = 1;
+  let html = '<div class="card">' +
+    '<div class="city-head">' + (hero ? '<img src="' + esc(hero) + '" alt="" onerror="this.outerHTML=phImg()">' : phImg()) +
+      '<div><div class="nm">' + esc(t.city) + '</div><div class="dt">' + fmtD(t.startDate) + " → " + fmtD(t.endDate) + " · " + n + " ngày " + (n - 1) + " đêm" + (t.country ? " · " + esc(t.country) : "") + "</div></div></div>" +
+    '<div class="head-btns">' +
+      '<button class="btn btn-teal btn-sm" id="btn-guide">📖 Cẩm nang ' + esc(t.city) + "</button>" +
+      '<button class="btn btn-ghost btn-sm" id="btn-edit-trip">✏️ Chỉnh sửa</button>' +
+      '<button class="btn btn-ghost btn-sm" id="btn-del-trip">🗑️ Xóa chuyến</button>' +
+    "</div>" +
+    '<div class="mt" id="stay-box">' + stayHTML(t) + "</div>" +
+  "</div>";
+
+  // Luoi chon ngay
+  html += '<div class="card mt"><div class="day-grid">' + Array.from({ length: n }, (_, i) => {
+    const d = i + 1, iso = addDays(t.startDate, i), cnt = (t.days[d] || []).length;
+    return '<button class="day-tile ' + (curDay === d ? "on" : "") + '" data-day="' + d + '"><div class="d1">Ngày ' + d + '</div><div class="d2">' + WD2[parseD(iso).getDay()] + ", " + parseD(iso).getDate() + "/" + (parseD(iso).getMonth() + 1) + '</div><div class="d3"><span class="chip">' + cnt + " điểm đến</span></div></button>";
+  }).join("") + "</div></div>";
+
+  // The ngay dang chon
+  const dayISO = addDays(t.startDate, curDay - 1);
+  const places = t.days[curDay] || [];
+  html += '<div class="card mt"><h3 class="day-big">Ngày ' + curDay + '</h3><div class="day-sub">' + fmtFull(dayISO) + '</div><hr class="day-divider">';
+  if (!places.length) html += '<div class="muted" style="font-weight:600">Chưa có địa điểm nào trong ngày này.</div>';
+  html += places.map(p =>
+    '<div class="place-card">' + imgOr(p) + '<div style="flex:1;min-width:0"><div class="nm">' + esc(p.name) + '</div>' +
+    (p.desc ? '<div class="ds">' + esc(p.desc) + "</div>" : "") +
+    (p.go ? '<div class="go">🚌 ' + esc(p.go) + "</div>" : "") +
+    '<div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-teal btn-sm" data-detail="' + p.id + '">Chi tiết</button>' +
+    '<button class="btn btn-ghost btn-sm" data-del-place="' + p.id + '">✕ Xóa</button></div></div></div>'
+  ).join("");
+  html += '<button class="btn btn-coral" id="btn-add-place" style="width:100%;margin-top:6px">＋ Thêm lịch trình</button></div>';
+
+  box.innerHTML = html;
+
+  $("#btn-guide", box).onclick = () => openGuidePopup(t);
+  $("#btn-edit-trip", box).onclick = () => openEditTripPopup(t);
+  $("#btn-del-trip", box).onclick = (e) => {
+    const b = e.currentTarget;
+    if (b.dataset.arm) {
+      api("/api/trips/" + t.id, "DELETE").then(async () => {
+        trips = await api("/api/trips");
+        if (curTrip && curTrip.id === t.id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
+        toast("Đã xóa chuyến đi");
+        render();
+      }).catch(err => toast(err.message));
+    } else { b.dataset.arm = "1"; b.textContent = "⚠️ Bấm lần nữa để xóa hẳn"; setTimeout(() => { b.dataset.arm = ""; b.textContent = "🗑️ Xóa chuyến"; }, 3000); }
+  };
+  bindStay(box, t);
+  $$("[data-day]", box).forEach(b => b.onclick = () => { curDay = Number(b.dataset.day); render(); });
+  $$("[data-detail]", box).forEach(b => b.onclick = () => {
+    const p = (curTrip.days[curDay] || []).find(x => x.id === b.dataset.detail);
+    if (p) openPlaceDetail(p);
+  });
+  $$("[data-del-place]", box).forEach(b => b.onclick = async () => {
+    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + b.dataset.delPlace, "DELETE"); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (e) { toast(e.message); }
+  });
+  $("#btn-add-place", box).onclick = () => openAddPlacePopup(t, curDay);
+}
+
+function stayHTML(t) {
+  if (!t.stay) return '<div class="stay-box"><div class="row-between"><b>🏨 Nơi lưu trú</b><button class="btn btn-teal btn-sm" id="btn-stay">＋ Thêm nơi lưu trú</button></div><div class="small muted" style="margin-top:6px">Ghi lại chỗ ở bạn đã đặt trước ở ' + esc(t.city) + " để xem nhanh khi cần.</div></div>";
+  const s = t.stay;
+  return '<div class="stay-box"><div class="row-between"><b>🏨 Nơi lưu trú</b><span><button class="btn btn-ghost btn-sm" id="btn-stay">✏️ Sửa</button> <button class="btn btn-ghost btn-sm" id="btn-stay-del">✕</button></span></div>' +
+    '<div style="margin-top:6px"><b>' + esc(s.name) + "</b>" +
+    (s.address ? '<div class="small">📍 ' + esc(s.address) + "</div>" : "") +
+    ((s.checkin || s.checkout) ? '<div class="small">🗓️ Nhận phòng: ' + (s.checkin ? fmtD(s.checkin) : "…") + " · Trả phòng: " + (s.checkout ? fmtD(s.checkout) : "…") + "</div>" : "") +
+    (s.note ? '<div class="small">📝 ' + esc(s.note) + "</div>" : "") + "</div></div>";
+}
+function bindStay(box, t) {
+  const b = $("#btn-stay", box); if (b) b.onclick = () => openStayPopup(t);
+  const d = $("#btn-stay-del", box); if (d) d.onclick = async () => { try { curTrip = await api("/api/trips/" + t.id + "/stay", "DELETE"); render(); } catch (e) { toast(e.message); } };
+}
+function openStayPopup(t) {
+  const s = t.stay || { name: "", address: "", checkin: "", checkout: "", note: "" };
+  const form = { checkin: s.checkin || "", checkout: s.checkout || "" };
+  const { root, close } = openModal(
+    "<h3>🏨 Nơi lưu trú tại " + esc(t.city) + "</h3>" +
+    '<label class="flabel">Tên nơi lưu trú *</label><input class="field" id="s-name" value="' + esc(s.name) + '" placeholder="VD: Hotel Monterey Kyoto">' +
+    '<label class="flabel" style="margin-top:12px">Địa chỉ</label><input class="field" id="s-addr" value="' + esc(s.address) + '" placeholder="Số nhà, đường, khu vực…">' +
+    '<div class="date-row"><div><label class="flabel">Ngày nhận phòng</label>' + dateFieldHTML("s-in", form.checkin, "Chọn ngày") + '</div><div><label class="flabel">Ngày trả phòng</label>' + dateFieldHTML("s-out", form.checkout, "Chọn ngày") + "</div></div>" +
+    '<label class="flabel" style="margin-top:12px">Ghi chú (mã đặt phòng…)</label><input class="field" id="s-note" value="' + esc(s.note) + '" placeholder="VD: Mã đặt phòng ABC123">' +
+    '<button class="btn btn-coral mt" id="s-save" style="width:100%">Lưu nơi lưu trú</button>'
+  );
+  const refresh = () => { const nb = openStayPopup._rerender; };
+  attachDateField("s-in", () => form.checkin, (iso) => { form.checkin = iso; $("#s-in .ph, #s-in span", root).textContent = iso ? fmtD(iso) : "Chọn ngày"; $("#s-in span", root).className = iso ? "" : "ph"; }, {});
+  attachDateField("s-out", () => form.checkout, (iso) => { form.checkout = iso; $("#s-out span", root).className = iso ? "" : "ph"; $("#s-out span", root).textContent = iso ? fmtD(iso) : "Chọn ngày"; }, { min: () => form.checkin || null, anchor: () => form.checkin || null });
+  $("#s-save", root).onclick = async () => {
+    const name = $("#s-name", root).value.trim();
+    if (!name) return toast("Bạn nhập tên nơi lưu trú nhé");
+    try {
+      curTrip = await api("/api/trips/" + t.id + "/stay", "PUT", { name, address: $("#s-addr", root).value.trim(), checkin: form.checkin, checkout: form.checkout, note: $("#s-note", root).value.trim() });
+      close(); toast("Đã lưu nơi lưu trú 🏨"); render();
+    } catch (e) { toast(e.message); }
+  };
+}
+
+function openGuidePopup(t) {
+  const g = guideOf(t);
+  let body;
+  if (!g) body = '<div class="empty-note">Cẩm nang của ' + esc(t.city) + ' chưa có sẵn trong bản này.<br>Bạn vẫn có thể tự thêm địa điểm bằng nút "Thêm lịch trình" ở từng ngày nhé 🧭</div>';
+  else body =
+    '<p style="line-height:1.55">' + esc(g.intro) + "</p>" +
+    "<h4>🗓️ Thời điểm nên đi</h4><p style='line-height:1.55'>" + esc(g.bestTime) + "</p>" +
+    "<h4>🚌 Cách di chuyển</h4><p style='line-height:1.55'>" + esc(g.transportTips) + "</p>" +
+    '<p class="tiny muted">Giới thiệu và ảnh: Wikipedia (CC BY-SA) cùng nội dung biên soạn sẵn trong app.</p>';
+  openModal("<h3>📖 Cẩm nang " + esc(t.city) + "</h3>" + body);
+}
+
+function openEditTripPopup(t) {
+  const form = { start: t.startDate, end: t.endDate };
+  const { root, close } = openModal(
+    "<h3>✏️ Chỉnh sửa chuyến đi " + esc(t.city) + "</h3>" +
+    '<div class="date-row" style="margin-top:0"><div><label class="flabel">Ngày đi</label>' + dateFieldHTML("e-start", form.start, "Chọn ngày") + '</div><div><label class="flabel">Ngày về</label>' + dateFieldHTML("e-end", form.end, "Chọn ngày") + "</div></div>" +
+    '<button class="btn btn-coral mt" id="e-save" style="width:100%">Lưu thay đổi</button>'
+  );
+  const paint = () => {
+    const a = $("#e-start span", root), b = $("#e-end span", root);
+    a.textContent = form.start ? fmtD(form.start) : "Chọn ngày"; a.className = form.start ? "" : "ph";
+    b.textContent = form.end ? fmtD(form.end) : "Chọn ngày"; b.className = form.end ? "" : "ph";
+  };
+  attachDateField("e-start", () => form.start, (iso) => { form.start = iso; if (form.end && iso && form.end < iso) form.end = ""; paint(); });
+  attachDateField("e-end", () => form.end, (iso) => { form.end = iso; paint(); }, { min: () => form.start || null, anchor: () => form.start || null });
+  $("#e-save", root).onclick = async () => {
+    if (!form.start || !form.end) return toast("Chọn đủ ngày đi và ngày về nhé");
+    try {
+      curTrip = await api("/api/trips/" + t.id, "PUT", { startDate: form.start, endDate: form.end });
+      trips = await api("/api/trips");
+      curDay = 1; close(); toast("Đã cập nhật ngày chuyến đi 🎉"); render();
+    } catch (e) { toast(e.message); }
+  };
+}
+
+function openPlaceDetail(p) {
+  const nb = p.nearby || { food: [], play: [], shop: [] };
+  const grp = (title, items) => items && items.length ? '<div class="near-group"><h4>' + title + "</h4><ul style='margin:0;padding-left:18px'>" + items.map(i => "<li>" + esc(i.name) + (i.dist ? ' <span class="muted">· ' + esc(i.dist) + "</span>" : "") + "</li>").join("") + "</ul></div>" : "";
+  openModal(
+    "<h3>" + esc(p.name) + "</h3>" +
+    (p.image ? '<img src="' + esc(p.image) + '" style="width:100%;border-radius:16px;aspect-ratio:16/9;object-fit:cover" onerror="this.remove()">' : "") +
+    (p.desc ? '<p style="line-height:1.55">' + esc(p.desc) + "</p>" : "") +
+    (p.dur ? '<span class="chip">⏱️ ' + esc(p.dur) + "</span>" : "") +
+    (p.go ? '<h4 style="margin:14px 0 6px">🚌 Cách đi</h4><p style="line-height:1.55;margin:0">' + esc(p.go) + "</p>" : "") +
+    (p.steps && p.steps.length ? '<h4 style="margin:14px 0 4px">🧭 Hướng dẫn tham quan</h4><ol class="steps" style="margin:0;padding-left:20px">' + p.steps.map(s => "<li>" + esc(s) + "</li>").join("") + "</ol>" : "") +
+    grp("🍜 Ăn uống quanh đây", nb.food) + grp("🎡 Vui chơi quanh đây", nb.play) + grp("🛍️ Mua sắm quanh đây", nb.shop)
+  );
+}
+
+function openAddPlacePopup(t, day) {
+  const g = guideOf(t);
+  const already = new Set((t.days[day] || []).map(p => norm(p.name)));
+  const sel = new Set();
+  const suggIds = g && g.suggestedDays && g.suggestedDays[day - 1] ? g.suggestedDays[day - 1] : [];
+  const suggPlaces = g ? suggIds.map(id => g.places.find(p => p.id === id)).filter(Boolean).filter(p => !already.has(norm(p.name))) : [];
+
+  let body = "<h3>＋ Thêm vào Ngày " + day + "</h3>";
+  if (g) {
+    body += '<button class="btn btn-teal" id="ap-sugg" style="width:100%" ' + (suggPlaces.length ? "" : "disabled") + ">✨ " + (suggPlaces.length ? "Thêm gợi ý ngày này · " + suggPlaces.length + " nơi" : "Đã thêm hết gợi ý ngày này") + "</button>";
+    body += '<div class="pick-grid mt">' + g.places.map(p => {
+      const isAdded = already.has(norm(p.name));
+      return '<button class="pick-tile" data-pick="' + p.id + '" ' + (isAdded ? "disabled" : "") + ">" +
+        imgOr(p) + '<span class="tick">✓</span><div class="in"><div class="nm">' + esc(p.name) + '</div>' +
+        '<span class="chip">⏱️ ' + esc(p.dur || "Linh hoạt") + "</span>" +
+        (isAdded ? '<div class="go"><b>Đã có trong ngày này</b></div>' : '<div class="go">🚌 ' + esc(p.go || "") + "</div>") + "</div></button>";
+    }).join("") + "</div>";
+  } else {
+    body += '<div class="empty-note">Thành phố này chưa có danh sách gợi ý sẵn.<br>Bạn tự thêm địa điểm ở biểu mẫu bên dưới nhé 👇</div>';
+  }
+  body += '<div class="mt"><h4 style="margin:0 0 8px">✍️ Thêm địa điểm tự do</h4>' +
+    '<input class="field" id="ap-name" placeholder="Tên địa điểm *">' +
+    '<textarea class="field mt" id="ap-desc" placeholder="Mô tả ngắn (không bắt buộc)" style="margin-top:8px"></textarea>' +
+    '<input class="field" id="ap-go" placeholder="Cách đi (không bắt buộc)" style="margin-top:8px"></div>';
+  body += '<div class="sticky-foot"><button class="btn btn-coral" id="ap-add" style="width:100%" disabled>Thêm 0 địa điểm đã chọn vào Ngày ' + day + "</button></div>";
+
+  const { root, close } = openModal(body);
+  const addBtn = $("#ap-add", root);
+  const paintBtn = () => { addBtn.disabled = sel.size === 0; addBtn.textContent = "Thêm " + sel.size + " địa điểm đã chọn vào Ngày " + day; };
+  $$("[data-pick]", root).forEach(tile => tile.onclick = () => {
+    const id = tile.dataset.pick;
+    if (sel.has(id)) { sel.delete(id); tile.classList.remove("sel"); }
+    else { sel.add(id); tile.classList.add("sel"); }
+    paintBtn();
+  });
+  const suggBtn = $("#ap-sugg", root);
+  if (suggBtn) suggBtn.onclick = async () => {
+    try {
+      for (const p of suggPlaces) await api("/api/trips/" + t.id + "/days/" + day + "/places", "POST", p);
+      curTrip = await api("/api/trips/" + t.id);
+      close(); toast("Đã thêm " + suggPlaces.length + " địa điểm gợi ý ✨"); render();
+    } catch (e) { toast(e.message); }
+  };
+  addBtn.onclick = async () => {
+    try {
+      for (const id of sel) { const p = g.places.find(x => x.id === id); if (p) await api("/api/trips/" + t.id + "/days/" + day + "/places", "POST", p); }
+      const nm = $("#ap-name", root).value.trim();
+      if (nm) await api("/api/trips/" + t.id + "/days/" + day + "/places", "POST", { name: nm, desc: $("#ap-desc", root).value.trim(), go: $("#ap-go", root).value.trim(), custom: true });
+      curTrip = await api("/api/trips/" + t.id);
+      close(); toast("Đã thêm vào Ngày " + day + " 🎉"); render();
+    } catch (e) { toast(e.message); }
+  };
+  // Neu chi dien form tu do ma khong chon goi y, nut Them van dung cho form
+  $("#ap-name", root).addEventListener("input", (e) => { addBtn.disabled = sel.size === 0 && !e.target.value.trim(); if (sel.size === 0) addBtn.textContent = e.target.value.trim() ? "Thêm địa điểm này vào Ngày " + day : "Thêm 0 địa điểm đã chọn vào Ngày " + day; });
+}
+
+/* ================= GIAO TIEP ================= */
+const PHRASE_ALIAS = { "Mỹ": "Anh", "Úc": "Anh", "Canada": "Anh", "Singapore": "Anh", "Malaysia": "Anh", "Philippines": "Anh", "Ấn Độ": "Anh", "UAE": "Anh", "Hồng Kông": "Trung Quốc", "Ma Cao": "Trung Quốc", "New Zealand": "Anh", "Ireland": "Anh" };
+function phraseSetFor(country) {
+  if (!country) return null;
+  if (PHRASES[country]) return { key: country, set: PHRASES[country] };
+  const alias = PHRASE_ALIAS[country];
+  if (alias && PHRASES[alias]) return { key: alias, set: PHRASES[alias] };
+  const n = norm(country);
+  for (const k in PHRASES) if (norm(k) === n) return { key: k, set: PHRASES[k] };
+  return null;
+}
+function renderPhrases(v) {
+  let html = navRowHTML() + '<h2 class="sec-title font-round">Mẫu câu giao tiếp 💬</h2>';
+  let country = phraseState.custom || "";
+  let fromTrip = false;
+  if (!country) {
+    const t = curTrip || trips[0];
+    if (t && t.country) { country = t.country; fromTrip = true; }
+  }
+  const found = phraseSetFor(country);
+  if (fromTrip && found) html += '<div class="mb"><span class="chip">🧭 Theo chuyến đi của bạn: ' + esc(country) + "</span></div>";
+  html += '<div class="card mb"><div class="row-between"><b>🌍 Quốc gia: ' + (country ? esc(country) : "—") + '</b><button class="btn btn-ghost btn-sm" id="ph-change">Đổi quốc gia</button></div>' +
+    '<div id="ph-form" style="display:none" class="mt"><div class="add-row" style="margin-top:0"><input class="field" id="ph-country" placeholder="Điền tên quốc gia, VD: Nhật Bản, Pháp…"><button class="btn btn-coral" id="ph-go">Xem</button></div>' +
+    '<div class="tiny muted" style="margin-top:6px">Hiện có sẵn mẫu câu cho: ' + Object.keys(PHRASES).join(", ") + ".</div></div></div>";
+
+  if (!country) {
+    html += '<div class="empty-note">Bạn điền tên quốc gia ở trên để xem mẫu câu giao tiếp của nước đó nhé 🌏</div>';
+  } else if (!found) {
+    html += '<div class="empty-note">Chưa có sẵn mẫu câu cho ' + esc(country) + '.<br>Bạn thử các nước đã có sẵn ở mục "Đổi quốc gia" nhé.</div>';
+  } else {
+    const set = found.set;
+    html += '<div class="mb"><span class="chip">🗣️ ' + esc(set.lang) + "</span></div>";
+    for (const gname in set.groups) {
+      html += '<div class="phrase-group"><h3>' + esc(gname) + "</h3>" + set.groups[gname].map(p =>
+        '<div class="phrase"><div style="flex:1;min-width:0"><div class="t">' + esc(p.t) + "</div>" +
+        (p.r ? '<div class="r">' + esc(p.r) + "</div>" : "") +
+        '<div class="v">' + esc(p.vi) + '</div></div><button class="spk" data-say="' + esc(p.t) + '" data-lang="' + esc(set.voice) + '">🔊</button></div>'
+      ).join("") + "</div>";
+    }
+  }
+  v.innerHTML = html; bindNav(v);
+  const ch = $("#ph-change", v);
+  if (ch) ch.onclick = () => { const f = $("#ph-form", v); f.style.display = f.style.display === "none" ? "block" : "none"; };
+  const go = $("#ph-go", v);
+  if (go) go.onclick = () => {
+    const val = $("#ph-country", v).value.trim();
+    if (!val) return;
+    if (phraseSetFor(val)) { phraseState.custom = val; render(); }
+    else toast("Chưa có mẫu câu cho " + val + " — xem danh sách nước có sẵn nhé");
+  };
+  $$("[data-say]", v).forEach(b => b.onclick = () => {
+    try {
+      const u = new SpeechSynthesisUtterance(b.dataset.say);
+      u.lang = b.dataset.lang || "en-US";
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch { toast("Máy chưa hỗ trợ đọc mẫu câu"); }
+  });
+}
+
+/* ================= CHUAN BI ================= */
+async function ensurePrepTrip() {
+  if (!trips.length) return null;
+  if (!prepTripId || !trips.some(t => t.id === prepTripId)) prepTripId = trips[0].id;
+  if (!curTrip || curTrip.id !== prepTripId) { try { curTrip = await api("/api/trips/" + prepTripId); } catch {} }
+  return curTrip;
+}
+async function renderPrep(v) {
+  let html = navRowHTML() + '<h2 class="sec-title font-round">Chuẩn bị cho chuyến đi 🎒</h2>';
+  const t = await ensurePrepTrip();
+  if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.<br>Tạo một chuyến đi ở Trang chủ trước nhé ✈️</div>'; bindNav(v); return; }
+  if (trips.length > 1) {
+    html += '<div class="nav-row">' + trips.map(x => '<button data-prep-trip="' + x.id + '" class="' + (x.id === t.id ? "on" : "") + '">📍 ' + esc(x.city) + "</button>").join("") + "</div>";
+  }
+  const groups = t.prep || [];
+  const total = groups.reduce((a, g) => a + g.items.length, 0);
+  const done = groups.reduce((a, g) => a + g.items.filter(i => i.done).length, 0);
+  const pct = total ? Math.round(done / total * 100) : 0;
+  html += '<div class="card mb"><div class="row-between"><b>' + esc(t.city) + " · " + fmtD(t.startDate) + " → " + fmtD(t.endDate) + '</b><span class="chip">' + done + "/" + total + " mục · " + pct + '%</span></div>' +
+    '<div class="progress mt"><div style="width:' + pct + '%"></div></div></div>';
+
+  html += groups.map(g =>
+    '<div class="prep-group ' + (g.highlight ? "hot" : "") + '"><div class="row-between"><h3>' + (g.highlight ? "⭐ " : "") + esc(g.name) + (g.highlight ? ' <span class="chip">Quan trọng</span>' : "") + '</h3><button class="del-x" data-del-group="' + g.id + '" title="Xóa nhóm">✕</button></div>' +
+    g.items.map(i => '<div class="prep-item ' + (i.done ? "done" : "") + '"><button class="cbox ' + (i.done ? "on" : "") + '" data-toggle="' + g.id + ":" + i.id + '">✓</button><span class="txt">' + esc(i.text) + '</span><button class="del-x" data-del-item="' + g.id + ":" + i.id + '">✕</button></div>').join("") +
+    '<div class="add-row"><input class="field" placeholder="Thêm mục vào nhóm này…" data-add-input="' + g.id + '"><button class="btn btn-teal btn-sm" data-add-item="' + g.id + '">＋ Thêm</button></div></div>'
+  ).join("");
+  html += '<div class="card"><b>➕ Tạo nhóm mới</b><div class="add-row"><input class="field" id="new-group-name" placeholder="VD: Đồ cho bé, Dụng cụ quay phim…"><button class="btn btn-coral btn-sm" id="btn-new-group">Tạo nhóm</button></div></div>';
+
+  v.innerHTML = html; bindNav(v);
+  $$("[data-prep-trip]", v).forEach(b => b.onclick = async () => { prepTripId = b.dataset.prepTrip; curTrip = null; render(); });
+  $$("[data-toggle]", v).forEach(b => b.onclick = async () => {
+    const [gid, iid] = b.dataset.toggle.split(":");
+    const g = t.prep.find(x => x.id === gid); const item = g && g.items.find(x => x.id === iid);
+    if (!item) return;
+    try { await api("/api/trips/" + t.id + "/prep/groups/" + gid + "/items/" + iid, "PUT", { done: !item.done }); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (e) { toast(e.message); }
+  });
+  $$("[data-del-item]", v).forEach(b => b.onclick = async () => {
+    const [gid, iid] = b.dataset.delItem.split(":");
+    try { await api("/api/trips/" + t.id + "/prep/groups/" + gid + "/items/" + iid, "DELETE"); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (e) { toast(e.message); }
+  });
+  $$("[data-del-group]", v).forEach(b => b.onclick = async (e) => {
+    const btn = e.currentTarget;
+    if (!btn.dataset.arm) { btn.dataset.arm = "1"; btn.textContent = "?"; btn.style.background = "#FFD9C0"; setTimeout(() => { btn.dataset.arm = ""; btn.textContent = "✕"; }, 2500); return; }
+    try { await api("/api/trips/" + t.id + "/prep/groups/" + b.dataset.delGroup, "DELETE"); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (err) { toast(err.message); }
+  });
+  $$("[data-add-item]", v).forEach(b => b.onclick = async () => {
+    const inp = $('[data-add-input="' + b.dataset.addItem + '"]', v);
+    const text = inp.value.trim(); if (!text) return;
+    try { await api("/api/trips/" + t.id + "/prep/groups/" + b.dataset.addItem + "/items", "POST", { text }); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (e) { toast(e.message); }
+  });
+  $("#btn-new-group", v).onclick = async () => {
+    const name = $("#new-group-name", v).value.trim(); if (!name) return toast("Bạn nhập tên nhóm nhé");
+    try { await api("/api/trips/" + t.id + "/prep/groups", "POST", { name }); curTrip = await api("/api/trips/" + t.id); render(); }
+    catch (e) { toast(e.message); }
+  };
+}
+
+/* ================= Khoi dong ================= */
+(async function init() {
+  try {
+    const [g, c, p, ts] = await Promise.all([
+      fetch("data/guides.json").then(r => r.json()),
+      fetch("data/cities.json").then(r => r.json()),
+      fetch("data/phrases.json").then(r => r.json()),
+      api("/api/trips")
+    ]);
+    GUIDES = g.cities || {}; CITYLIST = c || []; PHRASES = p.countries || {}; trips = ts || [];
+    if (trips.length) { selTripId = trips[0].id; prepTripId = trips[0].id; }
+    // Dat mac dinh: ngay di = hom nay, ngay ve = +2
+    homeForm.start = todayISO(); homeForm.end = addDays(todayISO(), 2);
+  } catch (e) {
+    $("#view").innerHTML = '<div class="empty-note">Chưa tải được dữ liệu. Bạn kiểm tra lại kết nối rồi mở lại app nhé.</div>';
+    return;
+  }
+  render();
+})();
+</script>
+</body>
+</html>
