@@ -91,7 +91,7 @@ label.flabel{display:block; font-weight:700; font-size:13px; margin:0 0 6px 2px;
 textarea.field{resize:vertical; min-height:64px}
 
 /* ===== Trang chu ===== */
-.home-frame{padding:20px 18px 18px; background:rgba(255,253,248,.8)}
+.home-frame{padding:20px 18px 18px; background:rgba(255,253,248,.8); position:relative; z-index:40}
 .home-frame .field, .home-frame .date-btn{background:rgba(255,249,240,.85)}
 .home-head{display:flex; align-items:center; gap:10px}
 .home-head h1{font-size:38px; margin:0; line-height:1; color:#274156; font-weight:800; letter-spacing:.5px}
@@ -113,7 +113,7 @@ textarea.field{resize:vertical; min-height:64px}
   .cc-row .field{padding-left:7px; padding-right:7px}
   .cc-row select.field{font-size:15px}
 }
-.suggest{position:absolute; left:0; right:0; top:calc(100% + 6px); background:#fff; border:2px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); overflow:hidden; z-index:30}
+.suggest{position:absolute; left:0; right:0; top:calc(100% + 6px); background:#fff; border:2px solid var(--line); border-radius:var(--r-md); box-shadow:0 14px 34px rgba(120,70,30,.28); max-height:min(320px, 48dvh); overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; z-index:30}
 .suggest button{display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left; padding:11px 14px; font-size:15px; border-bottom:1px solid #FBF0DD}
 .suggest button:last-child{border-bottom:none}
 .suggest button:hover{background:#FFF4E4}
