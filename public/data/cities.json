@@ -76,11 +76,23 @@
   "country": "Việt Nam"
  },
  {
+  "name": "Phong Nha",
+  "country": "Việt Nam"
+ },
+ {
   "name": "Vinh",
   "country": "Việt Nam"
  },
  {
   "name": "Thanh Hóa",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Sầm Sơn",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cửa Lò",
   "country": "Việt Nam"
  },
  {
@@ -92,11 +104,27 @@
   "country": "Việt Nam"
  },
  {
+  "name": "Đồ Sơn",
+  "country": "Việt Nam"
+ },
+ {
   "name": "Mộc Châu",
   "country": "Việt Nam"
  },
  {
+  "name": "Mai Châu",
+  "country": "Việt Nam"
+ },
+ {
   "name": "Hà Giang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Đồng Văn",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Mù Cang Chải",
   "country": "Việt Nam"
  },
  {
@@ -112,11 +140,39 @@
   "country": "Việt Nam"
  },
  {
+  "name": "Bắc Hà",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Sơn La",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Lạng Sơn",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Móng Cái",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Trà Cổ",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cô Tô",
+  "country": "Việt Nam"
+ },
+ {
   "name": "Thái Nguyên",
   "country": "Việt Nam"
  },
  {
   "name": "Bắc Ninh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Bắc Giang",
   "country": "Việt Nam"
  },
  {
@@ -128,15 +184,59 @@
   "country": "Việt Nam"
  },
  {
-  "name": "Quảng Ninh",
+  "name": "Hải Dương",
   "country": "Việt Nam"
  },
  {
-  "name": "Móng Cái",
+  "name": "Hưng Yên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Vĩnh Yên",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Việt Trì",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hòa Bình",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Yên Bái",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tuyên Quang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Hà Tĩnh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Đông Hà",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tam Kỳ",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Quảng Ngãi",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Lý Sơn",
   "country": "Việt Nam"
  },
  {
   "name": "Phan Rang",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cam Ranh",
   "country": "Việt Nam"
  },
  {
@@ -149,6 +249,10 @@
  },
  {
   "name": "Kon Tum",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Gia Nghĩa",
   "country": "Việt Nam"
  },
  {
@@ -189,6 +293,54 @@
  },
  {
   "name": "Mỹ Tho",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Vĩnh Long",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cao Lãnh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Sa Đéc",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tân An",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Tây Ninh",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Biên Hòa",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Thủ Dầu Một",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Phủ Lý",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Uông Bí",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Cẩm Phả",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Bảo Lộc",
+  "country": "Việt Nam"
+ },
+ {
+  "name": "Gia Lai",
   "country": "Việt Nam"
  },
  {
@@ -244,6 +396,10 @@
   "country": "Nhật Bản"
  },
  {
+  "name": "Okinawa",
+  "country": "Nhật Bản"
+ },
+ {
   "name": "Sendai",
   "country": "Nhật Bản"
  },
@@ -268,7 +424,75 @@
   "country": "Nhật Bản"
  },
  {
-  "name": "Okinawa",
+  "name": "Kamakura",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kawaguchiko",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Matsumoto",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Okayama",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kumamoto",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Beppu",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Hakodate",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Otaru",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Aomori",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Toyama",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Himeji",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Nagano",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Shizuoka",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Karuizawa",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Niigata",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Miyajima",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Kurashiki",
+  "country": "Nhật Bản"
+ },
+ {
+  "name": "Asahikawa",
   "country": "Nhật Bản"
  },
  {
@@ -301,6 +525,38 @@
  },
  {
   "name": "Suwon",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Gangneung",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Sokcho",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Yeosu",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Andong",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Daejeon",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Gwangju",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Chuncheon",
+  "country": "Hàn Quốc"
+ },
+ {
+  "name": "Pohang",
   "country": "Hàn Quốc"
  },
  {
@@ -344,6 +600,30 @@
   "country": "Thái Lan"
  },
  {
+  "name": "Koh Phangan",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Koh Tao",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Koh Lanta",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Kanchanaburi",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Pai",
+  "country": "Thái Lan"
+ },
+ {
+  "name": "Rayong",
+  "country": "Thái Lan"
+ },
+ {
   "name": "Singapore",
   "country": "Singapore"
  },
@@ -364,6 +644,26 @@
   "country": "Malaysia"
  },
  {
+  "name": "Ipoh",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Johor Bahru",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Kota Kinabalu",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Kuching",
+  "country": "Malaysia"
+ },
+ {
+  "name": "Cameron Highlands",
+  "country": "Malaysia"
+ },
+ {
   "name": "Bali",
   "country": "Indonesia"
  },
@@ -376,11 +676,43 @@
   "country": "Indonesia"
  },
  {
+  "name": "Bandung",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Surabaya",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Lombok",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Labuan Bajo",
+  "country": "Indonesia"
+ },
+ {
+  "name": "Medan",
+  "country": "Indonesia"
+ },
+ {
   "name": "Phnom Penh",
   "country": "Campuchia"
  },
  {
   "name": "Siem Reap",
+  "country": "Campuchia"
+ },
+ {
+  "name": "Kampot",
+  "country": "Campuchia"
+ },
+ {
+  "name": "Sihanoukville",
+  "country": "Campuchia"
+ },
+ {
+  "name": "Battambang",
   "country": "Campuchia"
  },
  {
@@ -392,11 +724,19 @@
   "country": "Lào"
  },
  {
+  "name": "Vang Vieng",
+  "country": "Lào"
+ },
+ {
   "name": "Yangon",
   "country": "Myanmar"
  },
  {
   "name": "Bagan",
+  "country": "Myanmar"
+ },
+ {
+  "name": "Mandalay",
   "country": "Myanmar"
  },
  {
@@ -410,6 +750,26 @@
  {
   "name": "Boracay",
   "country": "Philippines"
+ },
+ {
+  "name": "Palawan",
+  "country": "Philippines"
+ },
+ {
+  "name": "El Nido",
+  "country": "Philippines"
+ },
+ {
+  "name": "Bohol",
+  "country": "Philippines"
+ },
+ {
+  "name": "Davao",
+  "country": "Philippines"
+ },
+ {
+  "name": "Bandar Seri Begawan",
+  "country": "Brunei"
  },
  {
   "name": "Đài Bắc",
@@ -429,6 +789,14 @@
  },
  {
   "name": "Hoa Liên",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Cơ Long",
+  "country": "Đài Loan"
+ },
+ {
+  "name": "Gia Nghĩa",
   "country": "Đài Loan"
  },
  {
@@ -488,6 +856,46 @@
   "country": "Trung Quốc"
  },
  {
+  "name": "Nam Kinh",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Vũ Hán",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Trường Sa",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Hạ Môn",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Phúc Châu",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Thanh Đảo",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Đại Liên",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Thẩm Dương",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Cáp Nhĩ Tân",
+  "country": "Trung Quốc"
+ },
+ {
+  "name": "Lhasa",
+  "country": "Trung Quốc"
+ },
+ {
   "name": "Hồng Kông",
   "country": "Hồng Kông"
  },
@@ -504,11 +912,91 @@
   "country": "Pháp"
  },
  {
+  "name": "Lyon",
+  "country": "Pháp"
+ },
+ {
+  "name": "Marseille",
+  "country": "Pháp"
+ },
+ {
+  "name": "Bordeaux",
+  "country": "Pháp"
+ },
+ {
+  "name": "Strasbourg",
+  "country": "Pháp"
+ },
+ {
+  "name": "Nantes",
+  "country": "Pháp"
+ },
+ {
+  "name": "Montpellier",
+  "country": "Pháp"
+ },
+ {
+  "name": "Toulouse",
+  "country": "Pháp"
+ },
+ {
+  "name": "Annecy",
+  "country": "Pháp"
+ },
+ {
+  "name": "Colmar",
+  "country": "Pháp"
+ },
+ {
+  "name": "Avignon",
+  "country": "Pháp"
+ },
+ {
   "name": "London",
   "country": "Anh"
  },
  {
   "name": "Edinburgh",
+  "country": "Anh"
+ },
+ {
+  "name": "Manchester",
+  "country": "Anh"
+ },
+ {
+  "name": "Liverpool",
+  "country": "Anh"
+ },
+ {
+  "name": "York",
+  "country": "Anh"
+ },
+ {
+  "name": "Bath",
+  "country": "Anh"
+ },
+ {
+  "name": "Oxford",
+  "country": "Anh"
+ },
+ {
+  "name": "Cambridge",
+  "country": "Anh"
+ },
+ {
+  "name": "Brighton",
+  "country": "Anh"
+ },
+ {
+  "name": "Glasgow",
+  "country": "Anh"
+ },
+ {
+  "name": "Cardiff",
+  "country": "Anh"
+ },
+ {
+  "name": "Belfast",
   "country": "Anh"
  },
  {
@@ -528,11 +1016,67 @@
   "country": "Ý"
  },
  {
+  "name": "Naples",
+  "country": "Ý"
+ },
+ {
+  "name": "Bologna",
+  "country": "Ý"
+ },
+ {
+  "name": "Turin",
+  "country": "Ý"
+ },
+ {
+  "name": "Verona",
+  "country": "Ý"
+ },
+ {
+  "name": "Pisa",
+  "country": "Ý"
+ },
+ {
+  "name": "Genoa",
+  "country": "Ý"
+ },
+ {
+  "name": "Palermo",
+  "country": "Ý"
+ },
+ {
   "name": "Barcelona",
   "country": "Tây Ban Nha"
  },
  {
   "name": "Madrid",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Seville",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Valencia",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Granada",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Malaga",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Bilbao",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Palma de Mallorca",
+  "country": "Tây Ban Nha"
+ },
+ {
+  "name": "Ibiza",
   "country": "Tây Ban Nha"
  },
  {
@@ -544,11 +1088,47 @@
   "country": "Bồ Đào Nha"
  },
  {
+  "name": "Faro",
+  "country": "Bồ Đào Nha"
+ },
+ {
+  "name": "Sintra",
+  "country": "Bồ Đào Nha"
+ },
+ {
   "name": "Amsterdam",
   "country": "Hà Lan"
  },
  {
+  "name": "Rotterdam",
+  "country": "Hà Lan"
+ },
+ {
+  "name": "Utrecht",
+  "country": "Hà Lan"
+ },
+ {
+  "name": "The Hague",
+  "country": "Hà Lan"
+ },
+ {
+  "name": "Maastricht",
+  "country": "Hà Lan"
+ },
+ {
   "name": "Brussels",
+  "country": "Bỉ"
+ },
+ {
+  "name": "Bruges",
+  "country": "Bỉ"
+ },
+ {
+  "name": "Ghent",
+  "country": "Bỉ"
+ },
+ {
+  "name": "Antwerp",
   "country": "Bỉ"
  },
  {
@@ -564,6 +1144,38 @@
   "country": "Đức"
  },
  {
+  "name": "Frankfurt",
+  "country": "Đức"
+ },
+ {
+  "name": "Cologne",
+  "country": "Đức"
+ },
+ {
+  "name": "Dresden",
+  "country": "Đức"
+ },
+ {
+  "name": "Leipzig",
+  "country": "Đức"
+ },
+ {
+  "name": "Heidelberg",
+  "country": "Đức"
+ },
+ {
+  "name": "Nuremberg",
+  "country": "Đức"
+ },
+ {
+  "name": "Stuttgart",
+  "country": "Đức"
+ },
+ {
+  "name": "Freiburg",
+  "country": "Đức"
+ },
+ {
   "name": "Vienna",
   "country": "Áo"
  },
@@ -572,32 +1184,16 @@
   "country": "Áo"
  },
  {
-  "name": "Prague",
-  "country": "Séc"
+  "name": "Innsbruck",
+  "country": "Áo"
  },
  {
-  "name": "Budapest",
-  "country": "Hungary"
+  "name": "Hallstatt",
+  "country": "Áo"
  },
  {
-  "name": "Warsaw",
-  "country": "Ba Lan"
- },
- {
-  "name": "Krakow",
-  "country": "Ba Lan"
- },
- {
-  "name": "Athens",
-  "country": "Hy Lạp"
- },
- {
-  "name": "Santorini",
-  "country": "Hy Lạp"
- },
- {
-  "name": "Istanbul",
-  "country": "Thổ Nhĩ Kỳ"
+  "name": "Graz",
+  "country": "Áo"
  },
  {
   "name": "Zurich",
@@ -608,7 +1204,119 @@
   "country": "Thụy Sĩ"
  },
  {
+  "name": "Geneva",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Bern",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Interlaken",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Zermatt",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Lausanne",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Montreux",
+  "country": "Thụy Sĩ"
+ },
+ {
+  "name": "Prague",
+  "country": "Séc"
+ },
+ {
+  "name": "Brno",
+  "country": "Séc"
+ },
+ {
+  "name": "Cesky Krumlov",
+  "country": "Séc"
+ },
+ {
+  "name": "Warsaw",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Krakow",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Gdansk",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Wroclaw",
+  "country": "Ba Lan"
+ },
+ {
+  "name": "Budapest",
+  "country": "Hungary"
+ },
+ {
+  "name": "Athens",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Santorini",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Mykonos",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Crete",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Rhodes",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Corfu",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Thessaloniki",
+  "country": "Hy Lạp"
+ },
+ {
+  "name": "Istanbul",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Cappadocia",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Antalya",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Izmir",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Bodrum",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
+  "name": "Pamukkale",
+  "country": "Thổ Nhĩ Kỳ"
+ },
+ {
   "name": "Stockholm",
+  "country": "Thụy Điển"
+ },
+ {
+  "name": "Gothenburg",
   "country": "Thụy Điển"
  },
  {
@@ -616,7 +1324,15 @@
   "country": "Đan Mạch"
  },
  {
+  "name": "Aarhus",
+  "country": "Đan Mạch"
+ },
+ {
   "name": "Oslo",
+  "country": "Na Uy"
+ },
+ {
+  "name": "Bergen",
   "country": "Na Uy"
  },
  {
@@ -624,12 +1340,116 @@
   "country": "Phần Lan"
  },
  {
+  "name": "Reykjavik",
+  "country": "Iceland"
+ },
+ {
   "name": "Dublin",
   "country": "Ireland"
  },
  {
-  "name": "Reykjavik",
-  "country": "Iceland"
+  "name": "Galway",
+  "country": "Ireland"
+ },
+ {
+  "name": "Cork",
+  "country": "Ireland"
+ },
+ {
+  "name": "Bucharest",
+  "country": "Romania"
+ },
+ {
+  "name": "Sofia",
+  "country": "Bulgaria"
+ },
+ {
+  "name": "Belgrade",
+  "country": "Serbia"
+ },
+ {
+  "name": "Zagreb",
+  "country": "Croatia"
+ },
+ {
+  "name": "Dubrovnik",
+  "country": "Croatia"
+ },
+ {
+  "name": "Split",
+  "country": "Croatia"
+ },
+ {
+  "name": "Ljubljana",
+  "country": "Slovenia"
+ },
+ {
+  "name": "Bratislava",
+  "country": "Slovakia"
+ },
+ {
+  "name": "Tallinn",
+  "country": "Estonia"
+ },
+ {
+  "name": "Riga",
+  "country": "Latvia"
+ },
+ {
+  "name": "Vilnius",
+  "country": "Lithuania"
+ },
+ {
+  "name": "Tbilisi",
+  "country": "Georgia"
+ },
+ {
+  "name": "Yerevan",
+  "country": "Armenia"
+ },
+ {
+  "name": "Baku",
+  "country": "Azerbaijan"
+ },
+ {
+  "name": "Kotor",
+  "country": "Montenegro"
+ },
+ {
+  "name": "Tirana",
+  "country": "Albania"
+ },
+ {
+  "name": "Sarajevo",
+  "country": "Bosnia"
+ },
+ {
+  "name": "Skopje",
+  "country": "Bắc Macedonia"
+ },
+ {
+  "name": "Valletta",
+  "country": "Malta"
+ },
+ {
+  "name": "Moscow",
+  "country": "Nga"
+ },
+ {
+  "name": "Saint Petersburg",
+  "country": "Nga"
+ },
+ {
+  "name": "Kazan",
+  "country": "Nga"
+ },
+ {
+  "name": "Sochi",
+  "country": "Nga"
+ },
+ {
+  "name": "Vladivostok",
+  "country": "Nga"
  },
  {
   "name": "New York",
@@ -680,12 +1500,148 @@
   "country": "Mỹ"
  },
  {
+  "name": "Houston",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Dallas",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Austin",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Denver",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Phoenix",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Portland",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Nashville",
+  "country": "Mỹ"
+ },
+ {
+  "name": "New Orleans",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Atlanta",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Philadelphia",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Key West",
+  "country": "Mỹ"
+ },
+ {
+  "name": "Anchorage",
+  "country": "Mỹ"
+ },
+ {
   "name": "Vancouver",
   "country": "Canada"
  },
  {
   "name": "Toronto",
   "country": "Canada"
+ },
+ {
+  "name": "Montreal",
+  "country": "Canada"
+ },
+ {
+  "name": "Quebec City",
+  "country": "Canada"
+ },
+ {
+  "name": "Calgary",
+  "country": "Canada"
+ },
+ {
+  "name": "Ottawa",
+  "country": "Canada"
+ },
+ {
+  "name": "Banff",
+  "country": "Canada"
+ },
+ {
+  "name": "Mexico City",
+  "country": "Mexico"
+ },
+ {
+  "name": "Cancun",
+  "country": "Mexico"
+ },
+ {
+  "name": "Tulum",
+  "country": "Mexico"
+ },
+ {
+  "name": "Guadalajara",
+  "country": "Mexico"
+ },
+ {
+  "name": "Oaxaca",
+  "country": "Mexico"
+ },
+ {
+  "name": "Havana",
+  "country": "Cuba"
+ },
+ {
+  "name": "Punta Cana",
+  "country": "Dominica"
+ },
+ {
+  "name": "Rio de Janeiro",
+  "country": "Brazil"
+ },
+ {
+  "name": "Sao Paulo",
+  "country": "Brazil"
+ },
+ {
+  "name": "Buenos Aires",
+  "country": "Argentina"
+ },
+ {
+  "name": "Santiago",
+  "country": "Chile"
+ },
+ {
+  "name": "Lima",
+  "country": "Peru"
+ },
+ {
+  "name": "Cusco",
+  "country": "Peru"
+ },
+ {
+  "name": "Bogota",
+  "country": "Colombia"
+ },
+ {
+  "name": "Cartagena",
+  "country": "Colombia"
+ },
+ {
+  "name": "Quito",
+  "country": "Ecuador"
+ },
+ {
+  "name": "Montevideo",
+  "country": "Uruguay"
  },
  {
   "name": "Sydney",
@@ -708,8 +1664,52 @@
   "country": "Úc"
  },
  {
+  "name": "Adelaide",
+  "country": "Úc"
+ },
+ {
+  "name": "Hobart",
+  "country": "Úc"
+ },
+ {
+  "name": "Gold Coast",
+  "country": "Úc"
+ },
+ {
+  "name": "Canberra",
+  "country": "Úc"
+ },
+ {
+  "name": "Darwin",
+  "country": "Úc"
+ },
+ {
   "name": "Auckland",
   "country": "New Zealand"
+ },
+ {
+  "name": "Wellington",
+  "country": "New Zealand"
+ },
+ {
+  "name": "Queenstown",
+  "country": "New Zealand"
+ },
+ {
+  "name": "Christchurch",
+  "country": "New Zealand"
+ },
+ {
+  "name": "Rotorua",
+  "country": "New Zealand"
+ },
+ {
+  "name": "Nadi",
+  "country": "Fiji"
+ },
+ {
+  "name": "Papeete",
+  "country": "Tahiti"
  },
  {
   "name": "Dubai",
@@ -720,12 +1720,60 @@
   "country": "UAE"
  },
  {
+  "name": "Sharjah",
+  "country": "UAE"
+ },
+ {
   "name": "Doha",
   "country": "Qatar"
  },
  {
   "name": "Muscat",
   "country": "Oman"
+ },
+ {
+  "name": "Salalah",
+  "country": "Oman"
+ },
+ {
+  "name": "Riyadh",
+  "country": "Ả Rập Xê Út"
+ },
+ {
+  "name": "Jeddah",
+  "country": "Ả Rập Xê Út"
+ },
+ {
+  "name": "AlUla",
+  "country": "Ả Rập Xê Út"
+ },
+ {
+  "name": "Manama",
+  "country": "Bahrain"
+ },
+ {
+  "name": "Kuwait City",
+  "country": "Kuwait"
+ },
+ {
+  "name": "Jerusalem",
+  "country": "Israel"
+ },
+ {
+  "name": "Tel Aviv",
+  "country": "Israel"
+ },
+ {
+  "name": "Amman",
+  "country": "Jordan"
+ },
+ {
+  "name": "Petra",
+  "country": "Jordan"
+ },
+ {
+  "name": "Beirut",
+  "country": "Lebanon"
  },
  {
   "name": "New Delhi",
@@ -744,7 +1792,111 @@
   "country": "Ấn Độ"
  },
  {
+  "name": "Varanasi",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Kolkata",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Chennai",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Bangalore",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Hyderabad",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Kochi",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Goa",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Udaipur",
+  "country": "Ấn Độ"
+ },
+ {
+  "name": "Kathmandu",
+  "country": "Nepal"
+ },
+ {
+  "name": "Pokhara",
+  "country": "Nepal"
+ },
+ {
+  "name": "Colombo",
+  "country": "Sri Lanka"
+ },
+ {
+  "name": "Kandy",
+  "country": "Sri Lanka"
+ },
+ {
+  "name": "Galle",
+  "country": "Sri Lanka"
+ },
+ {
+  "name": "Malé",
+  "country": "Maldives"
+ },
+ {
+  "name": "Dhaka",
+  "country": "Bangladesh"
+ },
+ {
+  "name": "Lahore",
+  "country": "Pakistan"
+ },
+ {
+  "name": "Islamabad",
+  "country": "Pakistan"
+ },
+ {
+  "name": "Almaty",
+  "country": "Kazakhstan"
+ },
+ {
+  "name": "Tashkent",
+  "country": "Uzbekistan"
+ },
+ {
+  "name": "Samarkand",
+  "country": "Uzbekistan"
+ },
+ {
+  "name": "Bishkek",
+  "country": "Kyrgyzstan"
+ },
+ {
   "name": "Cairo",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Luxor",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Aswan",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Hurghada",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Sharm El Sheikh",
+  "country": "Ai Cập"
+ },
+ {
+  "name": "Alexandria",
   "country": "Ai Cập"
  },
  {
@@ -752,23 +1904,71 @@
   "country": "Morocco"
  },
  {
+  "name": "Casablanca",
+  "country": "Morocco"
+ },
+ {
+  "name": "Fes",
+  "country": "Morocco"
+ },
+ {
+  "name": "Tangier",
+  "country": "Morocco"
+ },
+ {
+  "name": "Agadir",
+  "country": "Morocco"
+ },
+ {
+  "name": "Tunis",
+  "country": "Tunisia"
+ },
+ {
   "name": "Cape Town",
   "country": "Nam Phi"
  },
  {
-  "name": "Malé",
-  "country": "Maldives"
+  "name": "Johannesburg",
+  "country": "Nam Phi"
  },
  {
-  "name": "Mexico City",
+  "name": "Durban",
+  "country": "Nam Phi"
+ },
+ {
+  "name": "Nairobi",
+  "country": "Kenya"
+ },
+ {
+  "name": "Zanzibar",
+  "country": "Tanzania"
+ },
+ {
+  "name": "Arusha",
+  "country": "Tanzania"
+ },
+ {
+  "name": "Addis Ababa",
+  "country": "Ethiopia"
+ },
+ {
+  "name": "Antananarivo",
+  "country": "Madagascar"
+ },
+ {
+  "name": "Port Louis",
+  "country": "Mauritius"
+ },
+ {
+  "name": "Cancún",
   "country": "Mexico"
  },
  {
-  "name": "Rio de Janeiro",
-  "country": "Brazil"
+  "name": "Hoàng Sơn",
+  "country": "Trung Quốc"
  },
  {
-  "name": "Buenos Aires",
-  "country": "Argentina"
+  "name": "Cửu Trại Câu",
+  "country": "Trung Quốc"
  }
 ]

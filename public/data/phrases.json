@@ -863,6 +863,870 @@
      }
     ]
    }
+  },
+  "Ý": {
+   "lang": "Tiếng Ý",
+   "voice": "it-IT",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Ciao",
+      "r": "chao",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Grazie",
+      "r": "gra-tsi-e",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Per favore",
+      "r": "per fa-vo-re",
+      "vi": "Làm ơn / Xin vui lòng"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Dov'è la stazione?",
+      "r": "do-ve la sta-tsi-o-ne",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Quanto costa un biglietto?",
+      "r": "quan-to cos-ta un bi-liet-to",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Vorrei andare in centro",
+      "r": "vor-rei an-da-re in chen-tro",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Il menu, per favore",
+      "r": "il me-nu per fa-vo-re",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "L'acqua, per favore",
+      "r": "lak-qua per fa-vo-re",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "Il conto, per favore",
+      "r": "il con-to per fa-vo-re",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Quanto costa?",
+      "r": "quan-to cos-ta",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Troppo caro",
+      "r": "trop-po ca-ro",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Posso pagare con la carta?",
+      "r": "pos-so pa-ga-re con la car-ta",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Ho una prenotazione",
+      "r": "o u-na pre-no-ta-tsi-o-ne",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "A che ora è la colazione?",
+      "r": "a ke o-ra e la co-la-tsi-o-ne",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "La chiave, per favore",
+      "r": "la kia-ve per fa-vo-re",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Aiuto!",
+      "r": "a-iu-to",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Chiama un'ambulanza",
+      "r": "kia-ma un-am-bu-lan-tsa",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Ho bisogno di un medico",
+      "r": "o bi-zo-nho di un me-di-co",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Tây Ban Nha": {
+   "lang": "Tiếng Tây Ban Nha",
+   "voice": "es-ES",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Hola",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Gracias",
+      "r": "",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Por favor",
+      "r": "",
+      "vi": "Làm ơn / Xin vui lòng"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "¿Dónde está la estación?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "¿Cuánto cuesta un billete?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Quiero ir al centro",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "La carta, por favor",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Agua, por favor",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "La cuenta, por favor",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "¿Cuánto cuesta?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Es demasiado caro",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "¿Puedo pagar con tarjeta?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Tengo una reserva",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "¿A qué hora es el desayuno?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "La llave, por favor",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "¡Ayuda!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Llame una ambulancia",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Necesito un médico",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Indonesia": {
+   "lang": "Tiếng Indonesia",
+   "voice": "id-ID",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Halo",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Terima kasih",
+      "r": "",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Permisi",
+      "r": "",
+      "vi": "Xin lỗi / Làm ơn (gọi chú ý)"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Di mana stasiun?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Berapa harga tiketnya?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Saya mau ke pusat kota",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Minta menu, ya",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Minta air minum",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "Minta bonnya",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Berapa harganya?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Terlalu mahal",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Bisa bayar pakai kartu?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Saya sudah pesan kamar",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Sarapan jam berapa?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "Minta kuncinya",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Tolong!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Panggil ambulans",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Saya butuh dokter",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Malaysia": {
+   "lang": "Tiếng Mã Lai",
+   "voice": "ms-MY",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Halo / Selamat pagi",
+      "r": "",
+      "vi": "Xin chào / Chào buổi sáng"
+     },
+     {
+      "t": "Terima kasih",
+      "r": "",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Tolong",
+      "r": "",
+      "vi": "Làm ơn (nhờ giúp)"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Di mana stesen?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Berapa harga tiket?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Saya nak ke pusat bandar",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Minta menu",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Minta air",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "Minta bil",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Berapa harganya?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Mahal sangat",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Boleh bayar dengan kad?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Saya sudah tempah bilik",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Sarapan pukul berapa?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "Minta kunci",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Tolong!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Panggil ambulans",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Saya perlukan doktor",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Nga": {
+   "lang": "Tiếng Nga",
+   "voice": "ru-RU",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Здравствуйте",
+      "r": "zdra-stvuy-tye",
+      "vi": "Xin chào (trang trọng)"
+     },
+     {
+      "t": "Спасибо",
+      "r": "spa-si-bo",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Пожалуйста",
+      "r": "pa-zhal-sta",
+      "vi": "Làm ơn / Không có gì"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Где вокзал?",
+      "r": "gdye vag-zal",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Сколько стоит билет?",
+      "r": "skol-ka sto-it bi-lyet",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Мне нужно в центр",
+      "r": "mnye nuzh-na f tsentr",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Меню, пожалуйста",
+      "r": "me-nyu pa-zhal-sta",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Воду, пожалуйста",
+      "r": "vo-du pa-zhal-sta",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "Счёт, пожалуйста",
+      "r": "shchyot pa-zhal-sta",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Сколько это стоит?",
+      "r": "skol-ka e-ta sto-it",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Слишком дорого",
+      "r": "slish-kam do-ra-ga",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Можно оплатить картой?",
+      "r": "mozh-na apla-tit kar-toy",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "У меня бронь",
+      "r": "u me-nya bron",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Во сколько завтрак?",
+      "r": "va skol-ka zaf-trak",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "Ключ, пожалуйста",
+      "r": "klyuch pa-zhal-sta",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Помогите!",
+      "r": "pa-ma-gi-tye",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Вызовите скорую",
+      "r": "vy-za-vi-tye sko-ru-yu",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Мне нужен врач",
+      "r": "mnye nu-zhen vrach",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Hà Lan": {
+   "lang": "Tiếng Hà Lan",
+   "voice": "nl-NL",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Hallo",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Dank u wel",
+      "r": "",
+      "vi": "Cảm ơn (trang trọng)"
+     },
+     {
+      "t": "Alstublieft",
+      "r": "",
+      "vi": "Làm ơn / Xin vui lòng"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Waar is het station?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Hoeveel kost een kaartje?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Ik wil naar het centrum",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "De menukaart, alstublieft",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Water, alstublieft",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "De rekening, alstublieft",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Hoeveel kost dit?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Te duur",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Kan ik met kaart betalen?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Ik heb een reservering",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Hoe laat is het ontbijt?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "De sleutel, alstublieft",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Help!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Bel een ambulance",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Ik heb een dokter nodig",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Bồ Đào Nha": {
+   "lang": "Tiếng Bồ Đào Nha",
+   "voice": "pt-PT",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Olá",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Obrigado / Obrigada",
+      "r": "",
+      "vi": "Cảm ơn (nam / nữ nói)"
+     },
+     {
+      "t": "Por favor",
+      "r": "",
+      "vi": "Làm ơn / Xin vui lòng"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "Onde fica a estação?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Quanto custa um bilhete?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Quero ir para o centro",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "A ementa, por favor",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Água, por favor",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "A conta, por favor",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Quanto custa?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "É muito caro",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Posso pagar com cartão?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Tenho uma reserva",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "A que horas é o pequeno-almoço?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "A chave, por favor",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "Socorro!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Chame uma ambulância",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Preciso de um médico",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
+  },
+  "Thổ Nhĩ Kỳ": {
+   "lang": "Tiếng Thổ Nhĩ Kỳ",
+   "voice": "tr-TR",
+   "groups": {
+    "Chào hỏi": [
+     {
+      "t": "Merhaba",
+      "r": "",
+      "vi": "Xin chào"
+     },
+     {
+      "t": "Teşekkür ederim",
+      "r": "",
+      "vi": "Cảm ơn"
+     },
+     {
+      "t": "Lütfen",
+      "r": "",
+      "vi": "Làm ơn / Xin vui lòng"
+     }
+    ],
+    "Đi lại": [
+     {
+      "t": "İstasyon nerede?",
+      "r": "",
+      "vi": "Ga tàu ở đâu?"
+     },
+     {
+      "t": "Bir bilet ne kadar?",
+      "r": "",
+      "vi": "Một vé bao nhiêu tiền?"
+     },
+     {
+      "t": "Şehir merkezine gitmek istiyorum",
+      "r": "",
+      "vi": "Tôi muốn đi vào trung tâm"
+     }
+    ],
+    "Ăn uống": [
+     {
+      "t": "Menüyü alabilir miyim?",
+      "r": "",
+      "vi": "Cho tôi xem thực đơn"
+     },
+     {
+      "t": "Su, lütfen",
+      "r": "",
+      "vi": "Cho tôi nước"
+     },
+     {
+      "t": "Hesabı alabilir miyim?",
+      "r": "",
+      "vi": "Tính tiền giúp tôi"
+     }
+    ],
+    "Mua sắm": [
+     {
+      "t": "Bu ne kadar?",
+      "r": "",
+      "vi": "Cái này bao nhiêu?"
+     },
+     {
+      "t": "Çok pahalı",
+      "r": "",
+      "vi": "Đắt quá"
+     },
+     {
+      "t": "Kartla ödeyebilir miyim?",
+      "r": "",
+      "vi": "Tôi trả bằng thẻ được không?"
+     }
+    ],
+    "Khách sạn": [
+     {
+      "t": "Rezervasyonum var",
+      "r": "",
+      "vi": "Tôi đã đặt phòng"
+     },
+     {
+      "t": "Kahvaltı saat kaçta?",
+      "r": "",
+      "vi": "Ăn sáng lúc mấy giờ?"
+     },
+     {
+      "t": "Anahtarı alabilir miyim?",
+      "r": "",
+      "vi": "Cho tôi chìa khóa phòng"
+     }
+    ],
+    "Khẩn cấp": [
+     {
+      "t": "İmdat!",
+      "r": "",
+      "vi": "Cứu tôi với!"
+     },
+     {
+      "t": "Ambulans çağırın",
+      "r": "",
+      "vi": "Gọi xe cấp cứu"
+     },
+     {
+      "t": "Doktora ihtiyacım var",
+      "r": "",
+      "vi": "Tôi cần bác sĩ"
+     }
+    ]
+   }
   }
  }
 }

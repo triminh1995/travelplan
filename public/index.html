@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Travel Plan — Kế hoạch du lịch</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<meta name="theme-color" content="#FFF7EC">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Travel Plan">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -23,11 +31,15 @@ body{
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-2;
-  background:url("assets/travel-bg.jpg") center/cover no-repeat, var(--cream);
+  background:url("assets/travel-bg.jpg") center/cover no-repeat, linear-gradient(180deg, #FBE7CE, #FFF7EC 50%, #FBE7CE);
 }
 body::after{
   content:""; position:fixed; inset:0; z-index:-1;
-  background:linear-gradient(180deg, rgba(255,247,236,.62), rgba(255,247,236,.78));
+  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38));
+}
+/* Dien thoai: dung anh nen DOC rieng (9:19.5) phu FULL toan man hinh bang cover */
+@media (max-width:640px){
+  body::before{background-image:url("assets/travel-bg-portrait.jpg"); background-size:cover; background-position:center; background-color:#FFF7EC}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -54,14 +66,22 @@ label.flabel{display:block; font-weight:700; font-size:13px; margin:0 0 6px 2px;
 textarea.field{resize:vertical; min-height:64px}
 
 /* ===== Trang chu ===== */
-.home-frame{padding:20px 18px 18px}
+.home-frame{padding:20px 18px 18px; background:rgba(255,253,248,.8)}
+.home-frame .field, .home-frame .date-btn{background:rgba(255,249,240,.85)}
 .home-head{display:flex; align-items:center; gap:10px}
 .home-head h1{font-size:38px; margin:0; line-height:1; color:#274156; font-weight:800; letter-spacing:.5px}
-.home-head img{width:128px; height:96px; object-fit:cover; border-radius:20px; margin-left:auto; border:2px solid var(--line)}
+.home-head img{width:100%; height:100%; object-fit:contain; display:block}
+.plane-wrap{position:relative; width:128px; height:96px; margin-left:auto; flex:none}
+.plane-wrap img{animation:planeGlide 6s ease-in-out infinite; will-change:transform; filter:drop-shadow(0 5px 7px rgba(39,65,86,.20))}
+@keyframes planeGlide{0%,100%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(-7px,-9px) rotate(-4deg)}55%{transform:translate(-2px,-13px) rotate(-1deg)}75%{transform:translate(5px,-6px) rotate(3deg)}}
+@media (prefers-reduced-motion: reduce){.plane-wrap img{animation:none}}
 .date-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px}
 .date-btn{width:100%; text-align:left; background:#FFF9F0; border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; font-size:15px; font-weight:600; display:flex; justify-content:space-between; align-items:center}
 .date-btn .ph{color:var(--muted); font-weight:500}
 .city-wrap{position:relative; margin-top:12px}
+.cc-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+.cc-row .city-wrap{margin-top:0; min-width:0}
+.cc-row .field{padding:12px 10px}
 .suggest{position:absolute; left:0; right:0; top:calc(100% + 6px); background:#fff; border:2px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); overflow:hidden; z-index:30}
 .suggest button{display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left; padding:11px 14px; font-size:15px; border-bottom:1px solid #FBF0DD}
 .suggest button:last-child{border-bottom:none}
@@ -69,19 +89,32 @@ textarea.field{resize:vertical; min-height:64px}
 .suggest .ct{color:var(--muted); font-size:12px; font-weight:700}
 .search-btn{width:100%; margin-top:16px; padding:15px; font-size:17px}
 .nav-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
-.nav-tile{background:var(--card); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
+.nav-tile{background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
 .nav-tile .ic{font-size:24px; line-height:1}
 .nav-tile.on{background:var(--coral); border-color:var(--coral); color:#fff}
 .nav-row{display:flex; gap:8px; margin-bottom:14px}
-.nav-row button{flex:1; background:var(--card); border:2px solid var(--line); border-radius:999px; padding:9px 4px; font-weight:700; font-size:13px; box-shadow:var(--shadow)}
+.nav-row button{flex:1; min-width:0; background:var(--card); border:2px solid var(--line); border-radius:999px; padding:9px 4px; font-weight:700; font-size:13px; box-shadow:var(--shadow)}
 .nav-row button.on{background:var(--coral); border-color:var(--coral); color:#fff}
+.tab-nav button{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:8px 2px 7px; line-height:1.1; white-space:nowrap}
+.tab-nav button .ic{font-size:19px; line-height:1}
+.tab-nav button .lb{font-size:12px; font-weight:700}
+
+/* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--card); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.taskbar-in{max-width:540px; margin:0 auto; display:flex; gap:6px}
+.taskbar button{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
+.taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
+.taskbar button .lb{font-size:12px; font-weight:700}
+.taskbar button.on{color:var(--coral-d)}
+.taskbar button.on .ic{background:var(--peach)}
+.taskbar-spacer{height:94px}
+body:has(.taskbar) .toast{bottom:106px}
 
 /* ===== Lich trinh ===== */
 .sec-title{font-size:24px; margin:6px 0 12px; color:#274156}
 .city-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
 .city-tile{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow); text-align:left; padding:0; width:100%; position:relative}
 .tile-del{position:absolute; top:8px; right:8px; z-index:2; min-width:28px; height:28px; padding:0 7px; border-radius:999px; background:rgba(255,255,255,.94); color:var(--coral-d); font-weight:900; font-size:13px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(90,50,20,.25); cursor:pointer}
-.tile-del.arm{background:var(--coral); color:#fff; font-size:12px}
 .city-tile.on{border-color:var(--coral); box-shadow:0 0 0 2px var(--coral), var(--shadow)}
 .city-tile img,.city-tile .ph-img{width:100%; height:86px; object-fit:cover}
 .city-tile .in{padding:10px 12px 12px}
@@ -92,7 +125,8 @@ textarea.field{resize:vertical; min-height:64px}
 .city-head img,.city-head .ph-img{width:56px; height:56px; border-radius:16px; object-fit:cover; flex:none}
 .city-head .nm{font-family:"Baloo 2",sans-serif; font-size:21px; font-weight:800; color:#274156; line-height:1.1}
 .city-head .dt{font-size:12px; color:var(--muted); font-weight:600; margin-top:2px}
-.head-btns{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.head-btns{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; align-items:stretch}
+.head-btns .btn{width:100%; height:100%; min-width:0; padding:9px 4px; font-size:12.5px; gap:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; justify-content:center}
 .day-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px}
 .day-tile{background:#fff; border:2px solid var(--line); border-radius:var(--r-md); padding:10px 8px; text-align:center; box-shadow:var(--shadow)}
 .day-tile .d1{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:17px; color:#274156}
@@ -117,6 +151,23 @@ textarea.field{resize:vertical; min-height:64px}
 @keyframes up{from{transform:translateY(16px); opacity:.6} to{transform:none; opacity:1}}
 .modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
 .modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
+/* Popup Chi tiet dia diem: nut X sat goc popup + thanh tab 1 hang */
+.modal.detail-modal{position:relative}
+.modal.detail-modal .x{position:absolute; top:8px; right:8px; float:none}
+.pd-tabs{display:flex; gap:3px; margin:2px 0 12px; flex-wrap:nowrap}
+.pd-tabs button{flex:1 1 0; min-width:0; padding:7px 0; font-size:10.5px; font-weight:800; line-height:1.15; letter-spacing:-.2px; border-radius:999px; background:#F6E8DA; color:#7A5C3E; white-space:nowrap; border:2px solid transparent}
+.pd-tabs button.on{background:var(--coral); color:#fff; border-color:var(--coral)}
+.pd-panel{display:none}
+.pd-panel.on{display:block}
+.pd-panel h4{margin:2px 0 8px; font-size:15px}
+.pd-panel ul{margin:0; padding-left:18px}
+.pd-panel li{font-size:14px; margin:4px 0}
+/* The dia diem quanh day trong popup Chi tiet: the gon, ten chiem tron hang, chip khoang cach nam rieng duoi ten */
+.near-list{display:flex; flex-direction:column; gap:8px}
+.near-card{background:#FFF9F0; border:2px solid var(--line); border-radius:14px; padding:10px 12px; min-width:0}
+.near-card .nn{font-weight:700; font-size:14.5px; line-height:1.3; color:#274156; overflow-wrap:break-word}
+.near-card .nd{display:inline-block; margin-top:5px; max-width:100%; box-sizing:border-box; background:#E7F6F1; color:var(--teal-d); font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:999px; line-height:1.35; overflow-wrap:break-word}
+.near-card .ndesc{font-size:13px; color:var(--muted); line-height:1.5; margin-top:5px; overflow-wrap:break-word}
 .pick-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .pick-tile{position:relative; background:#fff; border:2px solid var(--line); border-radius:var(--r-md); overflow:hidden; text-align:left; padding:0; width:100%}
 .pick-tile img,.pick-tile .ph-img{width:100%; aspect-ratio:4/3; object-fit:cover}
@@ -129,6 +180,8 @@ textarea.field{resize:vertical; min-height:64px}
 .pick-tile.added{opacity:.55}
 .pick-tile.added .tick{background:var(--muted); border-color:var(--muted); color:#fff}
 .sticky-foot{position:sticky; bottom:-26px; background:var(--card); padding:12px 0 2px; margin-top:14px}
+.foot-row{display:flex; gap:8px}
+.foot-row .btn{flex:1 1 0; min-width:0; padding:11px 8px; font-size:13.5px; line-height:1.3}
 .near-group h4{margin:14px 0 6px; font-size:14px}
 .near-group li{font-size:14px; margin:3px 0}
 .steps li{margin:5px 0; font-size:14.5px; line-height:1.45}
@@ -150,6 +203,17 @@ textarea.field{resize:vertical; min-height:64px}
 .cal-day.sel{background:var(--coral); color:#fff; font-weight:900}
 .cal-day.sel::after{background:#fff}
 .cal-note{text-align:center; font-size:12px; color:var(--coral-d); font-weight:700; margin-top:10px}
+/* Popup lich: kich thuoc co dinh, hien phia tren man hinh (khong nam sat day) */
+.modal-bg.cal-bg{align-items:flex-start; padding:18px 12px}
+.modal.cal-modal{width:100%; max-width:400px; height:560px; max-height:calc(100dvh - 36px); border-radius:26px; overflow:hidden; display:flex; flex-direction:column; animation:down .18s ease}
+@keyframes down{from{transform:translateY(-16px); opacity:.6} to{transform:none; opacity:1}}
+.modal.cal-modal .x{position:static; float:none; align-self:flex-end; flex:none}
+.cal-wrap{display:flex; flex-direction:column; flex:1; min-height:0}
+.cal-wrap .cal{flex:1; min-height:0; display:flex; flex-direction:column}
+.cal-wrap .cal-grid{flex:1; min-height:0; grid-template-rows:24px repeat(6,1fr)}
+.cal-wrap .cal-day{aspect-ratio:auto}
+.cal-foot{display:flex; gap:8px; margin-top:12px}
+.cal-foot .btn{flex:1; min-width:0}
 
 /* ===== Giao tiep ===== */
 .phrase-group{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:14px 16px; margin-bottom:12px}
@@ -176,18 +240,57 @@ textarea.field{resize:vertical; min-height:64px}
 .del-x{flex:none; width:28px; height:28px; border-radius:50%; background:#FFF1E8; color:var(--coral-d); font-weight:900}
 .add-row{display:flex; gap:8px; margin-top:10px}
 .add-row input{flex:1}
+/* ===== Hieu ung dang tai: may bay dang bay ===== */
+#loader{position:fixed; inset:0; z-index:400; background:rgba(255,247,236,.45); display:none; align-items:center; justify-content:center; overflow:hidden}
+#loader.show{display:flex}
+#loader .fly-track{position:absolute; left:0; right:0; top:32%; height:130px; pointer-events:none}
+#loader .fly-plane{position:absolute; top:8px; left:0; width:118px; animation:flyAcross 2.8s linear infinite; will-change:transform}
+#loader .fly-plane img{width:100%; animation:planeBob 1.1s ease-in-out infinite; filter:drop-shadow(0 6px 8px rgba(39,65,86,.22))}
+#loader .fly-plane::before{content:""; position:absolute; right:94%; top:58%; width:150px; border-top:3px dashed rgba(240,86,47,.5); -webkit-mask-image:linear-gradient(90deg, transparent, #000); mask-image:linear-gradient(90deg, transparent, #000)}
+@keyframes flyAcross{0%{transform:translateX(-45vw) translateY(16px) rotate(2deg)}30%{transform:translateX(-5vw) translateY(-16px) rotate(-2deg)}55%{transform:translateX(35vw) translateY(8px) rotate(1deg)}80%{transform:translateX(75vw) translateY(-14px) rotate(-2deg)}100%{transform:translateX(112vw) translateY(4px) rotate(0deg)}}
+@keyframes planeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#loader .load-text{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:19px; color:#274156; background:rgba(255,253,248,.88); padding:9px 20px; border-radius:999px; box-shadow:var(--shadow); position:relative; z-index:1}
+@media (prefers-reduced-motion: reduce){#loader .fly-plane{animation:none; left:50%; transform:translateX(-50%)} #loader .fly-plane img{animation:none}}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:#274156; color:#fff; padding:11px 18px; border-radius:999px; font-weight:700; font-size:14px; z-index:200; box-shadow:0 8px 24px rgba(0,0,0,.25); max-width:92vw; text-align:center}
 .empty-note{background:rgba(255,253,248,.85); border:2px dashed var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
+/* ===== Dang nhap & Nhat ky ===== */
+.auth-bar{display:flex; gap:8px; margin-top:12px; align-items:stretch}
+.auth-bar .btn{flex:1; min-width:0; padding:11px 10px; font-size:14px; white-space:nowrap}
+.auth-bar.signed .btn{flex:0 0 auto}
+.auth-bar.signed .user-chip{flex:1 1 auto}
+.user-chip{display:flex; align-items:center; gap:8px; background:rgba(255,253,248,.9); border:2px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; box-shadow:var(--shadow); font-weight:700; font-size:13px; flex:1.2; min-width:0}
+.user-chip img{width:30px; height:30px; border-radius:50%; flex:none}
+.user-chip span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.j-item{border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; margin-bottom:10px; background:#fff}
+/* Nhat ky 3 tang: Chuyen di -> Thanh pho -> Dia diem (moi tang co anh) */
+.j-head{display:flex; gap:10px; align-items:center; width:100%; text-align:left; background:none; padding:0}
+.j-thumb{width:56px; height:56px; border-radius:14px; object-fit:cover; flex:none; background:#F6E8DA}
+.j-thumb.sm{width:46px; height:46px; border-radius:12px}
+.j-thumb.xs{width:40px; height:40px; border-radius:10px}
+.j-title{font-size:16px; font-weight:800; color:#274156; line-height:1.25}
+.j-sub{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.4}
+.j-chev{flex:none; font-size:13px; color:var(--muted); font-weight:800}
+.j-cities{display:none; margin-top:10px; border-top:2px dashed var(--line); padding-top:10px}
+.j-days{display:none; margin-top:10px; border-top:2px dashed var(--line); padding-top:10px}
+.j-city{border:2px solid var(--line); border-radius:14px; padding:9px 10px; margin-bottom:8px; background:#FFFDF8}
+.j-city-head{display:flex; gap:9px; align-items:center; width:100%; text-align:left; background:none; padding:0}
+.j-places{display:none; margin-top:9px; border-top:2px dashed var(--line); padding-top:9px}
+.j-day{font-size:13px; font-weight:800; color:#274156; margin:9px 0 5px}
+.j-day:first-child{margin-top:0}
+.j-place{display:flex; gap:9px; align-items:center; margin:5px 0}
+.j-place .nm{font-size:13.5px; font-weight:600; line-height:1.3}
+.j-del{flex:none; width:28px; height:28px; border-radius:50%; background:#F6E8DA; font-size:13px; font-weight:800}
 .mt{margin-top:14px} .mb{margin-bottom:14px}
 .row-between{display:flex; align-items:center; justify-content:space-between; gap:10px}
 </style>
 </head>
 <body>
 <div class="wrap" id="app">
-  <div id="view"><div class="empty-note">Đang tải Travel Plan… ✈️</div></div>
+  <div id="view"></div>
 </div>
 <div id="modal-root"></div>
 <div id="toast-root"></div>
+<div id="loader" class="show" aria-hidden="true"><div class="fly-track"><div class="fly-plane"><img src="assets/plane-cutout.webp" alt=""></div></div><div class="load-text" id="loader-text">Đang tải Travel Plan… ✈️</div></div>
 
 <script>
 "use strict";
@@ -209,11 +312,29 @@ function toast(msg) {
   const r = $("#toast-root"); r.innerHTML = '<div class="toast">' + esc(msg) + "</div>";
   clearTimeout(toast._t); toast._t = setTimeout(() => r.innerHTML = "", 2600);
 }
+/* ===== Hieu ung dang tai: may bay dang bay ===== */
+let loadPending = 0, loadTimer = null, loadHold = false;
+function loaderShow(text) { const l = document.getElementById("loader"); if (!l) return; if (text) document.getElementById("loader-text").textContent = text; l.classList.add("show"); }
+function loaderHide() { const l = document.getElementById("loader"); if (l) l.classList.remove("show"); }
+function loaderOn() {
+  loadPending++;
+  if (loadPending === 1 && !loadHold) { clearTimeout(loadTimer); loadTimer = setTimeout(() => loaderShow("Đang tải… ✈️"), 300); }
+}
+function loaderOff() {
+  loadPending = Math.max(0, loadPending - 1);
+  if (loadPending === 0) { clearTimeout(loadTimer); if (!loadHold) loaderHide(); }
+}
+function loaderHoldShow(text) { loadHold = true; clearTimeout(loadTimer); loaderShow(text); }
+function loaderRelease() { loadHold = false; if (loadPending === 0) loaderHide(); }
+window.addEventListener("pageshow", (e) => { if (e.persisted) { loadHold = false; loadPending = 0; loaderHide(); } });
 async function api(path, method, body) {
-  const r = await fetch(path, { method: method || "GET", headers: { "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(j.error || "Có lỗi xảy ra");
-  return j;
+  loaderOn();
+  try {
+    const r = await fetch(path, { method: method || "GET", headers: { "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || "Có lỗi xảy ra");
+    return j;
+  } finally { loaderOff(); }
 }
 function phImg(cls) { return '<div class="ph-img ' + (cls || "") + '">🧳</div>'; }
 function imgOr(place, cls) {
@@ -229,6 +350,9 @@ let selTripId = null;        // thanh pho dang chon trong Lich trinh
 let curDay = 1;
 let phraseState = { country: null, lang: null, custom: "" };
 let prepTripId = null;
+let ME = null;               // nguoi dung dang dang nhap (null = chua dang nhap)
+let AUTH_OK = false;         // server da cau hinh khoa Google chua
+let journalIds = new Set();  // cac tripId da luu vao Nhat ky
 
 function guideOf(trip) { return trip && trip.guideKey ? GUIDES[trip.guideKey] : null; }
 function findGuideByCity(cityName) {
@@ -244,10 +368,28 @@ function countryOfCity(cityName) {
   return g ? g.country : "";
 }
 
+/* Co quoc gia (emoji) cho o chon Quoc gia o trang chu */
+const FLAGS = { "Việt Nam":"🇻🇳","Nhật Bản":"🇯🇵","Hàn Quốc":"🇰🇷","Thái Lan":"🇹🇭","Singapore":"🇸🇬","Malaysia":"🇲🇾","Indonesia":"🇮🇩","Campuchia":"🇰🇭","Lào":"🇱🇦","Myanmar":"🇲🇲","Philippines":"🇵🇭","Brunei":"🇧🇳","Đài Loan":"🇹🇼","Trung Quốc":"🇨🇳","Hồng Kông":"🇭🇰","Ma Cao":"🇲🇴","Pháp":"🇫🇷","Anh":"🇬🇧","Ý":"🇮🇹","Tây Ban Nha":"🇪🇸","Bồ Đào Nha":"🇵🇹","Hà Lan":"🇳🇱","Bỉ":"🇧🇪","Đức":"🇩🇪","Áo":"🇦🇹","Thụy Sĩ":"🇨🇭","Séc":"🇨🇿","Ba Lan":"🇵🇱","Hungary":"🇭🇺","Hy Lạp":"🇬🇷","Thổ Nhĩ Kỳ":"🇹🇷","Thụy Điển":"🇸🇪","Đan Mạch":"🇩🇰","Na Uy":"🇳🇴","Phần Lan":"🇫🇮","Iceland":"🇮🇸","Ireland":"🇮🇪","Romania":"🇷🇴","Bulgaria":"🇧🇬","Serbia":"🇷🇸","Croatia":"🇭🇷","Slovenia":"🇸🇮","Slovakia":"🇸🇰","Estonia":"🇪🇪","Latvia":"🇱🇻","Lithuania":"🇱🇹","Georgia":"🇬🇪","Armenia":"🇦🇲","Azerbaijan":"🇦🇿","Montenegro":"🇲🇪","Albania":"🇦🇱","Bosnia":"🇧🇦","Bắc Macedonia":"🇲🇰","Malta":"🇲🇹","Nga":"🇷🇺","Mỹ":"🇺🇸","Canada":"🇨🇦","Mexico":"🇲🇽","Cuba":"🇨🇺","Dominica":"🇩🇴","Brazil":"🇧🇷","Argentina":"🇦🇷","Chile":"🇨🇱","Peru":"🇵🇪","Colombia":"🇨🇴","Ecuador":"🇪🇨","Uruguay":"🇺🇾","Úc":"🇦🇺","New Zealand":"🇳🇿","Fiji":"🇫🇯","Tahiti":"🇵🇫","UAE":"🇦🇪","Qatar":"🇶🇦","Oman":"🇴🇲","Ả Rập Xê Út":"🇸🇦","Bahrain":"🇧🇭","Kuwait":"🇰🇼","Israel":"🇮🇱","Jordan":"🇯🇴","Lebanon":"🇱🇧","Ấn Độ":"🇮🇳","Nepal":"🇳🇵","Sri Lanka":"🇱🇰","Maldives":"🇲🇻","Bangladesh":"🇧🇩","Pakistan":"🇵🇰","Kazakhstan":"🇰🇿","Uzbekistan":"🇺🇿","Kyrgyzstan":"🇰🇬","Ai Cập":"🇪🇬","Morocco":"🇲🇦","Tunisia":"🇹🇳","Nam Phi":"🇿🇦","Kenya":"🇰🇪","Tanzania":"🇹🇿","Ethiopia":"🇪🇹","Madagascar":"🇲🇬" };
+function flagOf(country) { return FLAGS[country] || "🌍"; }
+function countryOptions() {
+  const out = [], seen = new Set();
+  const push = (c) => { if (c && !seen.has(c)) { seen.add(c); out.push(c); } };
+  CITYLIST.forEach(c => push(c.country));
+  for (const k in GUIDES) push(GUIDES[k].country);
+  return out;
+}
+function citiesOfCountry(country) {
+  const out = [], seen = new Set();
+  const push = (name) => { const k = norm(name); if (name && !seen.has(k)) { seen.add(k); out.push(name); } };
+  CITYLIST.filter(c => c.country === country).forEach(c => push(c.name));
+  for (const k in GUIDES) if (GUIDES[k].country === country) push(GUIDES[k].name);
+  return out;
+}
+
 /* ================= Popup ================= */
-function openModal(html) {
+function openModal(html, variant) {
   const root = $("#modal-root");
-  root.innerHTML = '<div class="modal-bg"><div class="modal"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
+  root.innerHTML = '<div class="modal-bg' + (variant === "cal" ? " cal-bg" : "") + '"><div class="modal' + (variant === "cal" ? " cal-modal" : "") + (variant === "detail" ? " detail-modal" : "") + '"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
   const close = () => { root.innerHTML = ""; };
   $("#modal-x").onclick = close;
   $(".modal-bg", root).addEventListener("click", (e) => { if (e.target.classList.contains("modal-bg")) close(); });
@@ -256,7 +398,7 @@ function openModal(html) {
 
 /* ================= Lich chon ngay (tu dung, phong cach chibi) =================
    - Khong dung lich mac dinh cua trinh duyet.
-   - Ngay hien tai (hom nay) duoc danh dau: vien san ho + cham do + ghi chu. */
+   - Ngay hien tai (hom nay) duoc danh dau: vien san ho + cham do; popup co nut "Hom nay" co dinh o chan. */
 function dateFieldHTML(id, value, placeholder) {
   return '<button type="button" class="date-btn" id="' + id + '"><span class="' + (value ? "" : "ph") + '">' + (value ? fmtD(value) : placeholder) + '</span><span>📅</span></button>';
 }
@@ -277,7 +419,7 @@ function openCalendar({ value, min, anchor, onPick }) {
   let selected = value || (min && min > today ? min : today);
   let view = parseD(value || anchor || selected);
   view = new Date(view.getFullYear(), view.getMonth(), 1);
-  const { root, close } = openModal('<h3>Chọn ngày 📅</h3><div class="cal" id="cal-box"></div><div class="row-between mt"><button class="btn btn-ghost btn-sm" id="cal-clear">Xóa ngày</button><button class="btn btn-coral btn-sm" id="cal-ok">Xong</button></div>');
+  const { root, close } = openModal('<div class="cal-wrap"><h3>Chọn ngày 📅</h3><div class="cal" id="cal-box"></div><div class="cal-foot"><button class="btn btn-ghost btn-sm" id="cal-clear">Xóa ngày</button><button class="btn btn-teal btn-sm" id="cal-today">Hôm nay</button><button class="btn btn-coral btn-sm" id="cal-ok">Xong</button></div></div>', "cal");
   function render() {
     const y = view.getFullYear(), m = view.getMonth();
     const first = new Date(y, m, 1);
@@ -294,15 +436,21 @@ function openCalendar({ value, min, anchor, onPick }) {
       if (min && iso < min) cls.push("dis");
       cells += '<button class="' + cls.join(" ") + '" data-iso="' + iso + '">' + d + "</button>";
     }
+    for (let i = startOffset + daysInMonth; i < 42; i++) cells += '<div class="cal-day empty"></div>';
     $("#cal-box", root).innerHTML =
       '<div class="cal-head"><button class="cal-nav" id="cal-prev">‹</button><div class="t">Tháng ' + (m + 1) + " năm " + y + '</div><button class="cal-nav" id="cal-next">›</button></div>' +
-      '<div class="cal-grid">' + cells + "</div>" +
-      (cells.includes(today) && new Date(y, m, 1).getTime() === new Date(parseD(today).getFullYear(), parseD(today).getMonth(), 1).getTime() ? '<div class="cal-note">🔴 Hôm nay: ' + fmtFull(today) + "</div>" : "");
+      '<div class="cal-grid">' + cells + "</div>";
     $("#cal-prev", root).onclick = () => { view = new Date(y, m - 1, 1); render(); };
     $("#cal-next", root).onclick = () => { view = new Date(y, m + 1, 1); render(); };
     $$(".cal-day[data-iso]", root).forEach(b => b.onclick = () => { selected = b.dataset.iso; render(); });
   }
   render();
+  $("#cal-today", root).onclick = () => {
+    const t = parseD(today);
+    view = new Date(t.getFullYear(), t.getMonth(), 1);
+    if (!min || today >= min) selected = today;
+    render();
+  };
   $("#cal-clear", root).onclick = () => { onPick(""); close(); };
   $("#cal-ok", root).onclick = () => { if (selected) onPick(selected); close(); };
 }
@@ -315,7 +463,10 @@ const TABS = [
   { id: "prep", label: "Chuẩn bị", icon: "🎒" }
 ];
 function navRowHTML() {
-  return '<div class="nav-row">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '">' + t.icon + " " + t.label + "</button>").join("") + "</div>";
+  return '<div class="nav-row tab-nav">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '"><span class="ic">' + t.icon + '</span><span class="lb">' + t.label + "</span></button>").join("") + "</div>";
+}
+function taskbarHTML() {
+  return '<div class="taskbar"><div class="taskbar-in">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '"><span class="ic">' + t.icon + '</span><span class="lb">' + t.label + "</span></button>").join("") + "</div></div>";
 }
 function bindNav(scope) {
   $$("[data-tab]", scope).forEach(b => b.onclick = () => goTab(b.dataset.tab));
@@ -336,58 +487,150 @@ function render() {
   window.scrollTo({ top: 0 });
 }
 
+/* ================= DANG NHAP & NHAT KY ================= */
+function authBarHTML() {
+  if (ME) {
+    return '<div class="auth-bar signed">' +
+      '<div class="user-chip">' + (ME.picture ? '<img src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : "👤") + "<span>" + esc(ME.name || ME.email || "Bạn") + "</span></div>" +
+      '<button class="btn btn-teal" id="btn-journal">📓 Nhật ký</button>' +
+      '<button class="btn btn-ghost" id="btn-logout">Đăng xuất</button></div>';
+  }
+  return '<div class="auth-bar">' +
+    '<button class="btn btn-teal" id="btn-login">🔐 Đăng nhập</button>' +
+    '<button class="btn btn-ghost" id="btn-journal">📓 Nhật ký</button></div>';
+}
+function bindAuthBar(v) {
+  const bl = $("#btn-login", v);
+  if (bl) bl.onclick = () => {
+    if (!AUTH_OK) return toast("Chưa cấu hình đăng nhập Google 🔐 — xem mục hướng dẫn trong README nhé");
+    loaderHoldShow("Đang chuyển tới trang đăng nhập Google… ✈️");
+    location.href = "/auth/google";
+  };
+  const bo = $("#btn-logout", v);
+  if (bo) bo.onclick = () => { loaderHoldShow("Đang đăng xuất… ✈️"); location.href = "/auth/logout"; };
+  const bj = $("#btn-journal", v);
+  if (bj) bj.onclick = openJournalPopup;
+}
+async function openJournalPopup() {
+  if (!ME) { toast("Bạn đăng nhập trước để xem Nhật ký nhé 🔐"); return; }
+  const { root } = openModal('<h3>📓 Nhật ký của bạn</h3><div id="j-list"><div class="empty-note">Đang tải…</div></div>');
+  let list;
+  try { list = await api("/api/journal"); }
+  catch (e) { const el = $("#j-list", root); if (el) el.innerHTML = '<div class="empty-note">' + esc(e.message) + "</div>"; return; }
+  journalIds = new Set(list.map(e => e.tripId));
+  const box = $("#j-list", root);
+  if (!box) return;
+  if (!list.length) {
+    box.innerHTML = '<div class="empty-note">Chưa có thành phố nào được lưu.<br>Vào Lịch trình, mở một thành phố và bấm nút 💾 Lưu nhé.</div>';
+    return;
+  }
+  // Anh dai dien cua mot thanh pho da luu: hero trong snapshot -> hero cam nang -> anh dia diem dau tien
+  function entryHero(e) {
+    if (e.hero) return e.hero;
+    const gd = findGuideByCity(e.city);
+    if (gd && gd.hero) return gd.hero;
+    for (const d of Object.keys(e.days || {})) { const f = (e.days[d] || []).find(p => p.image); if (f) return f.image; }
+    return null;
+  }
+  // Nhat ky phang: moi muc la MOT thanh pho (ten thanh pho + quoc gia), an vao mo thang lich trinh tung ngay
+  function entryDaysHtml(e) {
+    return Object.keys(e.days || {}).sort((a, b) => Number(a) - Number(b)).map(d => {
+      const ps = e.days[d] || [];
+      if (!ps.length) return "";
+      const date = addDays(e.start, Number(d) - 1);
+      return '<div class="j-day">Ngày ' + d + " · " + fmtD(date) + "</div>" + ps.map(p =>
+        '<div class="j-place">' + (p.image ? '<img class="j-thumb xs" src="' + esc(p.image) + '" alt="" loading="lazy" onerror="this.remove()">' : "") +
+        '<div class="nm">📍 ' + esc(p.name) + (p.dur ? ' <span class="muted" style="font-weight:400">· ⏱️ ' + esc(p.dur) + "</span>" : "") + "</div></div>"
+      ).join("");
+    }).join("");
+  }
+  function paint() {
+    const items = [...list].sort((a, b) => String(a.start || "").localeCompare(String(b.start || "")));
+    box.innerHTML = items.map(e => {
+      const n = dayCount(e.start, e.end);
+      const eh = entryHero(e);
+      const title = e.city + (e.country ? " · " + e.country : "");
+      return '<div class="j-item">' +
+        '<div style="display:flex;gap:6px;align-items:flex-start">' +
+          '<button class="j-head" style="flex:1;min-width:0" data-j-open="' + e.id + '">' +
+            (eh ? '<img class="j-thumb" src="' + esc(eh) + '" alt="" loading="lazy" onerror="this.remove()">' : "") +
+            '<span style="flex:1;min-width:0"><span class="j-title">' + (e.country ? flagOf(e.country) + " " : "") + esc(title) + '</span>' +
+            '<span class="j-sub" style="display:block">' + fmtD(e.start) + " → " + fmtD(e.end) + " · " + n + " ngày · " + (e.placeCount || 0) + " điểm đến</span></span>" +
+            '<span class="j-chev">▾</span>' +
+          "</button>" +
+          '<button class="j-del" data-j-del="' + e.id + '" title="Xóa khỏi Nhật ký">✕</button>' +
+        "</div>" +
+        '<div class="j-days" data-j-days="' + e.id + '">' + (entryDaysHtml(e) || '<div class="small muted">Chưa có địa điểm nào trong lịch trình.</div>') + "</div>" +
+      "</div>";
+    }).join("");
+    $$("[data-j-open]", box).forEach(b => b.onclick = () => {
+      const el = $('[data-j-days="' + b.dataset.jOpen + '"]', box);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    });
+    $$("[data-j-del]", box).forEach(b => b.onclick = async () => {
+      try {
+        await api("/api/journal/" + b.dataset.jDel, "DELETE");
+        list = list.filter(x => x.id !== b.dataset.jDel);
+        journalIds = new Set(list.map(x => x.tripId));
+        toast("Đã xóa khỏi Nhật ký");
+        if (!list.length) box.innerHTML = '<div class="empty-note">Chưa có thành phố nào được lưu.</div>';
+        else paint();
+        render();
+      } catch (err) { toast(err.message); }
+    });
+  }
+  paint();
+}
+
 /* ================= TRANG CHU ================= */
-let homeForm = { start: "", end: "", city: "" };
+let homeForm = { start: "", end: "", city: "", country: "" };
 function renderHome(v) {
   v.innerHTML =
     '<div class="card home-frame">' +
-      '<div class="home-head"><h1>Travel Plan</h1><img src="assets/plane-hero.webp" alt="Máy bay chibi"></div>' +
+      '<div class="home-head"><h1>Travel Plan</h1><div class="plane-wrap"><img src="assets/plane-cutout.webp" alt="Máy bay chibi"></div></div>' +
       '<div class="date-row">' +
         '<div><label class="flabel">Ngày đi</label>' + dateFieldHTML("f-start", homeForm.start, "Chọn ngày đi") + "</div>" +
         '<div><label class="flabel">Ngày về</label>' + dateFieldHTML("f-end", homeForm.end, "Chọn ngày về") + "</div>" +
       "</div>" +
+      '<div class="cc-row">' +
+      '<div class="city-wrap"><label class="flabel">Quốc gia</label>' +
+        '<select class="field" id="f-country"><option value="">🌍 Chọn quốc gia…</option>' +
+        countryOptions().map(c => '<option value="' + esc(c) + '"' + (homeForm.country === c ? " selected" : "") + ">" + flagOf(c) + " " + esc(c) + "</option>").join("") +
+        "</select></div>" +
       '<div class="city-wrap"><label class="flabel">Thành phố</label>' +
-        '<input class="field" id="f-city" placeholder="VD: Kyoto, Đà Nẵng, Seoul, Paris…" autocomplete="off" value="' + esc(homeForm.city) + '">' +
-        '<div class="suggest" id="f-suggest" style="display:none"></div>' +
+        '<select class="field" id="f-city"' + (homeForm.country ? "" : " disabled") + ">" +
+        (homeForm.country
+          ? '<option value="">Chọn thành phố…</option>' + citiesOfCountry(homeForm.country).map(n => '<option value="' + esc(n) + '"' + (homeForm.city === n ? " selected" : "") + ">" + esc(n) + "</option>").join("")
+          : '<option value="">← Chọn quốc gia trước</option>') +
+        "</select></div>" +
       "</div>" +
       '<button class="btn btn-coral search-btn" id="f-search">🔍 Tìm kiếm</button>' +
     "</div>" +
+    authBarHTML() +
     '<div class="nav-grid">' + TABS.map(t => '<button class="nav-tile ' + (tab === t.id ? "on" : "") + '" data-tab="' + t.id + '"><span class="ic">' + t.icon + '</span>' + t.label + "</button>").join("") + "</div>";
 
   attachDateField("f-start", () => homeForm.start, (iso) => { homeForm.start = iso; if (homeForm.end && iso && homeForm.end < iso) homeForm.end = ""; renderHome(v); });
   attachDateField("f-end", () => homeForm.end, (iso) => { homeForm.end = iso; renderHome(v); }, { min: () => homeForm.start || null, anchor: () => homeForm.start || null });
 
-  const cityIn = $("#f-city", v), sug = $("#f-suggest", v);
-  function showSuggest() {
-    const q = norm(cityIn.value);
-    if (!q) { sug.style.display = "none"; return; }
-    const past = trips.map(t => t.city);
-    const pool = [];
-    const seen = new Set();
-    const push = (name, country) => { const k = norm(name); if (!seen.has(k)) { seen.add(k); pool.push({ name, country }); } };
-    past.forEach(c => push(c, countryOfCity(c)));
-    CITYLIST.forEach(c => push(c.name, c.country));
-    const scored = pool.map(c => {
-      const nn = norm(c.name), nc = norm(c.country);
-      let s = -1;
-      if (nn.startsWith(q)) s = 0; else if (nn.includes(q)) s = 1; else if (nc.includes(q)) s = 2;
-      return { c, s };
-    }).filter(x => x.s >= 0).sort((a, b) => a.s - b.s).slice(0, 8);
-    if (!scored.length || (scored.length === 1 && norm(scored[0].c.name) === q)) { sug.style.display = "none"; return; }
-    sug.innerHTML = scored.map(x => '<button data-city="' + esc(x.c.name) + '"><span>📍 ' + esc(x.c.name) + '</span><span class="ct">' + esc(x.c.country) + "</span></button>").join("");
-    sug.style.display = "block";
-    $$("button", sug).forEach(b => b.onmousedown = (e) => { e.preventDefault(); cityIn.value = b.dataset.city; homeForm.city = b.dataset.city; sug.style.display = "none"; });
-  }
-  cityIn.addEventListener("input", () => { homeForm.city = cityIn.value; showSuggest(); });
-  cityIn.addEventListener("focus", showSuggest);
-  cityIn.addEventListener("blur", () => setTimeout(() => sug.style.display = "none", 150));
+  const countrySel = $("#f-country", v), citySel = $("#f-city", v);
+  countrySel.onchange = () => { homeForm.country = countrySel.value; homeForm.city = ""; renderHome(v); };
+  citySel.onchange = () => { homeForm.city = citySel.value; };
 
   $("#f-search", v).onclick = async () => {
-    const city = cityIn.value.trim();
-    if (!city) return toast("Bạn nhập thành phố muốn đến nhé ✈️");
+    const city = homeForm.city;
+    if (!homeForm.country) return toast("Bạn chọn quốc gia muốn đến nhé 🌍");
+    if (!city) return toast("Bạn chọn thành phố muốn đến nhé ✈️");
     if (!homeForm.start || !homeForm.end) return toast("Bạn chọn ngày đi và ngày về nhé 📅");
     if (homeForm.end < homeForm.start) return toast("Ngày về phải sau ngày đi nhé");
-    const guide = findGuideByCity(city);
+    let guide = findGuideByCity(city);
+    if (!guide) {
+      // Thanh pho chua co cam nang dong san: nho server tu lap tu Wikipedia (co the mat vai giay)
+      try {
+        toast("Đang soạn cẩm nang cho " + city + "… 🧭");
+        const g2 = await api("/api/guide?city=" + encodeURIComponent(city) + "&country=" + encodeURIComponent(countryOfCity(city)));
+        if (g2 && g2.key) { GUIDES[g2.key] = g2; guide = g2; }
+      } catch (e) { /* khong co cam nang thi van tao chuyen nhu cu */ }
+    }
     try {
       const trip = await api("/api/trips", "POST", { city, country: countryOfCity(city), guideKey: guide ? guide.key : null, startDate: homeForm.start, endDate: homeForm.end });
       trips = await api("/api/trips");
@@ -398,6 +641,7 @@ function renderHome(v) {
     } catch (e) { toast(e.message); }
   };
   bindNav(v);
+  bindAuthBar(v);
 }
 
 /* ================= LICH TRINH ================= */
@@ -408,9 +652,10 @@ function tripHero(t) {
   return null;
 }
 function renderItinerary(v) {
-  let html = navRowHTML() + '<h2 class="sec-title font-round">Lịch trình của bạn 🗓️</h2>';
+  let html = '<h2 class="sec-title font-round">Lịch trình của bạn 🗓️</h2>';
   if (!trips.length) {
     html += '<div class="empty-note">Chưa có chuyến đi nào.<br>Vào Trang chủ, tìm một thành phố để bắt đầu nhé ✈️</div>';
+    html += '<div class="taskbar-spacer"></div>' + taskbarHTML();
     v.innerHTML = html; bindNav(v); return;
   }
   html += '<div class="city-grid">' + trips.map(t => {
@@ -422,6 +667,7 @@ function renderItinerary(v) {
       '<div class="in"><div class="nm">' + esc(t.city) + '</div><div class="dt">' + fmtD(t.startDate) + " → " + fmtD(t.endDate) + " · " + n + " ngày</div></div></button>";
   }).join("") + "</div>";
   html += '<div id="trip-detail" class="mt"></div>';
+  html += '<div class="taskbar-spacer"></div>' + taskbarHTML();
   v.innerHTML = html; bindNav(v);
   $$("[data-trip]", v).forEach(b => b.onclick = async () => {
     selTripId = b.dataset.trip; curDay = 1;
@@ -432,15 +678,13 @@ function renderItinerary(v) {
   $$("[data-del-trip]", v).forEach(x => x.onclick = (e) => {
     e.stopPropagation(); e.preventDefault();
     const id = x.dataset.delTrip;
-    if (x.dataset.arm) {
-      api("/api/trips/" + id, "DELETE").then(async () => {
-        trips = await api("/api/trips");
-        if (curTrip && curTrip.id === id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
-        else if (selTripId === id) { selTripId = trips.length ? trips[0].id : null; }
-        toast("Đã xóa chuyến đi");
-        render();
-      }).catch(err => toast(err.message));
-    } else { x.dataset.arm = "1"; x.classList.add("arm"); x.textContent = "⚠️ Xóa?"; setTimeout(() => { x.dataset.arm = ""; x.classList.remove("arm"); x.textContent = "✕"; }, 3000); }
+    api("/api/trips/" + id, "DELETE").then(async () => {
+      trips = await api("/api/trips");
+      if (curTrip && curTrip.id === id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
+      else if (selTripId === id) { selTripId = trips.length ? trips[0].id : null; }
+      toast("Đã xóa chuyến đi");
+      render();
+    }).catch(err => toast(err.message));
   });
   if (curTrip && selTripId === curTrip.id) renderTripDetail($("#trip-detail", v));
   else if (selTripId) { api("/api/trips/" + selTripId).then(t => { curTrip = t; render(); }).catch(() => {}); }
@@ -456,9 +700,10 @@ function renderTripDetail(box) {
     '<div class="city-head">' + (hero ? '<img src="' + esc(hero) + '" alt="" onerror="this.outerHTML=phImg()">' : phImg()) +
       '<div><div class="nm">' + esc(t.city) + '</div><div class="dt">' + fmtD(t.startDate) + " → " + fmtD(t.endDate) + " · " + n + " ngày " + (n - 1) + " đêm" + (t.country ? " · " + esc(t.country) : "") + "</div></div></div>" +
     '<div class="head-btns">' +
-      '<button class="btn btn-teal btn-sm" id="btn-guide">📖 Cẩm nang ' + esc(t.city) + "</button>" +
+      '<button class="btn btn-teal btn-sm" id="btn-guide">📖 Cẩm nang</button>' +
+      '<button class="btn btn-ghost btn-sm" id="btn-save-journal">' + (journalIds.has(t.id) ? "✓ Đã lưu" : "💾 Lưu") + '</button>' +
       '<button class="btn btn-ghost btn-sm" id="btn-edit-trip">✏️ Chỉnh sửa</button>' +
-      '<button class="btn btn-ghost btn-sm" id="btn-del-trip">🗑️ Xóa chuyến</button>' +
+      '<button class="btn btn-ghost btn-sm" id="btn-del-trip">Xóa</button>' +
     "</div>" +
     '<div class="mt" id="stay-box">' + stayHTML(t) + "</div>" +
   "</div>";
@@ -481,28 +726,34 @@ function renderTripDetail(box) {
     '<div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-teal btn-sm" data-detail="' + p.id + '">Chi tiết</button>' +
     '<button class="btn btn-ghost btn-sm" data-del-place="' + p.id + '">✕ Xóa</button></div></div></div>'
   ).join("");
-  html += '<button class="btn btn-coral" id="btn-add-place" style="width:100%;margin-top:6px">＋ Thêm lịch trình</button></div>';
+  html += '<button class="btn btn-coral" id="btn-add-place" style="width:100%;margin-top:6px">Thêm lịch trình</button></div>';
 
   box.innerHTML = html;
 
   $("#btn-guide", box).onclick = () => openGuidePopup(t);
+  $("#btn-save-journal", box).onclick = async () => {
+    if (!ME) return toast("Bạn đăng nhập trước để lưu vào Nhật ký nhé 🔐");
+    try {
+      await api("/api/journal", "POST", { tripId: t.id });
+      journalIds.add(t.id);
+      toast("Đã lưu " + t.city + " vào Nhật ký 📓");
+      render();
+    } catch (e) { toast(e.message); }
+  };
   $("#btn-edit-trip", box).onclick = () => openEditTripPopup(t);
-  $("#btn-del-trip", box).onclick = (e) => {
-    const b = e.currentTarget;
-    if (b.dataset.arm) {
-      api("/api/trips/" + t.id, "DELETE").then(async () => {
-        trips = await api("/api/trips");
-        if (curTrip && curTrip.id === t.id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
-        toast("Đã xóa chuyến đi");
-        render();
-      }).catch(err => toast(err.message));
-    } else { b.dataset.arm = "1"; b.textContent = "⚠️ Bấm lần nữa để xóa hẳn"; setTimeout(() => { b.dataset.arm = ""; b.textContent = "🗑️ Xóa chuyến"; }, 3000); }
+  $("#btn-del-trip", box).onclick = () => {
+    api("/api/trips/" + t.id, "DELETE").then(async () => {
+      trips = await api("/api/trips");
+      if (curTrip && curTrip.id === t.id) { curTrip = null; selTripId = trips.length ? trips[0].id : null; }
+      toast("Đã xóa chuyến đi");
+      render();
+    }).catch(err => toast(err.message));
   };
   bindStay(box, t);
   $$("[data-day]", box).forEach(b => b.onclick = () => { curDay = Number(b.dataset.day); render(); });
   $$("[data-detail]", box).forEach(b => b.onclick = () => {
     const p = (curTrip.days[curDay] || []).find(x => x.id === b.dataset.detail);
-    if (p) openPlaceDetail(p);
+    if (p) openPlaceDetail(p, g && g.transportTips);
   });
   $$("[data-del-place]", box).forEach(b => b.onclick = async () => {
     try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + b.dataset.delPlace, "DELETE"); curTrip = await api("/api/trips/" + t.id); render(); }
@@ -584,18 +835,39 @@ function openEditTripPopup(t) {
   };
 }
 
-function openPlaceDetail(p) {
+function openPlaceDetail(p, transportTips) {
   const nb = p.nearby || { food: [], play: [], shop: [] };
-  const grp = (title, items) => items && items.length ? '<div class="near-group"><h4>' + title + "</h4><ul style='margin:0;padding-left:18px'>" + items.map(i => "<li>" + esc(i.name) + (i.dist ? ' <span class="muted">· ' + esc(i.dist) + "</span>" : "") + "</li>").join("") + "</ul></div>" : "";
-  openModal(
+  const grp = (title, items) => "<h4>" + title + "</h4>" + (items && items.length
+    ? '<div class="near-list">' + items.map(i => '<div class="near-card"><div class="nn">' + esc(i.name) + "</div>" + (i.dist ? '<span class="nd">📍 ' + esc(i.dist) + "</span>" : "") + (i.desc ? '<div class="ndesc">' + esc(i.desc) + "</div>" : "") + "</div>").join("") + "</div>"
+    : '<div class="small muted">Chưa có gợi ý quanh đây trong cẩm nang.</div>');
+  const noInfo = '<div class="small muted">Chưa có thông tin trong cẩm nang.</div>';
+  const panels = {
+    detail:
+      (p.image ? '<img src="' + esc(p.image) + '" style="width:100%;border-radius:16px;aspect-ratio:16/9;object-fit:cover" onerror="this.remove()">' : "") +
+      (p.desc ? '<p style="line-height:1.55">' + esc(p.desc) + "</p>" : "") +
+      (p.dur ? '<span class="chip">⏱️ ' + esc(p.dur) + "</span>" : ""),
+    go:
+      "<h4>🚌 Cách di chuyển</h4>" +
+      (p.go ? '<p style="line-height:1.55;margin:0">' + esc(p.go) + "</p>" : noInfo) +
+      (p.steps && p.steps.length ? '<h4 style="margin-top:14px">🧭 Hướng dẫn từng bước</h4><ol class="steps" style="margin:0;padding-left:20px">' + p.steps.map(s => "<li>" + esc(s) + "</li>").join("") + "</ol>" : ""),
+    transit:
+      "<h4>🚇 Phương tiện công cộng</h4>" +
+      (transportTips ? '<p style="line-height:1.55;margin:0">' + esc(transportTips) + '</p><p class="tiny muted" style="margin-top:8px">Thông tin phương tiện công cộng chung của thành phố — bạn kết hợp với tab Di chuyển để tới đúng địa điểm này nhé.</p>' : noInfo),
+    food: grp("🍜 Ăn uống quanh đây", nb.food),
+    play: grp("🎡 Vui chơi quanh đây", nb.play),
+    shop: grp("🛍️ Mua sắm quanh đây", nb.shop)
+  };
+  const TABS = [["detail", "Chi tiết"], ["go", "Di chuyển"], ["transit", "Công cộng"], ["food", "Ăn uống"], ["play", "Vui chơi"], ["shop", "Mua sắm"]];
+  const html =
     "<h3>" + esc(p.name) + "</h3>" +
-    (p.image ? '<img src="' + esc(p.image) + '" style="width:100%;border-radius:16px;aspect-ratio:16/9;object-fit:cover" onerror="this.remove()">' : "") +
-    (p.desc ? '<p style="line-height:1.55">' + esc(p.desc) + "</p>" : "") +
-    (p.dur ? '<span class="chip">⏱️ ' + esc(p.dur) + "</span>" : "") +
-    (p.go ? '<h4 style="margin:14px 0 6px">🚌 Cách đi</h4><p style="line-height:1.55;margin:0">' + esc(p.go) + "</p>" : "") +
-    (p.steps && p.steps.length ? '<h4 style="margin:14px 0 4px">🧭 Hướng dẫn tham quan</h4><ol class="steps" style="margin:0;padding-left:20px">' + p.steps.map(s => "<li>" + esc(s) + "</li>").join("") + "</ol>" : "") +
-    grp("🍜 Ăn uống quanh đây", nb.food) + grp("🎡 Vui chơi quanh đây", nb.play) + grp("🛍️ Mua sắm quanh đây", nb.shop)
-  );
+    '<div class="pd-tabs">' + TABS.map(([k, lb]) => '<button data-pd-tab="' + k + '"' + (k === "detail" ? ' class="on"' : "") + ">" + lb + "</button>").join("") + "</div>" +
+    TABS.map(([k]) => '<div class="pd-panel' + (k === "detail" ? " on" : "") + '" data-pd-panel="' + k + '">' + panels[k] + "</div>").join("");
+  const { root } = openModal(html, "detail");
+  $$("[data-pd-tab]", root).forEach(b => b.onclick = () => {
+    $$("[data-pd-tab]", root).forEach(x => x.classList.toggle("on", x === b));
+    $$("[data-pd-panel]", root).forEach(pn => pn.classList.toggle("on", pn.dataset.pdPanel === b.dataset.pdTab));
+    const m = $(".modal", root); if (m) m.scrollTop = 0;
+  });
 }
 
 function openAddPlacePopup(t, day) {
@@ -607,7 +879,7 @@ function openAddPlacePopup(t, day) {
 
   let body = "<h3>＋ Thêm vào Ngày " + day + "</h3>";
   if (g) {
-    body += '<button class="btn btn-teal" id="ap-sugg" style="width:100%" ' + (suggPlaces.length ? "" : "disabled") + ">✨ " + (suggPlaces.length ? "Thêm gợi ý ngày này · " + suggPlaces.length + " nơi" : "Đã thêm hết gợi ý ngày này") + "</button>";
+    var suggBtnHtml = '<button class="btn btn-teal" id="ap-sugg" ' + (suggPlaces.length ? "" : "disabled") + ">✨ " + (suggPlaces.length ? "Gợi ý ngày này · " + suggPlaces.length + " nơi" : "Đã thêm hết gợi ý") + "</button>";
     body += '<div class="pick-grid mt">' + g.places.map(p => {
       const isAdded = already.has(norm(p.name));
       return '<button class="pick-tile" data-pick="' + p.id + '" ' + (isAdded ? "disabled" : "") + ">" +
@@ -622,11 +894,11 @@ function openAddPlacePopup(t, day) {
     '<input class="field" id="ap-name" placeholder="Tên địa điểm *">' +
     '<textarea class="field mt" id="ap-desc" placeholder="Mô tả ngắn (không bắt buộc)" style="margin-top:8px"></textarea>' +
     '<input class="field" id="ap-go" placeholder="Cách đi (không bắt buộc)" style="margin-top:8px"></div>';
-  body += '<div class="sticky-foot"><button class="btn btn-coral" id="ap-add" style="width:100%" disabled>Thêm 0 địa điểm đã chọn vào Ngày ' + day + "</button></div>";
+  body += '<div class="sticky-foot"><div class="foot-row">' + (g ? suggBtnHtml : "") + '<button class="btn btn-coral" id="ap-add" disabled>Thêm 0 địa điểm vào Ngày ' + day + "</button></div></div>";
 
   const { root, close } = openModal(body);
   const addBtn = $("#ap-add", root);
-  const paintBtn = () => { addBtn.disabled = sel.size === 0; addBtn.textContent = "Thêm " + sel.size + " địa điểm đã chọn vào Ngày " + day; };
+  const paintBtn = () => { addBtn.disabled = sel.size === 0; addBtn.textContent = "Thêm " + sel.size + " địa điểm vào Ngày " + day; };
   $$("[data-pick]", root).forEach(tile => tile.onclick = () => {
     const id = tile.dataset.pick;
     if (sel.has(id)) { sel.delete(id); tile.classList.remove("sel"); }
@@ -651,7 +923,7 @@ function openAddPlacePopup(t, day) {
     } catch (e) { toast(e.message); }
   };
   // Neu chi dien form tu do ma khong chon goi y, nut Them van dung cho form
-  $("#ap-name", root).addEventListener("input", (e) => { addBtn.disabled = sel.size === 0 && !e.target.value.trim(); if (sel.size === 0) addBtn.textContent = e.target.value.trim() ? "Thêm địa điểm này vào Ngày " + day : "Thêm 0 địa điểm đã chọn vào Ngày " + day; });
+  $("#ap-name", root).addEventListener("input", (e) => { addBtn.disabled = sel.size === 0 && !e.target.value.trim(); if (sel.size === 0) addBtn.textContent = e.target.value.trim() ? "Thêm địa điểm này vào Ngày " + day : "Thêm 0 địa điểm vào Ngày " + day; });
 }
 
 /* ================= GIAO TIEP ================= */
@@ -776,22 +1048,40 @@ async function renderPrep(v) {
 
 /* ================= Khoi dong ================= */
 (async function init() {
+  loaderHoldShow("Đang tải Travel Plan… ✈️");
   try {
-    const [g, c, p, ts] = await Promise.all([
+    const [g, c, p, ts, gc, me] = await Promise.all([
       fetch("data/guides.json").then(r => r.json()),
       fetch("data/cities.json").then(r => r.json()),
       fetch("data/phrases.json").then(r => r.json()),
-      api("/api/trips")
+      api("/api/trips"),
+      api("/api/guide-cache").catch(() => ({ cities: {} })),
+      api("/api/me").catch(() => ({ user: null, authConfigured: false }))
     ]);
-    GUIDES = g.cities || {}; CITYLIST = c || []; PHRASES = p.countries || {}; trips = ts || [];
+    GUIDES = g.cities || {};
+    for (const k in (gc.cities || {})) if (!GUIDES[k]) GUIDES[k] = gc.cities[k];
+    CITYLIST = c || []; PHRASES = p.countries || {}; trips = ts || [];
+    ME = me.user || null; AUTH_OK = !!me.authConfigured;
+    if (ME) {
+      try { const j = await api("/api/journal"); journalIds = new Set(j.map(e => e.tripId)); } catch {}
+    }
     if (trips.length) { selTripId = trips[0].id; prepTripId = trips[0].id; }
     // Dat mac dinh: ngay di = hom nay, ngay ve = +2
     homeForm.start = todayISO(); homeForm.end = addDays(todayISO(), 2);
   } catch (e) {
     $("#view").innerHTML = '<div class="empty-note">Chưa tải được dữ liệu. Bạn kiểm tra lại kết nối rồi mở lại app nhé.</div>';
+    loaderRelease();
     return;
   }
+  // Thong bao sau khi quay ve tu trang dang nhap Google
+  const aq = new URLSearchParams(location.search).get("authmsg");
+  if (aq) {
+    history.replaceState(null, "", location.pathname);
+    if (aq === "unconfigured") setTimeout(() => toast("Chưa cấu hình đăng nhập Google 🔐 — xem hướng dẫn trong README nhé"), 350);
+    else if (aq === "error") setTimeout(() => toast("Đăng nhập Google chưa thành công, bạn thử lại nhé"), 350);
+  }
   render();
+  loaderRelease();
 })();
 </script>
 </body>
