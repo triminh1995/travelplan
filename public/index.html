@@ -31,15 +31,19 @@ body{
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-2;
-  background:url("assets/travel-bg.jpg") center top/cover no-repeat, linear-gradient(180deg, #FBE7CE, #FFF7EC 50%, #FBE7CE);
+  background:url("assets/travel-bg.jpg") center/cover no-repeat, linear-gradient(180deg, #FBE7CE, #FFF7EC 50%, #FBE7CE);
+  filter:blur(22px) saturate(1.05); transform:scale(1.12);
 }
 body::after{
   content:""; position:fixed; inset:0; z-index:-1;
-  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38));
+  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg.jpg") center/contain no-repeat;
 }
-/* Dien thoai: dung anh nen DOC rieng phu FULL toan man hinh bang cover, neo TOP de may bay o goc tren artwork luon hien tron tren moi ti le man hinh */
+/* Moi man hinh: lop tren hien TRON artwork bang contain (thay het tu tren xuong duoi, khong cat phan nao);
+   lop duoi la chinh artwork do mo bang cover lap kin phan le thua hai ben/tren duoi, khong de khoang trong.
+   Dien thoai dung artwork doc rieng cho gan ti le man hinh hon. */
 @media (max-width:640px){
-  body::before{background-image:url("assets/travel-bg-portrait.jpg"); background-size:cover; background-position:center top; background-color:#FFF7EC}
+  body::before{background-image:url("assets/travel-bg-portrait.jpg")}
+  body::after{background-image:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg")}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -253,14 +257,13 @@ body:has(.taskbar) .toast{bottom:106px}
 @media (prefers-reduced-motion: reduce){#loader .fly-plane{animation:none; left:50%; transform:translateX(-50%)} #loader .fly-plane img{animation:none}}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:#274156; color:#fff; padding:11px 18px; border-radius:999px; font-weight:700; font-size:14px; z-index:200; box-shadow:0 8px 24px rgba(0,0,0,.25); max-width:92vw; text-align:center}
 .empty-note{background:rgba(255,253,248,.85); border:2px dashed var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
-/* ===== Dang nhap & Nhat ky ===== */
-.auth-bar{display:flex; gap:8px; margin-top:12px; align-items:stretch}
-.auth-bar .btn{flex:1; min-width:0; height:46px; padding:11px 10px; font-size:14px; white-space:nowrap}
-.auth-bar.signed .btn{flex:0 0 auto}
-.auth-bar.signed .user-chip{flex:1 1 auto}
-.user-chip{display:flex; align-items:center; height:46px; gap:8px; background:rgba(255,253,248,.9); border:2px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; box-shadow:var(--shadow); font-weight:700; font-size:13px; flex:1.2; min-width:0}
-.user-chip img{width:30px; height:30px; border-radius:50%; flex:none}
-.user-chip span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+/* ===== Dang nhap & Nhat ky: cung kich thuoc voi cac o dieu huong (.nav-tile, cao 76px) ===== */
+.auth-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.auth-grid.signed{grid-template-columns:1.25fr 1fr 1fr}
+.user-tile{display:flex; align-items:center; justify-content:center; height:76px; gap:8px; background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:14px; color:#274156; min-width:0}
+.user-tile img{width:34px; height:34px; border-radius:50%; flex:none}
+.user-tile .u-ic{font-size:24px; line-height:1; flex:none}
+.user-tile span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .j-item{border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; margin-bottom:10px; background:#fff}
 /* Nhat ky 3 tang: Chuyen di -> Thanh pho -> Dia diem (moi tang co anh) */
 .j-head{display:flex; gap:10px; align-items:center; width:100%; text-align:left; background:none; padding:0}
@@ -490,14 +493,14 @@ function render() {
 /* ================= DANG NHAP & NHAT KY ================= */
 function authBarHTML() {
   if (ME) {
-    return '<div class="auth-bar signed">' +
-      '<div class="user-chip">' + (ME.picture ? '<img src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : "👤") + "<span>" + esc(ME.name || ME.email || "Bạn") + "</span></div>" +
-      '<button class="btn btn-teal" id="btn-journal">📓 Nhật ký</button>' +
-      '<button class="btn btn-ghost" id="btn-logout">Đăng xuất</button></div>';
+    return '<div class="auth-grid signed">' +
+      '<div class="user-tile">' + (ME.picture ? '<img src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : '<span class="u-ic">👤</span>') + "<span>" + esc(ME.name || ME.email || "Bạn") + "</span></div>" +
+      '<button class="nav-tile" id="btn-journal"><span class="ic">📓</span>Nhật ký</button>' +
+      '<button class="nav-tile" id="btn-logout"><span class="ic">🚪</span>Đăng xuất</button></div>';
   }
-  return '<div class="auth-bar">' +
-    '<button class="btn btn-ghost" id="btn-login">👤 Đăng nhập</button>' +
-    '<button class="btn btn-ghost" id="btn-journal">📓 Nhật ký</button></div>';
+  return '<div class="auth-grid">' +
+    '<button class="nav-tile" id="btn-login"><span class="ic">👤</span>Đăng nhập</button>' +
+    '<button class="nav-tile" id="btn-journal"><span class="ic">📓</span>Nhật ký</button></div>';
 }
 function bindAuthBar(v) {
   const bl = $("#btn-login", v);
@@ -521,7 +524,7 @@ async function openJournalPopup() {
   const box = $("#j-list", root);
   if (!box) return;
   if (!list.length) {
-    box.innerHTML = '<div class="empty-note">Chưa có thành phố nào được lưu.<br>Vào Lịch trình, mở một thành phố và bấm nút 💾 Lưu nhé.</div>';
+    box.innerHTML = '<div class="empty-note">Chưa có thành phố nào được lưu.</div>';
     return;
   }
   // Anh dai dien cua mot thanh pho da luu: hero trong snapshot -> hero cam nang -> anh dia diem dau tien
@@ -654,7 +657,7 @@ function tripHero(t) {
 function renderItinerary(v) {
   let html = '<h2 class="sec-title font-round">Lịch trình của bạn 🗓️</h2>';
   if (!trips.length) {
-    html += '<div class="empty-note">Chưa có chuyến đi nào.<br>Vào Trang chủ, tìm một thành phố để bắt đầu nhé ✈️</div>';
+    html += '<div class="empty-note">Chưa có chuyến đi nào.</div>';
     html += '<div class="taskbar-spacer"></div>' + taskbarHTML();
     v.innerHTML = html; bindNav(v); return;
   }
@@ -802,7 +805,7 @@ function openStayPopup(t) {
 function openGuidePopup(t) {
   const g = guideOf(t);
   let body;
-  if (!g) body = '<div class="empty-note">Cẩm nang của ' + esc(t.city) + ' chưa có sẵn trong bản này.<br>Bạn vẫn có thể tự thêm địa điểm bằng nút "Thêm lịch trình" ở từng ngày nhé 🧭</div>';
+  if (!g) body = '<div class="empty-note">Cẩm nang của ' + esc(t.city) + ' chưa có sẵn trong bản này.</div>';
   else body =
     '<p style="line-height:1.55">' + esc(g.intro) + "</p>" +
     "<h4>🗓️ Thời điểm nên đi</h4><p style='line-height:1.55'>" + esc(g.bestTime) + "</p>" +
@@ -888,7 +891,7 @@ function openAddPlacePopup(t, day) {
         (isAdded ? '<div class="go"><b>Đã có trong ngày này</b></div>' : '<div class="go">🚌 ' + esc(p.go || "") + "</div>") + "</div></button>";
     }).join("") + "</div>";
   } else {
-    body += '<div class="empty-note">Thành phố này chưa có danh sách gợi ý sẵn.<br>Bạn tự thêm địa điểm ở biểu mẫu bên dưới nhé 👇</div>';
+    body += '<div class="empty-note">Thành phố này chưa có danh sách gợi ý sẵn.</div>';
   }
   body += '<div class="mt"><h4 style="margin:0 0 8px">✍️ Thêm địa điểm tự do</h4>' +
     '<input class="field" id="ap-name" placeholder="Tên địa điểm *">' +
@@ -950,12 +953,11 @@ function renderPhrases(v) {
   html += '<div class="card mb"><div class="row-between"><b>🌍 Quốc gia: ' + (country ? esc(country) : "—") + '</b><button class="btn btn-ghost btn-sm" id="ph-change">Đổi quốc gia</button></div>' +
     '<div id="ph-form" style="display:none" class="mt"><select class="field" id="ph-country"><option value="">🌍 Ấn chọn quốc gia…</option>' +
     Object.keys(PHRASES).map(k => '<option value="' + esc(k) + '"' + (found && found.key === k ? " selected" : "") + ">" + flagOf(k) + " " + esc(k) + "</option>").join("") +
-    '</select><div class="tiny muted" style="margin-top:6px">Ấn vào ô trên rồi chọn quốc gia trong danh sách — mẫu câu hiện ra ngay, không cần tự điền.</div></div></div>';
+    '</select></div></div>';
 
   if (!country) {
-    html += '<div class="empty-note">Bạn ấn nút "Đổi quốc gia" ở trên rồi chọn một nước trong danh sách để xem mẫu câu giao tiếp nhé 🌏</div>';
   } else if (!found) {
-    html += '<div class="empty-note">Chưa có sẵn mẫu câu cho ' + esc(country) + '.<br>Bạn thử các nước đã có sẵn ở mục "Đổi quốc gia" nhé.</div>';
+    html += '<div class="empty-note">Chưa có sẵn mẫu câu cho ' + esc(country) + '.</div>';
   } else {
     const set = found.set;
     html += '<div class="mb"><span class="chip">🗣️ ' + esc(set.lang) + "</span></div>";
@@ -991,7 +993,7 @@ async function ensurePrepTrip() {
 async function renderPrep(v) {
   let html = navRowHTML() + '<h2 class="sec-title font-round">Chuẩn bị cho chuyến đi 🎒</h2>';
   const t = await ensurePrepTrip();
-  if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.<br>Tạo một chuyến đi ở Trang chủ trước nhé ✈️</div>'; bindNav(v); return; }
+  if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.</div>'; bindNav(v); return; }
   if (trips.length > 1) {
     html += '<div class="nav-row">' + trips.map(x => '<button data-prep-trip="' + x.id + '" class="' + (x.id === t.id ? "on" : "") + '">📍 ' + esc(x.city) + "</button>").join("") + "</div>";
   }
