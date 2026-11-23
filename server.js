@@ -264,8 +264,13 @@ async function buildWikiGuide(cityName, country) {
   let cityLang = "vi";
   if (!cityPage) { cityPage = await wikiResolveCity("en", cityName); cityLang = "en"; }
   if (!cityPage) return null;
-  const enPage = cityLang === "en" ? cityPage : await wikiResolveCity("en", cityName);
-  const coords = (cityPage.coordinates && cityPage.coordinates[0]) || (enPage && enPage.coordinates && enPage.coordinates[0]) || null;
+  let enPage = cityLang === "en" ? cityPage : await wikiResolveCity("en", cityName);
+  let coords = (cityPage.coordinates && cityPage.coordinates[0]) || (enPage && enPage.coordinates && enPage.coordinates[0]) || null;
+  if (!coords && country) {
+    // Ten thanh pho trung ten nguoi/trang dinh huong (vd "Livingstone"): thu lai kem quoc gia de lay dung bai viet thanh pho
+    const q = await wikiResolveCity("en", `${cityName}, ${country}`) || await wikiResolveCity("en", `${cityName} ${country}`);
+    if (q && q.coordinates && q.coordinates[0]) { cityPage = q; cityLang = "en"; enPage = q; coords = q.coordinates[0]; }
+  }
 
   const cityTitleN = norm(cityPage.title);
   const seen = new Set();
