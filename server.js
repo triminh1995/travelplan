@@ -15,8 +15,8 @@ const JOURNAL_FILE = path.join(DATA_DIR, "journal.json");
    Cau hinh bang bien moi truong: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
    BASE_URL (tuy chon), SESSION_SECRET (tuy chon). Chua cau hinh khoa thi
    tinh nang dang nhap tat, app van chay binh thuong. */
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+const GOOGLE_CLIENT_ID = (process.env.GOOGLE_CLIENT_ID || "").trim();
+const GOOGLE_CLIENT_SECRET = (process.env.GOOGLE_CLIENT_SECRET || "").trim();
 const AUTH_CONFIGURED = !!(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET);
 const SESSION_SECRET = process.env.SESSION_SECRET || GOOGLE_CLIENT_SECRET || crypto.randomBytes(32).toString("hex");
 
