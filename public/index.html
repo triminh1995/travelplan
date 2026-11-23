@@ -31,15 +31,21 @@ body{
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-1;
-  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg.jpg") center 20%/cover no-repeat;
+  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat;
 }
 /* Nen MOT LOP DUY NHAT phu kin full-bleed tu mep nay sang mep kia, khop huong man hinh:
-   man hinh NGANG (may tinh, tablet ngang) dung travel-bg.jpg, neo center 20% de may bay
-   (nam o 18,5-25% chieu cao artwork) hien tron ven; man hinh DOC (dien thoai) dung
-   travel-bg-portrait.jpg neo top. Khong con co che contain thanh cot + lam mo hai ben. */
+   man hinh NGANG (may tinh, tablet ngang) dung travel-bg-wide.jpg — artwork NGANG 16:9
+   (2048x1152) khop man hinh 16:9 nen thay gan nhu DAY DU ca khung hinh: may bay tron o
+   goc tren phai + vet khoi, hang dia danh day du phia duoi va bong phan chieu mat nuoc;
+   man hinh DOC (dien thoai) dung travel-bg-portrait.jpg keo vua dung khung (100% 100%):
+   artwork doc ti le 0,442 trong khi man hinh dien thoai ~0,46 nen cover bi cat dai
+   phan chieu mat nuoc o day; keo vua khung thi toan bo hinh lọt tron trong man hinh —
+   may bay phia tren va hang dia danh + mat nuoc phan chieu phia duoi deu thay du,
+   do lech ti le chi ~4-5% nen tranh mau nuoc khong nhan ra meo.
+   Khong con co che contain thanh cot + lam mo hai ben. */
 @media (orientation:portrait){
   body::before{
-    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") center top/cover no-repeat;
+    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") center/100% 100% no-repeat;
   }
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
