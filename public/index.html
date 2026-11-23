@@ -31,15 +31,15 @@ body{
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-2;
-  background:url("assets/travel-bg.jpg") center/cover no-repeat, linear-gradient(180deg, #FBE7CE, #FFF7EC 50%, #FBE7CE);
+  background:url("assets/travel-bg.jpg") center top/cover no-repeat, linear-gradient(180deg, #FBE7CE, #FFF7EC 50%, #FBE7CE);
 }
 body::after{
   content:""; position:fixed; inset:0; z-index:-1;
   background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38));
 }
-/* Dien thoai: dung anh nen DOC rieng (9:19.5) phu FULL toan man hinh bang cover */
+/* Dien thoai: dung anh nen DOC rieng phu FULL toan man hinh bang cover, neo TOP de may bay o goc tren artwork luon hien tron tren moi ti le man hinh */
 @media (max-width:640px){
-  body::before{background-image:url("assets/travel-bg-portrait.jpg"); background-size:cover; background-position:center; background-color:#FFF7EC}
+  body::before{background-image:url("assets/travel-bg-portrait.jpg"); background-size:cover; background-position:center top; background-color:#FFF7EC}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -76,33 +76,33 @@ textarea.field{resize:vertical; min-height:64px}
 @keyframes planeGlide{0%,100%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(-7px,-9px) rotate(-4deg)}55%{transform:translate(-2px,-13px) rotate(-1deg)}75%{transform:translate(5px,-6px) rotate(3deg)}}
 @media (prefers-reduced-motion: reduce){.plane-wrap img{animation:none}}
 .date-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px}
-.date-btn{width:100%; text-align:left; background:#FFF9F0; border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; font-size:15px; font-weight:600; display:flex; justify-content:space-between; align-items:center}
+.date-btn{width:100%; height:52px; text-align:left; background:#FFF9F0; border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; font-size:15px; font-weight:600; display:flex; justify-content:space-between; align-items:center}
 .date-btn .ph{color:var(--muted); font-weight:500}
 .city-wrap{position:relative; margin-top:12px}
 .cc-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
 .cc-row .city-wrap{margin-top:0; min-width:0}
-.cc-row .field{padding:12px 10px}
+.cc-row .field{padding:12px 10px; height:52px}
 .suggest{position:absolute; left:0; right:0; top:calc(100% + 6px); background:#fff; border:2px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); overflow:hidden; z-index:30}
 .suggest button{display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left; padding:11px 14px; font-size:15px; border-bottom:1px solid #FBF0DD}
 .suggest button:last-child{border-bottom:none}
 .suggest button:hover{background:#FFF4E4}
 .suggest .ct{color:var(--muted); font-size:12px; font-weight:700}
 .search-btn{width:100%; margin-top:16px; padding:15px; font-size:17px}
-.nav-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
-.nav-tile{background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
-.nav-tile .ic{font-size:24px; line-height:1}
+.nav-grid{display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:10px; margin-top:12px}
+.nav-tile{background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; height:76px; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
+.nav-tile .ic{font-size:24px; line-height:1; height:26px; display:flex; align-items:center; justify-content:center}
 .nav-tile.on{background:var(--coral); border-color:var(--coral); color:#fff}
 .nav-row{display:flex; gap:8px; margin-bottom:14px}
 .nav-row button{flex:1; min-width:0; background:var(--card); border:2px solid var(--line); border-radius:999px; padding:9px 4px; font-weight:700; font-size:13px; box-shadow:var(--shadow)}
 .nav-row button.on{background:var(--coral); border-color:var(--coral); color:#fff}
-.tab-nav button{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:8px 2px 7px; line-height:1.1; white-space:nowrap}
+.tab-nav button{display:flex; flex-direction:column; align-items:center; justify-content:center; height:56px; gap:3px; padding:8px 2px 7px; line-height:1.1; white-space:nowrap}
 .tab-nav button .ic{font-size:19px; line-height:1}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
 .taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--card); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
 .taskbar-in{max-width:540px; margin:0 auto; display:flex; gap:6px}
-.taskbar button{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
+.taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
 .taskbar button .lb{font-size:12px; font-weight:700}
 .taskbar button.on{color:var(--coral-d)}
@@ -255,10 +255,10 @@ body:has(.taskbar) .toast{bottom:106px}
 .empty-note{background:rgba(255,253,248,.85); border:2px dashed var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
 /* ===== Dang nhap & Nhat ky ===== */
 .auth-bar{display:flex; gap:8px; margin-top:12px; align-items:stretch}
-.auth-bar .btn{flex:1; min-width:0; padding:11px 10px; font-size:14px; white-space:nowrap}
+.auth-bar .btn{flex:1; min-width:0; height:46px; padding:11px 10px; font-size:14px; white-space:nowrap}
 .auth-bar.signed .btn{flex:0 0 auto}
 .auth-bar.signed .user-chip{flex:1 1 auto}
-.user-chip{display:flex; align-items:center; gap:8px; background:rgba(255,253,248,.9); border:2px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; box-shadow:var(--shadow); font-weight:700; font-size:13px; flex:1.2; min-width:0}
+.user-chip{display:flex; align-items:center; height:46px; gap:8px; background:rgba(255,253,248,.9); border:2px solid var(--line); border-radius:999px; padding:5px 12px 5px 6px; box-shadow:var(--shadow); font-weight:700; font-size:13px; flex:1.2; min-width:0}
 .user-chip img{width:30px; height:30px; border-radius:50%; flex:none}
 .user-chip span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .j-item{border:2px solid var(--line); border-radius:var(--r-md); padding:12px 14px; margin-bottom:10px; background:#fff}
@@ -496,7 +496,7 @@ function authBarHTML() {
       '<button class="btn btn-ghost" id="btn-logout">Đăng xuất</button></div>';
   }
   return '<div class="auth-bar">' +
-    '<button class="btn btn-teal" id="btn-login">🔐 Đăng nhập</button>' +
+    '<button class="btn btn-ghost" id="btn-login">👤 Đăng nhập</button>' +
     '<button class="btn btn-ghost" id="btn-journal">📓 Nhật ký</button></div>';
 }
 function bindAuthBar(v) {
@@ -948,11 +948,12 @@ function renderPhrases(v) {
   const found = phraseSetFor(country);
   if (fromTrip && found) html += '<div class="mb"><span class="chip">🧭 Theo chuyến đi của bạn: ' + esc(country) + "</span></div>";
   html += '<div class="card mb"><div class="row-between"><b>🌍 Quốc gia: ' + (country ? esc(country) : "—") + '</b><button class="btn btn-ghost btn-sm" id="ph-change">Đổi quốc gia</button></div>' +
-    '<div id="ph-form" style="display:none" class="mt"><div class="add-row" style="margin-top:0"><input class="field" id="ph-country" placeholder="Điền tên quốc gia, VD: Nhật Bản, Pháp…"><button class="btn btn-coral" id="ph-go">Xem</button></div>' +
-    '<div class="tiny muted" style="margin-top:6px">Hiện có sẵn mẫu câu cho: ' + Object.keys(PHRASES).join(", ") + ".</div></div></div>";
+    '<div id="ph-form" style="display:none" class="mt"><select class="field" id="ph-country"><option value="">🌍 Ấn chọn quốc gia…</option>' +
+    Object.keys(PHRASES).map(k => '<option value="' + esc(k) + '"' + (found && found.key === k ? " selected" : "") + ">" + flagOf(k) + " " + esc(k) + "</option>").join("") +
+    '</select><div class="tiny muted" style="margin-top:6px">Ấn vào ô trên rồi chọn quốc gia trong danh sách — mẫu câu hiện ra ngay, không cần tự điền.</div></div></div>';
 
   if (!country) {
-    html += '<div class="empty-note">Bạn điền tên quốc gia ở trên để xem mẫu câu giao tiếp của nước đó nhé 🌏</div>';
+    html += '<div class="empty-note">Bạn ấn nút "Đổi quốc gia" ở trên rồi chọn một nước trong danh sách để xem mẫu câu giao tiếp nhé 🌏</div>';
   } else if (!found) {
     html += '<div class="empty-note">Chưa có sẵn mẫu câu cho ' + esc(country) + '.<br>Bạn thử các nước đã có sẵn ở mục "Đổi quốc gia" nhé.</div>';
   } else {
@@ -969,13 +970,8 @@ function renderPhrases(v) {
   v.innerHTML = html; bindNav(v);
   const ch = $("#ph-change", v);
   if (ch) ch.onclick = () => { const f = $("#ph-form", v); f.style.display = f.style.display === "none" ? "block" : "none"; };
-  const go = $("#ph-go", v);
-  if (go) go.onclick = () => {
-    const val = $("#ph-country", v).value.trim();
-    if (!val) return;
-    if (phraseSetFor(val)) { phraseState.custom = val; render(); }
-    else toast("Chưa có mẫu câu cho " + val + " — xem danh sách nước có sẵn nhé");
-  };
+  const phSel = $("#ph-country", v);
+  if (phSel) phSel.onchange = () => { if (phSel.value) { phraseState.custom = phSel.value; render(); } };
   $$("[data-say]", v).forEach(b => b.onclick = () => {
     try {
       const u = new SpeechSynthesisUtterance(b.dataset.say);
