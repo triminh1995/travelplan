@@ -24,13 +24,13 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0} html{background:#FFF7EC}
+html,body{margin:0;padding:0} html{background:#5f8987}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
   color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
 }
 body::before{
-  content:""; position:fixed; inset:0; z-index:-1;
+  content:""; position:fixed; inset:0; bottom:auto; height:100vh; height:100lvh; z-index:-1;
   background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat;
 }
 /* Nen MOT LOP DUY NHAT phu kin full-bleed tu mep nay sang mep kia, khop huong man hinh:
@@ -131,7 +131,7 @@ textarea.field{resize:vertical; min-height:64px}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
-.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,253,248,.92); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,253,248,.92); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
 .taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
