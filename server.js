@@ -259,9 +259,9 @@ async function wikiEnTitle(page) {
     return ll ? ll["*"] : null;
   } catch { return null; }
 }
-async function wikiGeoPlaces(lang, lat, lon) {
+async function wikiGeoPlaces(lang, lat, lon, radius) {
   try {
-    const j = await wikiApi(lang, { action: "query", generator: "geosearch", ggscoord: `${lat}|${lon}`, ggsradius: "10000", ggslimit: "50", ...PAGE_PROPS, exintro: "0", exsentences: "3" });
+    const j = await wikiApi(lang, { action: "query", generator: "geosearch", ggscoord: `${lat}|${lon}`, ggsradius: String(radius || 10000), ggslimit: "50", ...PAGE_PROPS, exintro: "0", exsentences: "3" });
     return j.query && j.query.pages ? Object.values(j.query.pages) : [];
   } catch { return []; }
 }
@@ -298,6 +298,18 @@ async function wikiDataPlace(name) {
   } catch { return null; }
 }
 const guideInflight = new Map();
+async function wikiCategoryPlacesDeep(enTitle) {
+  try {
+    const j = await wikiApi("en", { action: "query", list: "categorymembers", cmtitle: `Category:Tourist attractions in ${enTitle}`, cmtype: "subcat", cmlimit: "10" });
+    const subs = (j.query && j.query.categorymembers) || [];
+    let out = [];
+    for (const sc of subs.slice(0, 6)) {
+      const jj = await wikiApi("en", { action: "query", generator: "categorymembers", gcmtitle: sc.title, gcmtype: "page", gcmlimit: "50", ...PAGE_PROPS, exintro: "0", exsentences: "3" });
+      if (jj.query && jj.query.pages) out = out.concat(Object.values(jj.query.pages));
+    }
+    return out;
+  } catch { return []; }
+}
 async function buildWikiGuide(cityName, country) {
   // Uu tien Wikipedia tieng Viet (gioi thieu tieng Viet), du phong tieng Anh
   let cityPage = await wikiResolveCity("vi", cityName);
@@ -334,16 +346,22 @@ async function buildWikiGuide(cityName, country) {
   const enTitleN = enPage && enPage.title ? norm(enPage.title) : "";
   const seen = new Set();
   const rawPlaces = [];
-  const pushAll = (arr) => { for (const p of arr || []) { const tn = norm(p && p.title); if (tn && tn !== enTitleN && !seen.has(tn) && isPlacePage(p, cityTitleN)) { seen.add(tn); rawPlaces.push(p); } } };
-  const [catPlaces, geoPlaces] = await Promise.all([
+  const pushAll = (arr) => { for (const p of arr || []) { const tn = norm(p && p.title); if (!tn || tn === enTitleN || seen.has(tn) || !isPlacePage(p, cityTitleN)) continue; const pc = p.coordinates && p.coordinates[0]; if (pc) { const dup = rawPlaces.some(q => { const qc = q.coordinates && q.coordinates[0]; return qc && Math.abs(qc.lat - pc.lat) < 0.0025 && Math.abs(qc.lon - pc.lon) < 0.0025; }); if (dup) continue; } seen.add(tn); rawPlaces.push(p); } };
+  const [catPlaces, geoPlaces, geoEn] = await Promise.all([
     enPage && enPage.title ? wikiCategoryPlaces(enPage.title) : Promise.resolve([]),
-    coords ? wikiGeoPlaces(cityLang, coords.lat, coords.lon) : Promise.resolve([])
+    coords ? wikiGeoPlaces(cityLang, coords.lat, coords.lon) : Promise.resolve([]),
+    coords ? wikiGeoPlaces("en", coords.lat, coords.lon) : Promise.resolve([])
   ]);
   pushAll(catPlaces);
   pushAll(geoPlaces);
-  if (coords && rawPlaces.length < 5 && cityLang !== "en") pushAll(await wikiGeoPlaces("en", coords.lat, coords.lon));
+  pushAll(geoEn);
+  if (coords && rawPlaces.length < 8) {
+    const wide = await Promise.all([wikiGeoPlaces(cityLang, coords.lat, coords.lon, 20000), wikiGeoPlaces("en", coords.lat, coords.lon, 20000)]);
+    pushAll(wide[0]); pushAll(wide[1]);
+  }
+  if (enPage && enPage.title && rawPlaces.length < 8) pushAll(await wikiCategoryPlacesDeep(enPage.title));
   rawPlaces.sort((a, b) => (pageImg(b) ? 1 : 0) - (pageImg(a) ? 1 : 0));
-  const picked = rawPlaces.slice(0, 8);
+  const picked = rawPlaces.slice(0, 12);
   if (!picked.length) return null;
 
   const city = String(cityName).trim();

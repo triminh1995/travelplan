@@ -132,7 +132,7 @@ textarea.field{resize:vertical; min-height:64px}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
 .taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--card); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-.taskbar-in{max-width:540px; margin:0 auto; display:flex; gap:6px}
+.taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
 .taskbar button .lb{font-size:12px; font-weight:700}
@@ -158,9 +158,10 @@ body:has(.taskbar) .toast{bottom:106px}
 .city-head .dt{font-size:12px; color:var(--muted); font-weight:600; margin-top:2px}
 .head-btns{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:12px; align-items:stretch}
 .head-btns .btn{width:100%; height:42px; min-width:0; padding:0 4px; font-size:12px; line-height:1; gap:4px; white-space:nowrap; overflow:hidden; display:flex; align-items:center; justify-content:center}
-.head-btns .hb-ic{font-size:14px; line-height:1; width:16px; flex:0 0 16px; display:inline-flex; align-items:center; justify-content:center}
-@media(max-width:419px){ .head-btns{gap:4px} .head-btns .btn{font-size:10.5px; gap:2px; padding:0 1px} .head-btns .hb-ic{font-size:12px; width:12px; flex:0 0 12px} }
-@media(max-width:374px){ .head-btns .btn{font-size:10px} .head-btns .hb-ic{width:11px; flex:0 0 11px} }
+.head-btns .hb-ic{font-size:18px; line-height:1; width:22px; flex:0 0 22px; display:inline-flex; align-items:center; justify-content:center}
+.head-btns .btn.saved{background:var(--teal); border-color:var(--teal); color:#fff}
+@media(max-width:419px){ .head-btns{gap:4px} .head-btns .btn{gap:2px; padding:0 1px} .head-btns .hb-ic{width:20px; flex:0 0 20px} }
+@media(max-width:374px){ .head-btns .hb-ic{width:19px; flex:0 0 19px} }
 /* ===== Icon net SVG thay emoji o cac nut chuc nang: cung 1 phong cach net bo tron ===== */
 .ic-svg{display:block; flex:none}
 .nav-tile .ic{color:var(--teal-d)} .nav-tile.on .ic{color:#fff}
@@ -173,7 +174,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .user-tile .u-ic .ic-svg{width:24px; height:24px}
 .btn .ic-svg{width:17px; height:17px}
 .btn-sm .ic-svg{width:14px; height:14px}
-.head-btns .hb-ic .ic-svg{width:15px; height:15px}
+.head-btns .hb-ic .ic-svg{width:20px; height:20px}
 .head-btns .btn-ghost .hb-ic{color:var(--teal-d)}
 .head-btns #btn-del-trip .hb-ic{color:var(--coral-d)}
 @media(max-width:419px){ .head-btns .hb-ic .ic-svg{width:11px; height:11px} }
@@ -736,7 +737,15 @@ function renderHome(v) {
   countrySel.onchange = () => { homeForm.country = countrySel.value; homeForm.city = ""; renderHome(v); };
   if (cityInp && citySugg) {
     let suggList = [];
-    const hideSugg = () => { citySugg.style.display = "none"; };
+    const hideSugg = () => { citySugg.style.display = "none"; citySugg.style.maxHeight = ""; };
+    const fitSugg = () => {
+      if (citySugg.style.display === "none") return;
+      const vv = window.visualViewport;
+      const r = cityInp.getBoundingClientRect();
+      const viewH = vv ? vv.height : window.innerHeight;
+      const avail = Math.floor(viewH - r.bottom - 14);
+      citySugg.style.maxHeight = Math.max(120, Math.min(320, avail)) + "px";
+    };
     const paintSugg = () => {
       if (!homeForm.country) { hideSugg(); return; }
       const q = norm(cityInp.value);
@@ -756,6 +765,7 @@ function renderHome(v) {
       if (!suggList.length) { hideSugg(); return; }
       citySugg.innerHTML = suggList.map((n, i) => '<button type="button" data-sugg="' + i + '">' + esc(n) + '<span class="ct">' + esc(homeForm.country) + "</span></button>").join("");
       citySugg.style.display = "block";
+      fitSugg();
       $$("[data-sugg]", citySugg).forEach(b => b.onmousedown = (e) => {
         e.preventDefault();
         const n = suggList[+b.dataset.sugg];
@@ -763,8 +773,8 @@ function renderHome(v) {
       });
     };
     cityInp.oninput = () => { homeForm.city = cityInp.value.trim(); paintSugg(); };
-    cityInp.onfocus = () => paintSugg();
-    cityInp.onblur = () => setTimeout(hideSugg, 120);
+    cityInp.onfocus = () => { paintSugg(); if (window.visualViewport) window.visualViewport.addEventListener("resize", fitSugg); };
+    cityInp.onblur = () => { setTimeout(hideSugg, 120); if (window.visualViewport) window.visualViewport.removeEventListener("resize", fitSugg); };
   }
 
   $("#f-search", v).onclick = async () => {
@@ -855,10 +865,10 @@ function renderTripDetail(box) {
     '<div class="city-head">' + (hero ? '<img src="' + esc(hero) + '" alt="" onerror="this.outerHTML=phImg()">' : phImg()) +
       '<div><div class="nm">' + esc(t.city) + '</div><div class="dt">' + fmtD(t.startDate) + " → " + fmtD(t.endDate) + " · " + n + " ngày " + (n - 1) + " đêm" + (t.country ? " · " + esc(t.country) : "") + "</div></div></div>" +
     '<div class="head-btns">' +
-      '<button class="btn btn-teal btn-sm" id="btn-guide"><span class="hb-ic">' + ic("book") + '</span>Cẩm nang</button>' +
-      '<button class="btn btn-ghost btn-sm" id="btn-save-journal"><span class="hb-ic">' + ic("bookmark") + '</span>' + (journalIds.has(t.id) ? "Đã lưu" : "Lưu") + '</button>' +
-      '<button class="btn btn-ghost btn-sm" id="btn-edit-trip"><span class="hb-ic">' + ic("pen") + '</span>Chỉnh sửa</button>' +
-      '<button class="btn btn-ghost btn-sm" id="btn-del-trip"><span class="hb-ic">' + ic("trash") + '</span>Xóa</button>' +
+      '<button class="btn btn-teal btn-sm" id="btn-guide" title="Cẩm nang" aria-label="Cẩm nang"><span class="hb-ic">' + ic("book") + '</span></button>' +
+      '<button class="btn btn-ghost btn-sm' + (journalIds.has(t.id) ? " saved" : "") + '" id="btn-save-journal" title="' + (journalIds.has(t.id) ? "Đã lưu vào Nhật ký" : "Lưu vào Nhật ký") + '" aria-label="Lưu vào Nhật ký"><span class="hb-ic">' + ic("bookmark") + '</span></button>' +
+      '<button class="btn btn-ghost btn-sm" id="btn-edit-trip" title="Chỉnh sửa" aria-label="Chỉnh sửa"><span class="hb-ic">' + ic("pen") + '</span></button>' +
+      '<button class="btn btn-ghost btn-sm" id="btn-del-trip" title="Xóa chuyến" aria-label="Xóa chuyến"><span class="hb-ic">' + ic("trash") + '</span></button>' +
     "</div>" +
     '<div class="mt" id="stay-box">' + stayHTML(t) + "</div>" +
   "</div>";
@@ -1082,7 +1092,7 @@ function openAddPlacePopup(t, day) {
 }
 
 /* ================= GIAO TIEP ================= */
-const PHRASE_ALIAS = { "Mỹ": "Anh", "Úc": "Anh", "Canada": "Anh", "Singapore": "Anh", "Malaysia": "Anh", "Philippines": "Anh", "Ấn Độ": "Anh", "UAE": "Anh", "Hồng Kông": "Trung Quốc", "Ma Cao": "Trung Quốc", "New Zealand": "Anh", "Ireland": "Anh" };
+const PHRASE_ALIAS = { "Mỹ": "Anh", "Úc": "Anh", "Canada": "Anh", "Singapore": "Anh", "Malaysia": "Anh", "Hồng Kông": "Trung Quốc", "Ma Cao": "Trung Quốc", "New Zealand": "Anh", "Ireland": "Anh", "Iceland": "Anh", "Malta": "Anh", "Nam Phi": "Anh", "Pakistan": "Anh", "UAE": "Ai Cập", "Qatar": "Ai Cập", "Ả Rập Xê Út": "Ai Cập", "Morocco": "Ai Cập", "Jordan": "Ai Cập", "Áo": "Đức", "Thụy Sĩ": "Đức", "Bỉ": "Pháp", "Luxembourg": "Pháp", "Mexico": "Tây Ban Nha", "Argentina": "Tây Ban Nha", "Chile": "Tây Ban Nha", "Peru": "Tây Ban Nha", "Colombia": "Tây Ban Nha", "Brazil": "Bồ Đào Nha" };
 function phraseSetFor(country) {
   if (!country) return null;
   if (PHRASES[country]) return { key: country, set: PHRASES[country] };
@@ -1093,7 +1103,7 @@ function phraseSetFor(country) {
   return null;
 }
 function renderPhrases(v) {
-  let html = navRowHTML() + '<h2 class="sec-title font-round">Mẫu câu giao tiếp</h2>';
+  let html = '<h2 class="sec-title font-round">Mẫu câu giao tiếp</h2>';
   let country = phraseState.custom || "";
   let fromTrip = false;
   if (!country) {
@@ -1121,7 +1131,7 @@ function renderPhrases(v) {
       ).join("") + "</div>";
     }
   }
-  v.innerHTML = html; bindNav(v);
+  v.innerHTML = html + '<div class="taskbar-spacer"></div>' + taskbarHTML(); bindNav(v);
   const ch = $("#ph-change", v);
   if (ch) ch.onclick = () => { const f = $("#ph-form", v); f.style.display = f.style.display === "none" ? "block" : "none"; };
   const phSel = $("#ph-country", v);
@@ -1143,9 +1153,9 @@ async function ensurePrepTrip() {
   return curTrip;
 }
 async function renderPrep(v) {
-  let html = navRowHTML() + '<h2 class="sec-title font-round">Chuẩn bị cho chuyến đi</h2>';
+  let html = '<h2 class="sec-title font-round">Chuẩn bị cho chuyến đi</h2>';
   const t = await ensurePrepTrip();
-  if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.</div>'; bindNav(v); return; }
+  if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.</div><div class="taskbar-spacer"></div>' + taskbarHTML(); bindNav(v); return; }
   if (trips.length > 1) {
     html += '<div class="nav-row">' + trips.map(x => '<button data-prep-trip="' + x.id + '" class="' + (x.id === t.id ? "on" : "") + '">' + ic("pin") + esc(x.city) + "</button>").join("") + "</div>";
   }
@@ -1163,7 +1173,7 @@ async function renderPrep(v) {
   ).join("");
   html += '<div class="card"><b>➕ Tạo nhóm mới</b><div class="add-row"><input class="field" id="new-group-name" placeholder="VD: Đồ cho bé, Dụng cụ quay phim…"><button class="btn btn-coral btn-sm" id="btn-new-group">Tạo nhóm</button></div></div>';
 
-  v.innerHTML = html; bindNav(v);
+  v.innerHTML = html + '<div class="taskbar-spacer"></div>' + taskbarHTML(); bindNav(v);
   $$("[data-prep-trip]", v).forEach(b => b.onclick = async () => { prepTripId = b.dataset.prepTrip; curTrip = null; render(); });
   $$("[data-toggle]", v).forEach(b => b.onclick = async () => {
     const [gid, iid] = b.dataset.toggle.split(":");
