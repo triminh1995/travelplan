@@ -66,6 +66,16 @@ function currentUser(req) {
   if (!p || !p.sub) return null;
   return { sub: p.sub, email: p.email || "", name: p.name || "", picture: p.picture || "" };
 }
+function callerKey(req, res) {
+  const u = currentUser(req);
+  if (u) return "u:" + u.sub;
+  let g = parseCookies(req).tp_guest;
+  if (!g) {
+    g = uid() + uid();
+    if (res) { try { res.setHeader("Set-Cookie", cookieStr("tp_guest", g, 365 * 24 * 3600, baseUrl(req).startsWith("https://"))); } catch {} }
+  }
+  return "g:" + g;
+}
 
 async function handleAuth(req, res, pathname) {
   const secure = baseUrl(req).startsWith("https://");
@@ -480,7 +490,7 @@ async function handleApi(req, res, parts, query) {
     if (req.method === "POST" && parts.length === 1) {
       const b = await readBody(req);
       const trip = findTrip(b.tripId);
-      if (!trip) return sendJson(res, 404, { error: "Không tìm thấy chuyến đi" });
+      if (!trip || trip.owner !== "u:" + user.sub) return sendJson(res, 404, { error: "Không tìm thấy chuyến đi" });
       const ix = mine.findIndex(e => e.tripId === trip.id);
       const snap = buildSnapshot(trip, ix >= 0 ? { id: mine[ix].id } : null);
       if (ix >= 0) mine[ix] = snap; else mine.unshift(snap);
@@ -498,9 +508,19 @@ async function handleApi(req, res, parts, query) {
 
   if (parts[0] !== "trips") return sendJson(res, 404, { error: "not found" });
 
+  const ownerKey = callerKey(req, res);
+  if (ownerKey.startsWith("u:")) {
+    const guestId = parseCookies(req).tp_guest;
+    let claimed = false;
+    for (const t of DB.trips) {
+      if (!t.owner || (guestId && t.owner === "g:" + guestId)) { t.owner = ownerKey; claimed = true; }
+    }
+    if (claimed) saveData(DB);
+  }
+
   if (parts.length === 1) {
     if (req.method === "GET") {
-      return sendJson(res, 200, DB.trips.map(t => ({
+      return sendJson(res, 200, DB.trips.filter(t => t.owner === ownerKey).map(t => ({
         id: t.id, city: t.city, country: t.country, guideKey: t.guideKey,
         startDate: t.startDate, endDate: t.endDate, createdAt: t.createdAt,
         placeCount: Object.values(t.days || {}).reduce((a, d) => a + d.length, 0)
@@ -513,7 +533,7 @@ async function handleApi(req, res, parts, query) {
       const trip = {
         id: uid(), city: String(b.city).slice(0, 80), country: String(b.country || "").slice(0, 60),
         guideKey: b.guideKey || null, startDate: b.startDate, endDate: b.endDate,
-        createdAt: new Date().toISOString(), days: {}, stay: null, prep: defaultPrep()
+        createdAt: new Date().toISOString(), days: {}, stay: null, prep: defaultPrep(), owner: ownerKey
       };
       DB.trips.unshift(trip); saveData(DB);
       return sendJson(res, 201, trip);
@@ -521,7 +541,7 @@ async function handleApi(req, res, parts, query) {
   }
 
   const trip = findTrip(parts[1]);
-  if (!trip) return sendJson(res, 404, { error: "Không tìm thấy chuyến đi" });
+  if (!trip || trip.owner !== ownerKey) return sendJson(res, 404, { error: "Không tìm thấy chuyến đi" });
 
   if (parts.length === 2) {
     if (req.method === "GET") return sendJson(res, 200, trip);
@@ -559,6 +579,14 @@ async function handleApi(req, res, parts, query) {
     if (req.method === "DELETE" && parts.length === 6) {
       trip.days[day] = trip.days[day].filter(p => p.id !== parts[5]);
       saveData(DB); syncJournalForTrip(trip); return sendJson(res, 200, { ok: true });
+    }
+    if (req.method === "PUT" && parts.length === 6) {
+      const b = await readBody(req);
+      const place = trip.days[day].find(p => p.id === parts[5]);
+      if (!place) return sendJson(res, 404, { error: "Không tìm thấy địa điểm" });
+      if (typeof b.visited === "boolean") place.visited = b.visited;
+      saveData(DB); syncJournalForTrip(trip);
+      return sendJson(res, 200, place);
     }
   }
 

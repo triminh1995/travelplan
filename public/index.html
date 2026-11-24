@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#FFF7EC">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Travel Plan">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -24,7 +24,7 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0} html{background:#FFF7EC}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
   color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
@@ -234,6 +234,16 @@ body:has(.taskbar) .toast{bottom:106px}
 .place-card .nm{font-weight:700; font-size:15px; line-height:1.25}
 .place-card .ds{font-size:12.5px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .place-card .go{font-size:12.5px; margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.place-card.done{border-color:#7BC5A8; background:#F2FBF6}
+.place-card .vchip{display:inline-flex; align-items:center; gap:4px; border-radius:999px; padding:2px 9px; font-size:11.5px; font-weight:800; margin-left:8px; vertical-align:2px}
+.place-card .vchip.yes{background:#DFF5E9; color:#157347}
+.place-card .vchip.no{background:#F1EDE6; color:#8A7B68}
+.visit-btn{flex:none; width:34px; height:34px; border-radius:50%; border:2.5px solid #CBBFA9; background:#fff; color:transparent; font-size:17px; font-weight:900; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; margin-top:2px; padding:0}
+.visit-btn.on{border-color:#1FA97A; background:#1FA97A; color:#fff}
+.day-progress{display:flex; align-items:center; gap:10px; margin:10px 0 4px}
+.day-progress .bar{flex:1; height:8px; border-radius:99px; background:#F1E7D7; overflow:hidden}
+.day-progress .bar>div{height:100%; background:#1FA97A; border-radius:99px}
+.day-progress .txt{font-size:12.5px; font-weight:800; color:#157347; white-space:nowrap}
 .stay-box{background:#F2FBF9; border:2px solid var(--teal); border-radius:var(--r-md); padding:12px 14px}
 
 /* ===== Popup ===== */
@@ -890,17 +900,18 @@ function renderTripDetail(box) {
 
   // Luoi chon ngay
   html += '<div class="card mt"><div class="day-grid">' + Array.from({ length: n }, (_, i) => {
-    const d = i + 1, iso = addDays(t.startDate, i), cnt = (t.days[d] || []).length;
-    return '<button class="day-tile ' + (curDay === d ? "on" : "") + '" data-day="' + d + '"><div class="d1">Ngày ' + d + '</div><div class="d2">' + WD2[parseD(iso).getDay()] + ", " + parseD(iso).getDate() + "/" + (parseD(iso).getMonth() + 1) + '</div><div class="d3"><span class="chip">' + cnt + " điểm đến</span></div></button>";
+    const d = i + 1, iso = addDays(t.startDate, i), cnt = (t.days[d] || []).length, doneN = (t.days[d] || []).filter(p => p.visited).length;
+    return '<button class="day-tile ' + (curDay === d ? "on" : "") + '" data-day="' + d + '"><div class="d1">Ngày ' + d + '</div><div class="d2">' + WD2[parseD(iso).getDay()] + ", " + parseD(iso).getDate() + "/" + (parseD(iso).getMonth() + 1) + '</div><div class="d3"><span class="chip">' + cnt + " điểm đến" + (doneN ? " · ✓ " + doneN + " đã đi" : "") + "</span></div></button>";
   }).join("") + "</div></div>";
 
   // The ngay dang chon
   const dayISO = addDays(t.startDate, curDay - 1);
   const places = t.days[curDay] || [];
   html += '<div class="card mt"><h3 class="day-big">Ngày ' + curDay + '</h3><div class="day-sub">' + fmtFull(dayISO) + '</div><hr class="day-divider">';
+  if (places.length) { const dn = places.filter(p => p.visited).length; html += '<div class="day-progress"><div class="bar"><div style="width:' + Math.round(dn / places.length * 100) + '%"></div></div><span class="txt">Đã đi ' + dn + '/' + places.length + ' điểm</span></div>'; }
   if (!places.length) html += '<div class="muted" style="font-weight:600">Chưa có địa điểm nào trong ngày này.</div>';
   html += places.map(p =>
-    '<div class="place-card">' + imgOr(p) + '<div style="flex:1;min-width:0"><div class="nm">' + esc(p.name) + '</div>' +
+    '<div class="place-card' + (p.visited ? ' done' : '') + '"><button class="visit-btn' + (p.visited ? ' on' : '') + '" data-visited="' + p.id + '" title="' + (p.visited ? 'Đã đi — ấn để bỏ đánh dấu' : 'Đánh dấu đã đi') + '">✓</button>' + imgOr(p) + '<div style="flex:1;min-width:0"><div class="nm">' + esc(p.name) + '<span class="vchip ' + (p.visited ? 'yes' : 'no') + '">' + (p.visited ? '✓ Đã đi' : 'Chưa đi') + '</span></div>' +
     (p.desc ? '<div class="ds">' + esc(p.desc) + "</div>" : "") +
     (p.go ? '<div class="go">🚌 ' + esc(p.go) + "</div>" : "") +
     '<div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-teal btn-sm" data-detail="' + p.id + '">Chi tiết</button>' +
@@ -936,8 +947,21 @@ function renderTripDetail(box) {
     if (p) openPlaceDetail(p, g && g.transportTips);
   });
   $$("[data-del-place]", box).forEach(b => b.onclick = async () => {
-    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + b.dataset.delPlace, "DELETE"); curTrip = await api("/api/trips/" + t.id); render(); }
-    catch (e) { toast(e.message); }
+    const arr = curTrip.days[curDay] || [];
+    const ix = arr.findIndex(x => x.id === b.dataset.delPlace);
+    if (ix < 0) return;
+    const removed = arr.splice(ix, 1)[0];
+    render();
+    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + removed.id, "DELETE"); }
+    catch (e) { arr.splice(ix, 0, removed); render(); toast("Chưa xóa được, bạn thử lại nhé"); }
+  });
+  $$("[data-visited]", box).forEach(b => b.onclick = async () => {
+    const pl = (curTrip.days[curDay] || []).find(x => x.id === b.dataset.visited);
+    if (!pl) return;
+    pl.visited = !pl.visited;
+    render();
+    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + pl.id, "PUT", { visited: pl.visited }); }
+    catch (e) { try { curTrip = await api("/api/trips/" + t.id); } catch {} render(); toast("Chưa lưu được đánh dấu, bạn thử lại nhé"); }
   });
   $("#btn-add-place", box).onclick = () => openAddPlacePopup(t, curDay);
 }
@@ -1311,6 +1335,7 @@ async function checkAppVersion() {
   return false;
 }
 checkAppVersion();
+if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(() => {}); } catch {} }
 async function refreshData() {
   try {
     if (await checkAppVersion()) return;
