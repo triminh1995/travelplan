@@ -832,7 +832,7 @@ function tripHero(t) {
   return null;
 }
 function renderItinerary(v) {
-  let html = '<h2 class="sec-title font-round">Lịch trình của bạn</h2>';
+  let html = '';
   if (!trips.length) {
     html += '<div class="empty-note">Chưa có chuyến đi nào.</div>';
     html += '<div class="taskbar-spacer"></div>' + taskbarHTML();
@@ -1142,7 +1142,7 @@ function speakText(text, lang) {
   } catch { fallback(); }
 }
 function renderPhrases(v) {
-  let html = '<h2 class="sec-title font-round">Mẫu câu giao tiếp</h2>';
+  let html = '';
   let country = phraseState.custom || "";
   let fromTrip = false;
   if (!country) {
@@ -1151,7 +1151,7 @@ function renderPhrases(v) {
   }
   const found = phraseSetFor(country);
   if (fromTrip && found) html += '<div class="mb"><span class="chip">🧭 Theo chuyến đi của bạn: ' + esc(country) + "</span></div>";
-  html += '<div class="card mb"><select class="field" id="ph-country"><option value="">Ấn chọn quốc gia…</option>' +
+  html += '<div class="card mb"><select class="field" id="ph-country"><option value="">Chọn quốc gia…</option>' +
     Object.keys(PHRASES).map(k => '<option value="' + esc(k) + '"' + (found && found.key === k ? " selected" : "") + ">" + flagOf(k) + " " + esc(k) + "</option>").join("") +
     "</select></div>";
 
@@ -1183,7 +1183,7 @@ async function ensurePrepTrip() {
   return curTrip;
 }
 async function renderPrep(v) {
-  let html = '<h2 class="sec-title font-round">Chuẩn bị cho chuyến đi</h2>';
+  let html = '';
   const t = await ensurePrepTrip();
   if (!t) { v.innerHTML = html + '<div class="empty-note">Chưa có chuyến đi nào.</div><div class="taskbar-spacer"></div>' + taskbarHTML(); bindNav(v); return; }
   if (trips.length > 1) {
