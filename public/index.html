@@ -24,15 +24,12 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0} html{background:#96afab}
+html,body{margin:0;padding:0} html{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #96afab}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
   color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
 }
-body::before{
-  content:""; position:fixed; inset:0; bottom:auto; height:100vh; height:100lvh; z-index:-1;
-  background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat;
-}
+body::before{content:none}
 /* Nen MOT LOP DUY NHAT phu kin full-bleed tu mep nay sang mep kia, khop huong man hinh:
    man hinh NGANG (may tinh, tablet ngang) dung travel-bg-wide.jpg — artwork NGANG 16:9
    (2048x1152) khop man hinh 16:9 nen thay gan nhu DAY DU ca khung hinh: may bay tron o
@@ -44,8 +41,8 @@ body::before{
    do lech ti le chi ~4-5% nen tranh mau nuoc khong nhan ra meo.
    Khong con co che contain thanh cot + lam mo hai ben. */
 @media (orientation:portrait){
-  body::before{
-    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") center/100% 100% no-repeat;
+  html{
+    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") center/100% 100% no-repeat #96afab;
   }
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
