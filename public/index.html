@@ -170,6 +170,18 @@ body:has(.taskbar) .toast{bottom:106px}
 .tab-nav button .ic .ic-svg{width:19px; height:19px}
 .taskbar button .ic{color:#B4A88F} .taskbar button.on .ic{color:var(--teal-d)}
 .taskbar button .ic .ic-svg{width:21px; height:21px}
+.nav-tile.acct{flex-direction:row; gap:8px; font-size:14px}
+.nav-tile.acct .u-av{width:30px; height:30px; border-radius:50%; object-fit:cover; flex:none}
+.nav-tile.acct .u-ic{color:var(--teal-d)}
+.nav-tile.acct .u-ic .ic-svg{width:24px; height:24px}
+.nav-tile.acct .u-name{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.menu-list{display:flex; flex-direction:column; gap:8px; margin-top:12px}
+.menu-item{display:flex; align-items:center; gap:10px; width:100%; padding:13px 14px; border:2px solid var(--line); border-radius:14px; background:var(--card); font-family:"Baloo 2",sans-serif; font-weight:700; font-size:15px; color:#274156; text-align:left}
+.menu-item.danger{color:#c2452d; border-color:#f0c9bd}
+.acct-info{display:flex; align-items:center; gap:10px}
+.acct-info img{width:40px; height:40px; border-radius:50%; object-fit:cover}
+.acct-name{font-weight:800; font-size:16px; color:#274156}
+.acct-mail{font-size:12.5px; color:var(--muted)}
 .user-tile .u-ic{color:var(--teal-d)}
 .user-tile .u-ic .ic-svg{width:24px; height:24px}
 .btn .ic-svg{width:17px; height:17px}
@@ -335,7 +347,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .empty-note{background:rgba(255,253,248,.85); border:2px solid var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
 /* ===== Dang nhap & Nhat ky: cung kich thuoc voi cac o dieu huong (.nav-tile, cao 76px) ===== */
 .auth-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
-.auth-grid.signed{grid-template-columns:1.25fr 1fr 1fr}
+.auth-grid.signed{grid-template-columns:1fr 1fr}
 .user-tile{display:flex; align-items:center; justify-content:center; height:76px; gap:8px; background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:14px; color:#274156; min-width:0}
 .user-tile img{width:34px; height:34px; border-radius:50%; flex:none}
 .user-tile .u-ic{font-size:24px; line-height:1; flex:none}
@@ -371,6 +383,16 @@ body:has(.taskbar) .toast{bottom:106px}
 @media (min-height:761px){
   .wrap:has(.home-frame) .nav-grid{flex:1}
   .wrap:has(.home-frame) .nav-tile{height:auto; min-height:76px}
+}
+
+/* ===== Man hinh lon (may tinh, tablet ngang >=1024px): noi dung CAN GIUA man hinh,
+   khong tran ra het be ngang; hinh nen van phu kin toan bo khung nhinh ===== */
+@media (min-width:1024px){
+  .wrap{max-width:960px; margin:0 auto; padding-left:16px; padding-right:16px}
+  .wrap:has(.home-frame){padding-left:16px; padding-right:16px; padding-top:24px; padding-bottom:24px}
+  .home-frame.card{border-radius:24px; border:2px solid var(--line); box-shadow:var(--shadow)}
+  .wrap:has(.home-frame) .auth-grid, .wrap:has(.home-frame) .nav-grid{padding-left:0; padding-right:0}
+  .taskbar-in{max-width:960px; margin:0 auto}
 }
 </style>
 </head>
@@ -508,12 +530,17 @@ function citySearchList(country) {
 
 /* ================= Popup ================= */
 function openModal(html, variant) {
-  const root = $("#modal-root");
-  root.innerHTML = '<div class="modal-bg' + (variant === "cal" ? " cal-bg" : "") + '"><div class="modal' + (variant === "cal" ? " cal-modal" : "") + (variant === "detail" ? " detail-modal" : "") + '"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
-  const close = () => { root.innerHTML = ""; };
-  $("#modal-x").onclick = close;
-  $(".modal-bg", root).addEventListener("click", (e) => { if (e.target.classList.contains("modal-bg")) close(); });
-  return { root, close };
+  // Popup XEP CHONG: moi lan mo la mot lop rieng tren #modal-root, dong chi tat lop cua minh.
+  // (Truoc day openModal thay the toan bo #modal-root nen mo lich chon ngay ben trong
+  //  form Sua chuyen di da xoa mat form -> bam Luu khong duoc.)
+  const host = $("#modal-root");
+  const wrap = document.createElement("div");
+  wrap.innerHTML = '<div class="modal-bg' + (variant === "cal" ? " cal-bg" : "") + '"><div class="modal' + (variant === "cal" ? " cal-modal" : "") + (variant === "detail" ? " detail-modal" : "") + '"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
+  host.appendChild(wrap);
+  const close = () => { wrap.remove(); };
+  $("#modal-x", wrap).onclick = close;
+  $(".modal-bg", wrap).addEventListener("click", (e) => { if (e.target.classList.contains("modal-bg")) close(); });
+  return { root: wrap, close };
 }
 
 /* ================= Lich chon ngay (tu dung, phong cach chibi) =================
@@ -586,10 +613,11 @@ function navRowHTML() {
   return '<div class="nav-row tab-nav">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '"><span class="ic">' + ic(t.icon) + '</span><span class="lb">' + t.label + "</span></button>").join("") + "</div>";
 }
 function taskbarHTML() {
-  return '<div class="taskbar"><div class="taskbar-in">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '"><span class="ic">' + ic(t.icon) + '</span><span class="lb">' + t.label + "</span></button>").join("") + "</div></div>";
+  return '<div class="taskbar"><div class="taskbar-in">' + TABS.map(t => '<button data-tab="' + t.id + '" class="' + (tab === t.id ? "on" : "") + '"><span class="ic">' + ic(t.icon) + '</span><span class="lb">' + t.label + "</span></button>").join("") + '<button data-journal="1"><span class="ic">' + ic("journal") + '</span><span class="lb">Nhật ký</span></button>' + "</div></div>";
 }
 function bindNav(scope) {
   $$("[data-tab]", scope).forEach(b => b.onclick = () => goTab(b.dataset.tab));
+  $$("[data-journal]", scope).forEach(b => b.onclick = openJournalPopup);
 }
 async function goTab(t) {
   tab = t;
@@ -613,9 +641,8 @@ function render() {
 function authBarHTML() {
   if (ME) {
     return '<div class="auth-grid signed">' +
-      '<div class="user-tile">' + (ME.picture ? '<img src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : '<span class="u-ic">' + ic("user") + '</span>') + "<span>" + esc(ME.name || ME.email || "Bạn") + "</span></div>" +
-      '<button class="nav-tile" id="btn-journal"><span class="ic">' + ic("journal") + '</span>Nhật ký</button>' +
-      '<button class="nav-tile" id="btn-logout"><span class="ic">' + ic("logout") + '</span>Đăng xuất</button></div>';
+      '<button class="nav-tile acct" id="btn-account">' + (ME.picture ? '<img class="u-av" src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : '<span class="u-ic">' + ic("user") + '</span>') + '<span class="u-name">' + esc(ME.name || ME.email || "Bạn") + "</span></button>" +
+      '<button class="nav-tile" id="btn-journal"><span class="ic">' + ic("journal") + '</span>Nhật ký</button></div>';
   }
   return '<div class="auth-grid">' +
     '<button class="nav-tile" id="btn-login"><span class="ic">' + ic("user") + '</span>Đăng nhập</button>' +
@@ -628,10 +655,23 @@ function bindAuthBar(v) {
     loaderHoldShow("Đang chuyển tới trang đăng nhập Google… ✈️");
     location.href = "/auth/google";
   };
-  const bo = $("#btn-logout", v);
-  if (bo) bo.onclick = () => { loaderHoldShow("Đang đăng xuất… ✈️"); location.href = "/auth/logout"; };
+  const ba = $("#btn-account", v);
+  if (ba) ba.onclick = openAccountMenu;
   const bj = $("#btn-journal", v);
   if (bj) bj.onclick = openJournalPopup;
+}
+function openAccountMenu() {
+  if (!ME) return;
+  const { root } = openModal('<h3>Tài khoản</h3>' +
+    '<div class="acct-info">' + (ME.picture ? '<img src="' + esc(ME.picture) + '" alt="" onerror="this.remove()">' : "") + '<div><div class="acct-name">' + esc(ME.name || "") + '</div><div class="acct-mail">' + esc(ME.email || "") + "</div></div></div>" +
+    '<div class="menu-list">' +
+    '<button class="menu-item" id="acct-switch"><span class="ic">' + ic("user") + '</span>Chuyển tài khoản</button>' +
+    '<button class="menu-item danger" id="acct-logout"><span class="ic">' + ic("logout") + '</span>Đăng xuất</button>' +
+    "</div>");
+  const sw = $("#acct-switch", root);
+  if (sw) sw.onclick = () => { loaderHoldShow("Đang chuyển tới trang đăng nhập Google… ✈️"); location.href = "/auth/google"; };
+  const lo = $("#acct-logout", root);
+  if (lo) lo.onclick = () => { loaderHoldShow("Đang đăng xuất… ✈️"); location.href = "/auth/logout"; };
 }
 async function openJournalPopup() {
   if (!ME) { toast("Bạn đăng nhập trước để xem Nhật ký nhé 🔐"); return; }
