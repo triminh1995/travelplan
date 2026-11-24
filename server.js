@@ -452,6 +452,10 @@ function syncJournalForTrip(trip) {
 
 async function handleApi(req, res, parts, query) {
   // parts: sau /api
+  if (parts[0] === "app-version" && req.method === "GET") {
+    try { const st = fs.statSync(path.join(PUBLIC_DIR, "index.html")); return sendJson(res, 200, { v: String(Math.round(st.mtimeMs)) + "-" + st.size }); }
+    catch { return sendJson(res, 200, { v: "0" }); }
+  }
   if (parts[0] === "guide-cache" && req.method === "GET") {
     return sendJson(res, 200, loadGuideCache());
   }
@@ -632,18 +636,29 @@ const server = http.createServer(async (req, res) => {
   let rel = pathname === "/" ? "/index.html" : pathname;
   const filePath = path.join(PUBLIC_DIR, path.normalize(rel));
   if (!filePath.startsWith(PUBLIC_DIR)) { res.writeHead(403); return res.end("Forbidden"); }
-  fs.readFile(filePath, (err, buf) => {
-    if (err) {
+  fs.stat(filePath, (serr, st) => {
+    if (serr || !st.isFile()) {
       // SPA fallback cho cac duong dan khong phai file
       if (path.extname(rel)) { res.writeHead(404); return res.end("Not found"); }
       fs.readFile(path.join(PUBLIC_DIR, "index.html"), (e2, b2) => {
         if (e2) { res.writeHead(500); return res.end("Error"); }
-        res.writeHead(200, { "Content-Type": MIME[".html"] }); res.end(b2);
+        res.writeHead(200, { "Content-Type": MIME[".html"], "Cache-Control": "no-store, no-cache, must-revalidate", "Pragma": "no-cache", "Expires": "0" }); res.end(b2);
       });
       return;
     }
-    res.writeHead(200, { "Content-Type": MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream" });
-    res.end(buf);
+    const ext = path.extname(filePath).toLowerCase();
+    if (ext !== ".html") {
+      const ims = req.headers["if-modified-since"];
+      if (ims && Math.floor(st.mtimeMs / 1000) <= Math.floor(Date.parse(ims) / 1000)) { res.writeHead(304, { "Cache-Control": "no-cache" }); return res.end(); }
+    }
+    fs.readFile(filePath, (err, buf) => {
+      if (err) { res.writeHead(500); return res.end("Error"); }
+      const headers = { "Content-Type": MIME[ext] || "application/octet-stream" };
+      if (ext === ".html") { headers["Cache-Control"] = "no-store, no-cache, must-revalidate"; headers["Pragma"] = "no-cache"; headers["Expires"] = "0"; }
+      else { headers["Cache-Control"] = "no-cache"; headers["Last-Modified"] = st.mtime.toUTCString(); }
+      res.writeHead(200, headers);
+      res.end(buf);
+    });
   });
 });
 
