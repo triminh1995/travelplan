@@ -27,7 +27,7 @@
 html,body{margin:0;padding:0}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
-  color:var(--ink); min-height:100vh; position:relative;
+  color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
 }
 body::before{
   content:""; position:fixed; inset:0; z-index:-1;
@@ -52,7 +52,7 @@ h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Cha
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
 input,select,textarea{font-family:inherit; font-size:16px; color:var(--ink)}
 img{display:block; max-width:100%}
-.wrap{max-width:540px; margin:0 auto; padding:14px 14px 40px}
+.wrap{max-width:none; margin:0; padding:14px 12px 40px}
 /* Trang chu: can giua toan bo khoi noi dung theo chieu doc trong khung nhin */
 .wrap:has(.home-frame){height:100vh; height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
 body:has(.home-frame){min-height:0; height:100dvh; overflow:hidden}
@@ -190,19 +190,20 @@ body:has(.taskbar) .toast{bottom:106px}
    cho PlaneLoader cua app), ten app o duoi, tren nen artwork cua app ===== */
 #splash{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; overflow:hidden; background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-wide.jpg") center/cover no-repeat; transition:opacity .5s ease-out; animation:splashKill .6s ease 4.5s forwards}
 @media (orientation:portrait){ #splash{background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-portrait.jpg") center/100% 100% no-repeat} }
+#splash{background-color:#FFF6EC}
 #splash.bye{opacity:0; pointer-events:none}
 #splash .splash-inner{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px; transition:transform .5s ease-out}
 #splash.bye .splash-inner{transform:translateY(-12px)}
 @keyframes splashKill{to{opacity:0; visibility:hidden}}
 .splash-track{position:relative; display:block; height:96px; width:304px; max-width:82vw}
-.splash-line{position:absolute; left:0; right:0; top:50%; border-top:2px dashed var(--peach2)}
+.splash-line{display:none}
 .splash-plane{position:absolute; top:10px; left:-88px; width:96px; animation:splashFlyAcross 3.2s linear infinite; will-change:left,transform; filter:drop-shadow(0 8px 12px rgba(229,80,47,.28))}
 @keyframes splashFlyAcross{0%{left:-88px; transform:translateY(0) rotate(-2deg)}25%{transform:translateY(-9px) rotate(1.5deg)}50%{transform:translateY(-2px) rotate(-1deg)}75%{transform:translateY(-10px) rotate(2deg)}100%{left:100%; transform:translateY(0) rotate(-2deg)}}
 @media (prefers-reduced-motion: reduce){.splash-plane{animation:none; left:50%; transform:translateX(-50%)}}
 .splash-name{margin-top:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:48px; line-height:1; color:#274156}
 /* Ban giao splash -> trang chu: trang ben duoi mo dan + troi len vao cho
    (class .app-enter gan vao #view ngay khi splash bat dau roi di) */
-@keyframes appEnter{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:translateY(0)}}
+@keyframes appEnter{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
 .app-enter{animation:appEnter .6s ease-out both}
 @media (prefers-reduced-motion: reduce){.app-enter{animation:none}}
 .day-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px}
@@ -214,13 +215,13 @@ body:has(.taskbar) .toast{bottom:106px}
 .day-tile.on .d1,.day-tile.on .d2{color:#fff}
 .day-big{font-family:"Baloo 2",sans-serif; font-size:32px; font-weight:800; color:#274156; line-height:1.05; margin:0}
 .day-sub{color:var(--teal-d); font-weight:700; font-size:16px; margin-top:2px}
-.day-divider{border:none; border-top:2px dashed var(--peach2); margin:12px 0 14px}
+.day-divider{border:none; border-top:1px solid var(--line); margin:12px 0 14px}
 .place-card{display:flex; gap:12px; background:#fff; border:2px solid var(--line); border-radius:var(--r-md); padding:10px; margin-bottom:10px}
 .place-card img,.place-card .ph-img{width:84px; height:84px; border-radius:12px; object-fit:cover; flex:none}
 .place-card .nm{font-weight:700; font-size:15px; line-height:1.25}
 .place-card .ds{font-size:12.5px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .place-card .go{font-size:12.5px; margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
-.stay-box{background:#F2FBF9; border:2px dashed var(--teal); border-radius:var(--r-md); padding:12px 14px}
+.stay-box{background:#F2FBF9; border:2px solid var(--teal); border-radius:var(--r-md); padding:12px 14px}
 
 /* ===== Popup ===== */
 .modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:flex-end; justify-content:center; padding:0}
@@ -296,7 +297,7 @@ body:has(.taskbar) .toast{bottom:106px}
 /* ===== Giao tiep ===== */
 .phrase-group{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:14px 16px; margin-bottom:12px}
 .phrase-group h3{margin:0 0 8px; font-size:18px; color:#274156}
-.phrase{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px dashed #F6E7CF}
+.phrase{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px solid #F6E7CF}
 .phrase:last-child{border-bottom:none}
 .phrase .t{font-weight:700; font-size:16px}
 .phrase .r{color:var(--teal-d); font-size:13px; font-weight:600}
@@ -309,7 +310,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .prep-group{background:var(--card); border:2px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow); padding:14px 16px; margin-bottom:12px}
 .prep-group.hot{border-color:var(--coral); background:#FFF6EF; box-shadow:0 0 0 2px var(--peach), var(--shadow)}
 .prep-group h3{margin:0; font-size:18px; color:#274156; display:flex; align-items:center; gap:8px}
-.prep-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed #F6E7CF}
+.prep-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #F6E7CF}
 .prep-item:last-of-type{border-bottom:none}
 .prep-item .txt{flex:1; font-size:15px}
 .prep-item.done .txt{text-decoration:line-through; color:var(--muted)}
@@ -324,13 +325,13 @@ body:has(.taskbar) .toast{bottom:106px}
 #loader .fly-track{position:absolute; left:0; right:0; top:32%; height:130px; pointer-events:none}
 #loader .fly-plane{position:absolute; top:8px; left:0; width:118px; animation:flyAcross 2.8s linear infinite; will-change:transform}
 #loader .fly-plane img{width:100%; animation:planeBob 1.1s ease-in-out infinite; filter:drop-shadow(0 6px 8px rgba(39,65,86,.22))}
-#loader .fly-plane::before{content:""; position:absolute; right:94%; top:58%; width:150px; border-top:3px dashed rgba(240,86,47,.5); -webkit-mask-image:linear-gradient(90deg, transparent, #000); mask-image:linear-gradient(90deg, transparent, #000)}
+#loader .fly-plane::before{content:none}
 @keyframes flyAcross{0%{transform:translateX(-45vw) translateY(16px) rotate(2deg)}30%{transform:translateX(-5vw) translateY(-16px) rotate(-2deg)}55%{transform:translateX(35vw) translateY(8px) rotate(1deg)}80%{transform:translateX(75vw) translateY(-14px) rotate(-2deg)}100%{transform:translateX(112vw) translateY(4px) rotate(0deg)}}
 @keyframes planeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 #loader .load-text{font-family:"Baloo 2",sans-serif; font-weight:800; font-size:19px; color:#274156; background:rgba(255,253,248,.88); padding:9px 20px; border-radius:999px; box-shadow:var(--shadow); position:relative; z-index:1}
 @media (prefers-reduced-motion: reduce){#loader .fly-plane{animation:none; left:50%; transform:translateX(-50%)} #loader .fly-plane img{animation:none}}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:#274156; color:#fff; padding:11px 18px; border-radius:999px; font-weight:700; font-size:14px; z-index:200; box-shadow:0 8px 24px rgba(0,0,0,.25); max-width:92vw; text-align:center}
-.empty-note{background:rgba(255,253,248,.85); border:2px dashed var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
+.empty-note{background:rgba(255,253,248,.85); border:2px solid var(--peach2); border-radius:var(--r-lg); padding:22px 16px; text-align:center; color:var(--muted); font-weight:600}
 /* ===== Dang nhap & Nhat ky: cung kich thuoc voi cac o dieu huong (.nav-tile, cao 76px) ===== */
 .auth-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
 .auth-grid.signed{grid-template-columns:1.25fr 1fr 1fr}
@@ -347,11 +348,11 @@ body:has(.taskbar) .toast{bottom:106px}
 .j-title{font-size:16px; font-weight:800; color:#274156; line-height:1.25}
 .j-sub{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.4}
 .j-chev{flex:none; font-size:13px; color:var(--muted); font-weight:800}
-.j-cities{display:none; margin-top:10px; border-top:2px dashed var(--line); padding-top:10px}
-.j-days{display:none; margin-top:10px; border-top:2px dashed var(--line); padding-top:10px}
+.j-cities{display:none; margin-top:10px; border-top:1px solid var(--line); padding-top:10px}
+.j-days{display:none; margin-top:10px; border-top:1px solid var(--line); padding-top:10px}
 .j-city{border:2px solid var(--line); border-radius:14px; padding:9px 10px; margin-bottom:8px; background:#FFFDF8}
 .j-city-head{display:flex; gap:9px; align-items:center; width:100%; text-align:left; background:none; padding:0}
-.j-places{display:none; margin-top:9px; border-top:2px dashed var(--line); padding-top:9px}
+.j-places{display:none; margin-top:9px; border-top:1px solid var(--line); padding-top:9px}
 .j-day{font-size:13px; font-weight:800; color:#274156; margin:9px 0 5px}
 .j-day:first-child{margin-top:0}
 .j-place{display:flex; gap:9px; align-items:center; margin:5px 0}
@@ -359,6 +360,17 @@ body:has(.taskbar) .toast{bottom:106px}
 .j-del{flex:none; width:28px; height:28px; border-radius:50%; background:#F6E8DA; font-size:13px; font-weight:800}
 .mt{margin-top:14px} .mb{margin-bottom:14px}
 .row-between{display:flex; align-items:center; justify-content:space-between; gap:10px}
+
+/* ===== Phu het man hinh nhu app (trang chu sat vien, cac trang dung toan bo be rong) ===== */
+.wrap:has(.home-frame){padding-left:0; padding-right:0; padding-top:env(safe-area-inset-top, 0px); padding-bottom:env(safe-area-inset-bottom, 0px)}
+#view:has(.home-frame){justify-content:flex-start}
+.home-frame.card{border-radius:0; border-left:none; border-right:none; border-top:none; box-shadow:none}
+.wrap:has(.home-frame) .auth-grid{padding-left:10px; padding-right:10px}
+.wrap:has(.home-frame) .nav-grid{padding-left:10px; padding-right:10px; padding-bottom:10px}
+@media (min-height:761px){
+  .wrap:has(.home-frame) .nav-grid{flex:1}
+  .wrap:has(.home-frame) .nav-tile{height:auto; min-height:76px}
+}
 </style>
 </head>
 <body>
@@ -584,14 +596,16 @@ async function goTab(t) {
     try { curTrip = await api("/api/trips/" + selTripId); } catch {}
   }
   render();
+  window.scrollTo({ top: 0 });
 }
 function render() {
+  const y = window.scrollY;
   const v = $("#view");
   if (tab === "home") renderHome(v);
   else if (tab === "itinerary") renderItinerary(v);
   else if (tab === "phrases") renderPhrases(v);
   else if (tab === "prep") renderPrep(v);
-  window.scrollTo({ top: 0 });
+  window.scrollTo({ top: y });
 }
 
 /* ================= DANG NHAP & NHAT KY ================= */
@@ -706,7 +720,7 @@ function renderHome(v) {
         "</select></div>" +
       '<div class="city-wrap"><label class="flabel">Thành phố</label>' +
         '<input class="field" id="f-city" type="text" autocomplete="off"' + (homeForm.country ? "" : " disabled") +
-          ' placeholder="' + (homeForm.country ? "Gõ tên thành phố…" : "← Chọn quốc gia trước") + '"' +
+          ' placeholder="Gõ tên thành phố…"' +
           ' value="' + esc(homeForm.city) + '">' +
         '<div class="suggest" id="f-city-sugg" style="display:none"></div></div>' +
       "</div>" +
@@ -778,6 +792,7 @@ function renderHome(v) {
       tab = "itinerary";
       toast("Đã tạo chuyến đi " + city + " 🎉");
       render();
+      window.scrollTo({ top: 0 });
     } catch (e) { toast(e.message); }
   };
   bindNav(v);
@@ -1194,6 +1209,10 @@ function splashLeave() {
   const v = document.getElementById("view");
   if (v) v.classList.add("app-enter");
   setTimeout(() => { splashState = "gone"; if (sp && sp.parentNode) sp.remove(); }, 550);
+  // Go han class sau khi animation chay xong: neu de lai, keyframe cuoi giu transform
+  // tren #view -> #view thanh khung chua cua moi phan tu position:fixed ben trong
+  // (thanh taskbar o trang Lich trinh bi neo theo chieu cao noi dung thay vi day man hinh)
+  setTimeout(() => { if (v) v.classList.remove("app-enter"); }, 700);
 }
 const splashEl = document.getElementById("splash");
 if (splashEl) splashEl.addEventListener("click", splashLeave);
