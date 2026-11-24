@@ -244,6 +244,21 @@ async function wikiResolveCity(lang, name) {
     return pages[0] || null;
   } catch { return null; }
 }
+async function wikiPageByTitle(lang, title) {
+  try {
+    const j = await wikiApi(lang, { action: "query", titles: title, ...PAGE_PROPS });
+    const pages = j.query && j.query.pages ? Object.values(j.query.pages) : [];
+    return pages[0] && !pages[0].missing ? pages[0] : null;
+  } catch { return null; }
+}
+async function wikiEnTitle(page) {
+  try {
+    const j = await wikiApi("vi", { action: "query", pageids: String(page.pageid), prop: "langlinks", lllang: "en", lllimit: "1" });
+    const pages = j.query && j.query.pages ? Object.values(j.query.pages) : [];
+    const ll = pages[0] && pages[0].langlinks && pages[0].langlinks[0];
+    return ll ? ll["*"] : null;
+  } catch { return null; }
+}
 async function wikiGeoPlaces(lang, lat, lon) {
   try {
     const j = await wikiApi(lang, { action: "query", generator: "geosearch", ggscoord: `${lat}|${lon}`, ggsradius: "10000", ggslimit: "50", ...PAGE_PROPS, exintro: "0", exsentences: "3" });
@@ -257,6 +272,31 @@ async function wikiCategoryPlaces(enTitle) {
   } catch { return []; }
 }
 
+async function wikiDataPlace(name) {
+  // Du phong cuoi: tim o Wikidata theo ten (uu tien nhan tieng Viet), lay toa do + ten bai tieng Anh
+  try {
+    const sUrl = `https://www.wikidata.org/w/api.php?${new URLSearchParams({ format: "json", action: "wbsearchentities", search: name, language: "vi", type: "item", limit: "5" })}`;
+    const sr = await fetch(sUrl, { ...WIKI_UA, signal: AbortSignal.timeout(15000) });
+    if (!sr.ok) return null;
+    const sj = await sr.json();
+    const ids = (sj.search || []).map(e => e.id).filter(Boolean);
+    if (!ids.length) return null;
+    const eUrl = `https://www.wikidata.org/w/api.php?${new URLSearchParams({ format: "json", action: "wbgetentities", ids: ids.join("|"), props: "claims|sitelinks", sitefilter: "enwiki" })}`;
+    const er = await fetch(eUrl, { ...WIKI_UA, signal: AbortSignal.timeout(15000) });
+    if (!er.ok) return null;
+    const ej = await er.json();
+    for (const id of ids) {
+      const ent = ej.entities && ej.entities[id];
+      const p625 = ent && ent.claims && ent.claims.P625 && ent.claims.P625[0];
+      const v = p625 && p625.mainsnak && p625.mainsnak.datavalue && p625.mainsnak.datavalue.value;
+      if (v && typeof v.latitude === "number" && typeof v.longitude === "number") {
+        const enTitle = ent.sitelinks && ent.sitelinks.enwiki ? ent.sitelinks.enwiki.title : null;
+        return { lat: v.latitude, lon: v.longitude, enTitle };
+      }
+    }
+    return null;
+  } catch { return null; }
+}
 const guideInflight = new Map();
 async function buildWikiGuide(cityName, country) {
   // Uu tien Wikipedia tieng Viet (gioi thieu tieng Viet), du phong tieng Anh
@@ -266,6 +306,24 @@ async function buildWikiGuide(cityName, country) {
   if (!cityPage) return null;
   let enPage = cityLang === "en" ? cityPage : await wikiResolveCity("en", cityName);
   let coords = (cityPage.coordinates && cityPage.coordinates[0]) || (enPage && enPage.coordinates && enPage.coordinates[0]) || null;
+  if (cityLang === "vi" && (!enPage || !coords)) {
+    // Ten tieng Viet khong tim truc tiep duoc bai tieng Anh: di qua lien ket ngon ngu cua bai tieng Viet
+    const enTitle = await wikiEnTitle(cityPage);
+    if (enTitle) {
+      const ep = await wikiPageByTitle("en", enTitle);
+      if (ep) { enPage = ep; if (!coords && ep.coordinates && ep.coordinates[0]) coords = ep.coordinates[0]; }
+    }
+  }
+  if (!coords) {
+    const wd = await wikiDataPlace(cityName);
+    if (wd) {
+      coords = { lat: wd.lat, lon: wd.lon };
+      if (wd.enTitle && (!enPage || !(enPage.coordinates && enPage.coordinates[0]))) {
+        const ep = await wikiPageByTitle("en", wd.enTitle);
+        if (ep) enPage = ep;
+      }
+    }
+  }
   if (!coords && country) {
     // Ten thanh pho trung ten nguoi/trang dinh huong (vd "Livingstone"): thu lai kem quoc gia de lay dung bai viet thanh pho
     const q = await wikiResolveCity("en", `${cityName}, ${country}`) || await wikiResolveCity("en", `${cityName} ${country}`);
@@ -273,9 +331,10 @@ async function buildWikiGuide(cityName, country) {
   }
 
   const cityTitleN = norm(cityPage.title);
+  const enTitleN = enPage && enPage.title ? norm(enPage.title) : "";
   const seen = new Set();
   const rawPlaces = [];
-  const pushAll = (arr) => { for (const p of arr || []) { const tn = norm(p && p.title); if (tn && !seen.has(tn) && isPlacePage(p, cityTitleN)) { seen.add(tn); rawPlaces.push(p); } } };
+  const pushAll = (arr) => { for (const p of arr || []) { const tn = norm(p && p.title); if (tn && tn !== enTitleN && !seen.has(tn) && isPlacePage(p, cityTitleN)) { seen.add(tn); rawPlaces.push(p); } } };
   const [catPlaces, geoPlaces] = await Promise.all([
     enPage && enPage.title ? wikiCategoryPlaces(enPage.title) : Promise.resolve([]),
     coords ? wikiGeoPlaces(cityLang, coords.lat, coords.lon) : Promise.resolve([])
