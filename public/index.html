@@ -460,14 +460,15 @@ function loaderOff() {
 function loaderHoldShow(text) { loadHold = true; clearTimeout(loadTimer); loaderShow(text); }
 function loaderRelease() { loadHold = false; if (loadPending === 0) loaderHide(); }
 window.addEventListener("pageshow", (e) => { if (e.persisted) { loadHold = false; loadPending = 0; loaderHide(); } });
-async function api(path, method, body) {
-  loaderOn();
+async function api(path, method, body, opts) {
+  const silent = !!(opts && opts.silent);
+  if (!silent) loaderOn();
   try {
     const r = await fetch(path, { method: method || "GET", headers: { "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.error || "Có lỗi xảy ra");
     return j;
-  } finally { loaderOff(); }
+  } finally { if (!silent) loaderOff(); }
 }
 function phImg(cls) { return '<div class="ph-img ' + (cls || "") + '">🧳</div>'; }
 /* ===== Bo icon net SVG cho cac nut chuc nang (thay emoji, cung do day net 1.8, bo tron) ===== */
@@ -952,7 +953,7 @@ function renderTripDetail(box) {
     if (ix < 0) return;
     const removed = arr.splice(ix, 1)[0];
     render();
-    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + removed.id, "DELETE"); }
+    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + removed.id, "DELETE", null, { silent: true }); }
     catch (e) { arr.splice(ix, 0, removed); render(); toast("Chưa xóa được, bạn thử lại nhé"); }
   });
   $$("[data-visited]", box).forEach(b => b.onclick = async () => {
@@ -960,7 +961,7 @@ function renderTripDetail(box) {
     if (!pl) return;
     pl.visited = !pl.visited;
     render();
-    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + pl.id, "PUT", { visited: pl.visited }); }
+    try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + pl.id, "PUT", { visited: pl.visited }, { silent: true }); }
     catch (e) { try { curTrip = await api("/api/trips/" + t.id); } catch {} render(); toast("Chưa lưu được đánh dấu, bạn thử lại nhé"); }
   });
   $("#btn-add-place", box).onclick = () => openAddPlacePopup(t, curDay);
