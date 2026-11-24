@@ -131,12 +131,13 @@ textarea.field{resize:vertical; min-height:64px}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
-.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,251,243,.42); -webkit-backdrop-filter:blur(9px) saturate(1.35); backdrop-filter:blur(9px) saturate(1.35); border-top:2px solid rgba(233,201,160,.5); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,251,243,.16); -webkit-backdrop-filter:blur(5px) saturate(1.3); backdrop-filter:blur(5px) saturate(1.3); border-top:1.5px solid rgba(233,201,160,.35); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
 .taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
 .taskbar button .lb{font-size:12px; font-weight:700}
 .taskbar button.on{color:var(--coral-d)}
+.taskbar button{text-shadow:0 1px 5px rgba(255,251,243,.95), 0 0 2px rgba(255,251,243,.9)}
 .taskbar button.on .ic{background:var(--peach)}
 .taskbar-spacer{height:94px}
 body:has(.taskbar) .toast{bottom:106px}
@@ -1127,10 +1128,9 @@ function renderPhrases(v) {
   }
   const found = phraseSetFor(country);
   if (fromTrip && found) html += '<div class="mb"><span class="chip">🧭 Theo chuyến đi của bạn: ' + esc(country) + "</span></div>";
-  html += '<div class="card mb"><div class="row-between"><b>🌍 Quốc gia: ' + (country ? esc(country) : "—") + '</b><button class="btn btn-ghost btn-sm" id="ph-change">Đổi quốc gia</button></div>' +
-    '<div id="ph-form" style="display:none" class="mt"><select class="field" id="ph-country"><option value="">Ấn chọn quốc gia…</option>' +
+  html += '<div class="card mb"><select class="field" id="ph-country"><option value="">Ấn chọn quốc gia…</option>' +
     Object.keys(PHRASES).map(k => '<option value="' + esc(k) + '"' + (found && found.key === k ? " selected" : "") + ">" + flagOf(k) + " " + esc(k) + "</option>").join("") +
-    '</select></div></div>';
+    "</select></div>";
 
   if (!country) {
   } else if (!found) {
@@ -1147,8 +1147,6 @@ function renderPhrases(v) {
     }
   }
   v.innerHTML = html + '<div class="taskbar-spacer"></div>' + taskbarHTML(); bindNav(v);
-  const ch = $("#ph-change", v);
-  if (ch) ch.onclick = () => { const f = $("#ph-form", v); f.style.display = f.style.display === "none" ? "block" : "none"; };
   const phSel = $("#ph-country", v);
   if (phSel) phSel.onchange = () => { if (phSel.value) { phraseState.custom = phSel.value; render(); } };
   $$("[data-say]", v).forEach(b => b.onclick = () => {
