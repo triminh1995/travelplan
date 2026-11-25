@@ -131,7 +131,7 @@ textarea.field{resize:vertical; min-height:64px}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
-.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; transform:translateY(var(--gap, 0px)); background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; transform:translateY(calc(var(--gap, 0px) + var(--lockshift, 0px))); background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
 .taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
@@ -247,16 +247,13 @@ body:has(.taskbar) .toast{bottom:106px}
 .stay-box{background:#F2FBF9; border:2px solid var(--teal); border-radius:var(--r-md); padding:12px 14px}
 
 /* ===== Popup ===== */
-.modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:flex-end; justify-content:center; padding:0}
+.modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:center; justify-content:center; padding:22px 18px}
 body.modal-locked{position:fixed; left:0; right:0; width:100%; overflow:hidden}
 .modal{overscroll-behavior:contain}
-.modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px 26px 0 0; padding:20px 18px 26px; animation:up .18s ease}
+.modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px; padding:20px 18px 26px; animation:up .18s ease}
 @media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
 .modal-bg.guide-bg{align-items:center; padding:22px 18px}
-html:has(body.modal-locked){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
-@media (orientation:portrait){ html:has(body.modal-locked){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat #638986} }
-html:has(body.modal-locked):has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
-@media (orientation:portrait){ html:has(body.modal-locked):has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% auto no-repeat #638986} }
+html:has(body.modal-locked){background:#52625a}
 .modal.guide-modal{border-radius:26px; max-height:76vh; display:flex; flex-direction:column; overflow:hidden}
 .modal.guide-modal .x{position:static; float:none; flex:none; align-self:flex-end; width:40px; height:40px; font-size:18px}
 .guide-body{overflow-y:auto; overscroll-behavior:contain; min-height:0}
@@ -264,7 +261,7 @@ html:has(body.modal-locked):has(.home-frame){background:linear-gradient(180deg, 
 .modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
 .modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
 /* Popup Chi tiet dia diem: nut X sat goc popup + thanh tab 1 hang */
-.modal.detail-modal{display:flex; flex-direction:column; overflow:hidden}
+.modal.detail-modal{display:flex; flex-direction:column; overflow:hidden; height:86vh}
 .modal.detail-modal .x{position:static; float:none; flex:none; align-self:flex-end; width:40px; height:40px; font-size:18px}
 .detail-body{overflow-y:auto; overscroll-behavior:contain; min-height:0}
 .pd-tabs{display:flex; gap:3px; margin:2px 0 12px; flex-wrap:nowrap}
@@ -580,7 +577,23 @@ function lockScroll() {
     document.body.classList.add("modal-locked");
   }
   modalLockCount++;
-  if (modalLockCount === 1) { requestAnimationFrame(fitBg); setTimeout(fitBg, 350); }
+  if (modalLockCount === 1) { requestAnimationFrame(() => { fitBg(); fixBarLock(); }); setTimeout(() => { fitBg(); fixBarLock(); }, 350); }
+}
+/* Luc khoa cuon (popup mo), khung hien thi bi co lai lam taskbar noi len khoi day
+   man hinh that va dai duoi chi con mau nen phang. Do truc tiep canh duoi cua thanh
+   so voi chieu cao man hinh that roi dich thanh xuong dung bang do lech do. */
+function fixBarLock() {
+  try {
+    const root = document.documentElement;
+    const bar = document.querySelector(".taskbar");
+    if (!bar || !window.screen || !window.screen.height) { root.style.setProperty("--lockshift", "0px"); return; }
+    const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
+    const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
+    const cur = parseFloat(getComputedStyle(root).getPropertyValue("--lockshift")) || 0;
+    let shift = Math.round(vScreen - bar.getBoundingClientRect().bottom + cur);
+    if (shift < 0) shift = 0; if (shift > 120) shift = 120;
+    root.style.setProperty("--lockshift", shift + "px");
+  } catch {}
 }
 function unlockScroll() {
   modalLockCount = Math.max(0, modalLockCount - 1);
@@ -588,6 +601,7 @@ function unlockScroll() {
     document.body.classList.remove("modal-locked");
     document.body.style.top = "";
     window.scrollTo(0, modalSavedY);
+    document.documentElement.style.setProperty("--lockshift", "0px");
     requestAnimationFrame(fitBg); setTimeout(fitBg, 350);
   }
 }
@@ -1169,6 +1183,7 @@ function openPlaceDetail(p, transportTips) {
     TABS.map(([k]) => '<div class="pd-panel' + (k === "detail" ? " on" : "") + '" data-pd-panel="' + k + '">' + panels[k] + "</div>").join("");
   const { root } = openModal('<div class="detail-body">' + html + "</div>", "detail");
   $$("[data-pd-tab]", root).forEach(b => b.onclick = () => {
+    const db = $(".detail-body", root); if (db) db.scrollTop = 0;
     $$("[data-pd-tab]", root).forEach(x => x.classList.toggle("on", x === b));
     $$("[data-pd-panel]", root).forEach(pn => pn.classList.toggle("on", pn.dataset.pdPanel === b.dataset.pdTab));
     const m = $(".modal", root); if (m) m.scrollTop = 0;
