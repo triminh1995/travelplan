@@ -131,7 +131,7 @@ textarea.field{resize:vertical; min-height:64px}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
-.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; transform:translateY(calc(var(--gap, 0px) + var(--lockshift, 0px))); background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; transform:translateY(var(--barshift, 0px)); background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
 .taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
@@ -196,6 +196,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .nav-row:not(.tab-nav) button .ic-svg{display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:4px; color:var(--coral-d)}
 /* ===== Chuyen giua cac trang chinh: mo dan + truot len nhe ===== */
 #view > *{animation:viewIn .3s ease both}
+#view > .taskbar{animation:none}
 @keyframes viewIn{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){#view > *{animation:none}}
 /* ===== Man hinh cho (splash) — sao dung hieu ung vao cua ban Muse:
@@ -315,9 +316,7 @@ html:has(body.modal-locked){background:#52625a}
 .cal-day.empty{background:transparent}
 .cal-day.dis{opacity:.28; pointer-events:none}
 .cal-day.today{border-color:var(--coral); color:var(--coral-d); font-weight:900; background:#FFF1E8}
-.cal-day.today::after{content:""; width:5px; height:5px; border-radius:50%; background:var(--coral); position:absolute; bottom:5px}
 .cal-day.sel{background:var(--coral); color:#fff; font-weight:900}
-.cal-day.sel::after{background:#fff}
 .cal-note{text-align:center; font-size:12px; color:var(--coral-d); font-weight:700; margin-top:10px}
 .cal-range-row{display:flex; gap:8px; margin-bottom:10px}
 .cal-chip{flex:1; text-align:center; font-size:13px; font-weight:700; padding:7px 6px; border-radius:999px; background:#F6E7CF; color:#7A5B3A; border:2px solid transparent; cursor:pointer}
@@ -715,6 +714,7 @@ function openRangeCalendar({ start, end, onPick }) {
       if (iso === today) cls.push("today");
       if (iso === s || iso === e) cls.push("sel");
       else if (s && e && iso > s && iso < e) cls.push("inrange");
+      if (iso < today) cls.push("dis");
       if (step === "end" && s && iso < s) cls.push("dis");
       cells += '<button class="' + cls.join(" ") + '" data-iso="' + iso + '">' + d + "</button>";
     }
@@ -726,6 +726,7 @@ function openRangeCalendar({ start, end, onPick }) {
     $("#cal-next", root).onclick = () => { view = new Date(y, m + 1, 1); render(); };
     $$(".cal-day[data-iso]", root).forEach(b => b.onclick = () => {
       const iso = b.dataset.iso;
+      if (iso < today) return;
       if (step === "start") { if (iso !== s) { s = iso; e = ""; } step = "end"; render(); }
       else if (iso >= s) { e = iso; render(); setTimeout(() => { onPick(s, e); close(); }, 140); }
     });
@@ -766,6 +767,7 @@ function render() {
   else if (tab === "phrases") renderPhrases(v);
   else if (tab === "prep") renderPrep(v);
   window.scrollTo({ top: y });
+  requestAnimationFrame(fitBar);
 }
 
 /* ================= DANG NHAP & NHAT KY ================= */
@@ -1549,6 +1551,28 @@ function fitBg() {
   } catch {}
 }
 fitBg();
+function fitBar() {
+  try {
+    const root = document.documentElement;
+    const sa = window.navigator.standalone === true || (window.matchMedia && (matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches));
+    if (!sa || window.innerWidth > 1024) { root.style.setProperty("--barshift", "0px"); return; }
+    const bar = document.querySelector(".taskbar");
+    const lb = bar && bar.querySelector("button .lb");
+    if (!bar || !lb || !(window.screen && window.screen.height)) return;
+    const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
+    const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
+    const cur = parseFloat(getComputedStyle(root).getPropertyValue("--barshift")) || 0;
+    const delta = Math.round((vScreen - 28) - lb.getBoundingClientRect().bottom);
+    const next = Math.max(-60, Math.min(90, cur + delta));
+    root.style.setProperty("--barshift", next + "px");
+  } catch {}
+}
+fitBar();
+addEventListener("resize", fitBar);
+addEventListener("orientationchange", fitBar);
+addEventListener("load", fitBar);
+setTimeout(fitBar, 400); setTimeout(fitBar, 1200); setTimeout(fitBar, 2500);
+addEventListener("pointerdown", fitBar, { once: true });
 addEventListener("resize", fitBg);
 addEventListener("orientationchange", fitBg);
 addEventListener("load", fitBg);
