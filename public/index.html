@@ -310,7 +310,7 @@ html:has(body.modal-locked){background:#52625a}
 .cal-nav:disabled{opacity:.35}
 .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
 .cal-grid .wd{text-align:center; font-size:11.5px; font-weight:800; color:var(--teal-d); padding:4px 0}
-.cal-day{aspect-ratio:1; border-radius:50%; font-size:14.5px; font-weight:600; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff; border:2px solid transparent; position:relative}
+.cal-day{aspect-ratio:1; border-radius:50%; font-size:16.5px; font-weight:600; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0; background:#fff; border:2px solid transparent; position:relative}
 .cal-day:hover{border-color:var(--peach2)}
 .cal-day.empty{background:transparent}
 .cal-day.dis{opacity:.28; pointer-events:none}
@@ -319,9 +319,13 @@ html:has(body.modal-locked){background:#52625a}
 .cal-day.sel{background:var(--coral); color:#fff; font-weight:900}
 .cal-day.sel::after{background:#fff}
 .cal-note{text-align:center; font-size:12px; color:var(--coral-d); font-weight:700; margin-top:10px}
+.cal-range-row{display:flex; gap:8px; margin-bottom:10px}
+.cal-chip{flex:1; text-align:center; font-size:13px; font-weight:700; padding:7px 6px; border-radius:999px; background:#F6E7CF; color:#7A5B3A; border:2px solid transparent; cursor:pointer}
+.cal-chip.on{background:#FFE3D3; border-color:var(--coral); color:#9A4A21}
+.cal-day.inrange{background:#FFE7D6; border-radius:14px}
 /* Popup lich: kich thuoc co dinh, hien phia tren man hinh (khong nam sat day) */
-.modal-bg.cal-bg{align-items:flex-start; padding:18px 12px}
-.modal.cal-modal{width:100%; max-width:400px; height:560px; max-height:calc(100dvh - 36px); border-radius:26px; overflow:hidden; display:flex; flex-direction:column; animation:down .18s ease}
+.modal-bg.cal-bg{align-items:center; padding:22px 18px}
+.modal.cal-modal{width:100%; max-width:340px; height:440px; max-height:calc(100dvh - 44px); border-radius:26px; overflow:hidden; display:flex; flex-direction:column; animation:up .18s ease}
 @keyframes down{from{transform:translateY(-16px); opacity:.6} to{transform:none; opacity:1}}
 .modal.cal-modal .x{position:static; float:none; align-self:flex-end; flex:none}
 .cal-wrap{display:flex; flex-direction:column; flex:1; min-height:0}
@@ -680,6 +684,55 @@ function openCalendar({ value, min, anchor, onPick }) {
   $("#cal-ok", root).onclick = () => { if (selected) onPick(selected); close(); };
 }
 
+function rangeFieldHTML(id, start, end) {
+  const txt = start && end ? fmtD(start) + " → " + fmtD(end) : start ? fmtD(start) + " → …" : "";
+  return '<button type="button" class="date-btn" id="' + id + '"><span class="' + (txt ? "" : "ph") + '">' + (txt || "Chọn ngày đi – ngày về") + '</span><span>📅</span></button>';
+}
+function openRangeCalendar({ start, end, onPick }) {
+  const today = todayISO();
+  let s = start || "", e = end || "", step = "start";
+  let view = parseD(s || e || today);
+  view = new Date(view.getFullYear(), view.getMonth(), 1);
+  const { root, close } = openModal('<div class="cal-wrap"><h3>Chọn ngày</h3><div class="cal-range-row"><button class="cal-chip" id="chip-start"></button><button class="cal-chip" id="chip-end"></button></div><div class="cal" id="cal-box"></div></div>', "cal");
+  function render() {
+    const cs = $("#chip-start", root), ce = $("#chip-end", root);
+    cs.textContent = "Đi: " + (s ? fmtD(s) : "chưa chọn");
+    ce.textContent = "Về: " + (e ? fmtD(e) : "chưa chọn");
+    cs.className = "cal-chip" + (step === "start" ? " on" : "");
+    ce.className = "cal-chip" + (step === "end" ? " on" : "");
+    cs.onclick = () => { step = "start"; render(); };
+    ce.onclick = () => { if (s) { step = "end"; render(); } };
+    const y = view.getFullYear(), m = view.getMonth();
+    const first = new Date(y, m, 1);
+    const startOffset = (first.getDay() + 6) % 7;
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    let cells = "";
+    ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].forEach(w => cells += '<div class="wd">' + w + "</div>");
+    for (let i = 0; i < startOffset; i++) cells += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const iso = toISO(new Date(y, m, d));
+      const cls = ["cal-day"];
+      if (iso === today) cls.push("today");
+      if (iso === s || iso === e) cls.push("sel");
+      else if (s && e && iso > s && iso < e) cls.push("inrange");
+      if (step === "end" && s && iso < s) cls.push("dis");
+      cells += '<button class="' + cls.join(" ") + '" data-iso="' + iso + '">' + d + "</button>";
+    }
+    for (let i = startOffset + daysInMonth; i < 42; i++) cells += '<div class="cal-day empty"></div>';
+    $("#cal-box", root).innerHTML =
+      '<div class="cal-head"><button class="cal-nav" id="cal-prev">‹</button><div class="t">Tháng ' + (m + 1) + " năm " + y + '</div><button class="cal-nav" id="cal-next">›</button></div>' +
+      '<div class="cal-grid">' + cells + "</div>";
+    $("#cal-prev", root).onclick = () => { view = new Date(y, m - 1, 1); render(); };
+    $("#cal-next", root).onclick = () => { view = new Date(y, m + 1, 1); render(); };
+    $$(".cal-day[data-iso]", root).forEach(b => b.onclick = () => {
+      const iso = b.dataset.iso;
+      if (step === "start") { if (iso !== s) { s = iso; e = ""; } step = "end"; render(); }
+      else if (iso >= s) { e = iso; render(); setTimeout(() => { onPick(s, e); close(); }, 140); }
+    });
+  }
+  render();
+}
+
 /* ================= Dieu huong ================= */
 const TABS = [
   { id: "home", label: "Trang chủ", icon: "home" },
@@ -827,10 +880,7 @@ function renderHome(v) {
   v.innerHTML =
     '<div class="card home-frame">' +
       '<div class="home-head"><h1>Travel Plan</h1></div>' +
-      '<div class="date-row">' +
-        '<div><label class="flabel">Ngày đi</label>' + dateFieldHTML("f-start", homeForm.start, "Chọn ngày đi") + "</div>" +
-        '<div><label class="flabel">Ngày về</label>' + dateFieldHTML("f-end", homeForm.end, "Chọn ngày về") + "</div>" +
-      "</div>" +
+      '<div style="margin-top:16px"><label class="flabel">Chọn ngày</label>' + rangeFieldHTML("f-range", homeForm.start, homeForm.end) + "</div>" +
       '<div class="cc-row">' +
       '<div class="city-wrap"><label class="flabel">Quốc gia</label>' +
         '<select class="field" id="f-country"><option value="">Chọn quốc gia…</option>' +
@@ -846,9 +896,9 @@ function renderHome(v) {
     authBarHTML() +
     '<div class="nav-grid">' + TABS.map(t => '<button class="nav-tile ' + (tab === t.id ? "on" : "") + '" data-tab="' + t.id + '"><span class="ic">' + ic(t.icon) + '</span>' + t.label + "</button>").join("") + "</div>";
 
-  const paintDate = (id, val, ph) => { const b = document.getElementById(id); if (!b) return; const sp = b.querySelector("span"); if (sp) { sp.textContent = val ? fmtD(val) : ph; sp.className = val ? "" : "ph"; } };
-  attachDateField("f-start", () => homeForm.start, (iso) => { homeForm.start = iso; if (homeForm.end && iso && homeForm.end < iso) { homeForm.end = ""; paintDate("f-end", "", "Chọn ngày về"); } paintDate("f-start", homeForm.start, "Chọn ngày đi"); });
-  attachDateField("f-end", () => homeForm.end, (iso) => { homeForm.end = iso; paintDate("f-end", homeForm.end, "Chọn ngày về"); }, { min: () => homeForm.start || null, anchor: () => homeForm.start || null });
+  const paintRange = () => { const b = document.getElementById("f-range"); if (!b) return; const sp = b.querySelector("span"); if (!sp) return; const txt = homeForm.start && homeForm.end ? fmtD(homeForm.start) + " → " + fmtD(homeForm.end) : homeForm.start ? fmtD(homeForm.start) + " → …" : ""; sp.textContent = txt || "Chọn ngày đi – ngày về"; sp.className = txt ? "" : "ph"; };
+  const rangeBtn = document.getElementById("f-range");
+  if (rangeBtn) rangeBtn.onclick = () => openRangeCalendar({ start: homeForm.start, end: homeForm.end, onPick: (sv, ev) => { homeForm.start = sv; homeForm.end = ev; paintRange(); } });
 
   const countrySel = $("#f-country", v), citySel = $("#f-city", v);
   const fillCities = () => {
@@ -1133,16 +1183,15 @@ function openEditTripPopup(t) {
   const form = { start: t.startDate, end: t.endDate };
   const { root, close } = openModal(
     "<h3>✏️ Chỉnh sửa chuyến đi " + esc(t.city) + "</h3>" +
-    '<div class="date-row" style="margin-top:0"><div><label class="flabel">Ngày đi</label>' + dateFieldHTML("e-start", form.start, "Chọn ngày") + '</div><div><label class="flabel">Ngày về</label>' + dateFieldHTML("e-end", form.end, "Chọn ngày") + "</div></div>" +
+    '<div style="margin-top:2px"><label class="flabel">Chọn ngày</label>' + rangeFieldHTML("e-range", form.start, form.end) + "</div>" +
     '<button class="btn btn-coral mt" id="e-save" style="width:100%">Lưu thay đổi</button>'
   );
   const paint = () => {
-    const a = $("#e-start span", root), b = $("#e-end span", root);
-    a.textContent = form.start ? fmtD(form.start) : "Chọn ngày"; a.className = form.start ? "" : "ph";
-    b.textContent = form.end ? fmtD(form.end) : "Chọn ngày"; b.className = form.end ? "" : "ph";
+    const sp = $("#e-range span", root); if (!sp) return;
+    const txt = form.start && form.end ? fmtD(form.start) + " → " + fmtD(form.end) : form.start ? fmtD(form.start) + " → …" : "";
+    sp.textContent = txt || "Chọn ngày đi – ngày về"; sp.className = txt ? "" : "ph";
   };
-  attachDateField("e-start", () => form.start, (iso) => { form.start = iso; if (form.end && iso && form.end < iso) form.end = ""; paint(); });
-  attachDateField("e-end", () => form.end, (iso) => { form.end = iso; paint(); }, { min: () => form.start || null, anchor: () => form.start || null });
+  $("#e-range", root).onclick = () => openRangeCalendar({ start: form.start, end: form.end, onPick: (sv, ev) => { form.start = sv; form.end = ev; paint(); } });
   $("#e-save", root).onclick = async () => {
     if (!form.start || !form.end) return toast("Chọn đủ ngày đi và ngày về nhé");
     try {
