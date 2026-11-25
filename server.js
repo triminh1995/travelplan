@@ -466,6 +466,25 @@ async function handleApi(req, res, parts, query) {
     try { const st = fs.statSync(path.join(PUBLIC_DIR, "index.html")); return sendJson(res, 200, { v: String(Math.round(st.mtimeMs)) + "-" + st.size }); }
     catch { return sendJson(res, 200, { v: "0" }); }
   }
+  if (parts[0] === "tts" && req.method === "GET") {
+    const tl = (query.get("tl") || "en").trim();
+    const q = (query.get("q") || "").trim().slice(0, 200);
+    if (!q || !/^[a-zA-Z-]{2,12}$/.test(tl)) return sendJson(res, 400, { error: "Thieu tham so TTS" });
+    try {
+      if (!global.__ttsCache) global.__ttsCache = new Map();
+      const cache = global.__ttsCache;
+      const key = tl + "|" + q;
+      if (cache.has(key)) { res.writeHead(200, { "Content-Type": "audio/mpeg", "Cache-Control": "public, max-age=86400" }); return res.end(cache.get(key)); }
+      const u = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + encodeURIComponent(tl) + "&q=" + encodeURIComponent(q);
+      const r = await fetch(u, { headers: { "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1" } });
+      if (!r.ok) return sendJson(res, 502, { error: "TTS loi " + r.status });
+      const buf = Buffer.from(await r.arrayBuffer());
+      if (cache.size > 300) cache.clear();
+      cache.set(key, buf);
+      res.writeHead(200, { "Content-Type": "audio/mpeg", "Cache-Control": "public, max-age=86400" });
+      return res.end(buf);
+    } catch { return sendJson(res, 502, { error: "TTS khong phan hoi" }); }
+  }
   if (parts[0] === "guide-cache" && req.method === "GET") {
     return sendJson(res, 200, loadGuideCache());
   }
@@ -567,10 +586,11 @@ async function handleApi(req, res, parts, query) {
       const b = await readBody(req);
       if (!b.name) return sendJson(res, 400, { error: "Thiếu tên địa điểm" });
       const place = {
-        id: uid(), name: String(b.name).slice(0, 120), desc: String(b.desc || "").slice(0, 600),
+        id: (typeof b.id === "string" && b.id) ? b.id.slice(0, 80) : uid(), name: String(b.name).slice(0, 120), desc: String(b.desc || "").slice(0, 600),
         go: String(b.go || "").slice(0, 600), dur: String(b.dur || "").slice(0, 60),
         image: b.image || null, steps: Array.isArray(b.steps) ? b.steps.slice(0, 8).map(s => String(s).slice(0, 300)) : [],
         nearby: b.nearby && typeof b.nearby === "object" ? b.nearby : { food: [], play: [], shop: [] },
+        transit: String(b.transit || "").slice(0, 900), tips: String(b.tips || "").slice(0, 900),
         custom: !!b.custom
       };
       trip.days[day].push(place); saveData(DB); syncJournalForTrip(trip);
