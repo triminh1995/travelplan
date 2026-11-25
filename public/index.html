@@ -42,11 +42,11 @@ body::before{content:none}
    Khong con co che contain thanh cot + lam mo hai ben. */
 #bg{position:fixed; top:0; left:0; right:0; height:var(--bgh, 100lvh); z-index:0; pointer-events:none; background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
 @media (orientation:portrait){
-  #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/cover no-repeat #638986}
+  #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat #638986}
 }
 html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
 @media (orientation:portrait){
-  html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/cover no-repeat #638986}
+  html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% auto no-repeat #638986}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -202,7 +202,7 @@ body:has(.taskbar) .toast{bottom:106px}
    may bay chibi bay ngang qua vet dut net (chung chuyen dong voi hieu ung
    cho PlaneLoader cua app), ten app o duoi, tren nen artwork cua app ===== */
 #splash{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; overflow:hidden; background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-wide.jpg") center/cover no-repeat; transition:opacity .5s ease-out; animation:splashKill .6s ease 4.5s forwards}
-@media (orientation:portrait){ #splash{background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-portrait.jpg") center/100% 100% no-repeat} }
+@media (orientation:portrait){ #splash{background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat} }
 #splash{background-color:#FFF6EC}
 #splash.bye{opacity:0; pointer-events:none}
 #splash .splash-inner{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px; transition:transform .5s ease-out}
@@ -252,6 +252,10 @@ body.modal-locked{position:fixed; left:0; right:0; width:100%; overflow:hidden}
 .modal{overscroll-behavior:contain}
 .modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px 26px 0 0; padding:20px 18px 26px; animation:up .18s ease}
 @media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
+.modal-bg.guide-bg{align-items:center; padding:22px 18px}
+.modal.guide-modal{border-radius:26px; max-height:76vh; position:relative}
+.modal.guide-modal .x{position:absolute; top:10px; right:10px; float:none; width:40px; height:40px; font-size:18px; z-index:5}
+.modal.guide-modal h3{padding-right:46px}
 @keyframes up{from{transform:translateY(16px); opacity:.6} to{transform:none; opacity:1}}
 .modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
 .modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
@@ -586,7 +590,7 @@ function openModal(html, variant) {
   //  form Sua chuyen di da xoa mat form -> bam Luu khong duoc.)
   const host = $("#modal-root");
   const wrap = document.createElement("div");
-  wrap.innerHTML = '<div class="modal-bg' + (variant === "cal" ? " cal-bg" : "") + '"><div class="modal' + (variant === "cal" ? " cal-modal" : "") + (variant === "detail" ? " detail-modal" : "") + '"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
+  wrap.innerHTML = '<div class="modal-bg' + (variant === "cal" ? " cal-bg" : "") + (variant === "guide" ? " guide-bg" : "") + '"><div class="modal' + (variant === "cal" ? " cal-modal" : "") + (variant === "detail" ? " detail-modal" : "") + (variant === "guide" ? " guide-modal" : "") + '"><button class="x" id="modal-x">✕</button>' + html + "</div></div>";
   host.appendChild(wrap);
   lockScroll();
   let closed = false;
@@ -1101,7 +1105,7 @@ function openGuidePopup(t) {
     (g.dayPlan && g.dayPlan.length ? "<h4>🗓️ Lịch trình gợi ý</h4>" + g.dayPlan.map((d, i) => '<div class="dp-day"><div class="dp-title">' + esc(d.title || ("Ngày " + (i + 1))) + '</div>' + (d.names && d.names.length ? '<div class="dp-names">' + d.names.map(esc).join(" · ") + "</div>" : "") + "</div>").join("") : "") +
     (g.sources && g.sources.length ? '<p class="tiny muted">Nguồn tham khảo: ' + g.sources.map(x => '<a href="' + esc(x.url) + '" target="_blank" rel="noreferrer">' + esc(x.title) + "</a>").join(" · ") + "</p>" : "") +
     '<p class="tiny muted">Giới thiệu và ảnh: Wikipedia (CC BY-SA) cùng nội dung biên soạn sẵn trong app.</p>';
-  openModal("<h3>📖 Cẩm nang " + esc(t.city) + "</h3>" + body);
+  openModal("<h3>📖 Cẩm nang " + esc(t.city) + "</h3>" + body, "guide");
 }
 
 function openEditTripPopup(t) {
