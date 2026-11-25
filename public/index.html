@@ -27,7 +27,7 @@
 html,body{margin:0;padding:0} html{background:#638986}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
-  color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
+  color:var(--ink); min-height:100vh; min-height:calc(100dvh + 2px); position:relative;
 }
 body::before{content:none}
 /* Nen MOT LOP DUY NHAT phu kin full-bleed tu mep nay sang mep kia, khop huong man hinh:
@@ -54,8 +54,8 @@ input,select,textarea{font-family:inherit; font-size:16px; color:var(--ink)}
 img{display:block; max-width:100%}
 .wrap{max-width:none; margin:0; padding:calc(env(safe-area-inset-top, 0px) + 4px) 12px 40px; position:relative; z-index:1}
 /* Trang chu: can giua toan bo khoi noi dung theo chieu doc trong khung nhin */
-.wrap:has(.home-frame){height:100vh; height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
-body:has(.home-frame){min-height:0; height:100dvh; overflow:hidden}
+.wrap:has(.home-frame){position:fixed; top:0; left:0; right:0; height:100vh; height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
+body:has(.home-frame){min-height:calc(100dvh + 2px); height:auto; overflow:visible}
 #view:has(.home-frame){flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center}
 @media (max-height:760px){
   .wrap:has(.home-frame){padding-top:10px; padding-bottom:10px}
