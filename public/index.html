@@ -24,7 +24,7 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0} html{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
+html,body{margin:0;padding:0} html{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986; background-attachment:fixed}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
   color:var(--ink); height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; position:relative;
@@ -42,12 +42,12 @@ body::before{content:none}
    Khong con co che contain thanh cot + lam mo hai ben. */
 @media (orientation:portrait){
   html{
-    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986;
+    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/cover no-repeat #638986; background-attachment:fixed;
   }
 }
-html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
+html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986; background-attachment:fixed}
 @media (orientation:portrait){
-  html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986}
+  html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/cover no-repeat #638986; background-attachment:fixed}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -141,7 +141,7 @@ textarea.field{resize:vertical; min-height:64px}
 .taskbar button .lb{font-size:12px; font-weight:700}
 .taskbar button.on{color:var(--coral-d)}
 .taskbar button.on .ic{background:var(--peach)}
-.taskbar-spacer{height:94px}
+.taskbar-spacer{height:calc(116px + env(safe-area-inset-bottom, 0px))}
 body:has(.taskbar) .toast{bottom:106px}
 
 /* ===== Lich trinh ===== */
@@ -936,7 +936,7 @@ function renderTripDetail(box) {
   // Luoi chon ngay
   html += '<div class="card mt"><div class="day-grid">' + Array.from({ length: n }, (_, i) => {
     const d = i + 1, iso = addDays(t.startDate, i), cnt = (t.days[d] || []).length, doneN = (t.days[d] || []).filter(p => p.visited).length;
-    return '<button class="day-tile ' + (curDay === d ? "on" : "") + '" data-day="' + d + '"><div class="d1">Ngày ' + d + '</div><div class="d2">' + WD2[parseD(iso).getDay()] + ", " + parseD(iso).getDate() + "/" + (parseD(iso).getMonth() + 1) + '</div><div class="d3"><span class="chip">' + cnt + " điểm đến" + (doneN ? " · ✓ " + doneN + " đã đi" : "") + "</span></div></button>";
+    return '<button class="day-tile ' + (curDay === d ? "on" : "") + '" data-day="' + d + '"><div class="d1">Ngày ' + d + '</div><div class="d2">' + WD2[parseD(iso).getDay()] + ", " + parseD(iso).getDate() + "/" + (parseD(iso).getMonth() + 1) + '</div><div class="d3"><span class="chip">' + cnt + " điểm đến" + "</span></div></button>";
   }).join("") + "</div></div>";
 
   // The ngay dang chon
@@ -1014,8 +1014,6 @@ function renderTripDetail(box) {
       const fill = prog.querySelector(".bar > div"); if (fill) fill.style.width = Math.round(dnNow / placesNow.length * 100) + "%";
       const txt = prog.querySelector(".txt"); if (txt) txt.textContent = "Đã đi " + dnNow + "/" + placesNow.length + " điểm";
     }
-    const tileChip = box.querySelector('.day-tile[data-day="' + curDay + '"] .chip');
-    if (tileChip) tileChip.textContent = placesNow.length + " điểm đến" + (dnNow ? " · ✓ " + dnNow + " đã đi" : "");
     try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + pl.id, "PUT", { visited: pl.visited }, { silent: true }); }
     catch (e) { try { curTrip = await api("/api/trips/" + t.id); } catch {} render(); toast("Chưa lưu được đánh dấu, bạn thử lại nhé"); }
   });
