@@ -54,8 +54,8 @@ input,select,textarea{font-family:inherit; font-size:16px; color:var(--ink)}
 img{display:block; max-width:100%}
 .wrap{max-width:none; margin:0; padding:calc(env(safe-area-inset-top, 0px) + 4px) 12px 40px; position:relative; z-index:1}
 /* Trang chu: can giua toan bo khoi noi dung theo chieu doc trong khung nhin */
-.wrap:has(.home-frame){position:fixed; top:0; left:0; right:0; height:100vh; height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
-body:has(.home-frame){min-height:calc(100dvh + 2px); height:auto; overflow:visible}
+.wrap:has(.home-frame){position:fixed; top:0; left:0; right:0; height:100vh; height:var(--bgh, 100dvh); display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
+body:has(.home-frame){min-height:calc(var(--bgh, 100dvh) + 2px); height:auto; overflow:visible}
 #view:has(.home-frame){flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center}
 @media (max-height:760px){
   .wrap:has(.home-frame){padding-top:10px; padding-bottom:10px}
@@ -253,15 +253,20 @@ body.modal-locked{position:fixed; left:0; right:0; width:100%; overflow:hidden}
 .modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px 26px 0 0; padding:20px 18px 26px; animation:up .18s ease}
 @media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
 .modal-bg.guide-bg{align-items:center; padding:22px 18px}
-.modal.guide-modal{border-radius:26px; max-height:76vh; position:relative}
-.modal.guide-modal .x{position:absolute; top:10px; right:10px; float:none; width:40px; height:40px; font-size:18px; z-index:5}
-.modal.guide-modal h3{padding-right:46px}
+html:has(body.modal-locked){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
+@media (orientation:portrait){ html:has(body.modal-locked){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat #638986} }
+html:has(body.modal-locked):has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
+@media (orientation:portrait){ html:has(body.modal-locked):has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% auto no-repeat #638986} }
+.modal.guide-modal{border-radius:26px; max-height:76vh; display:flex; flex-direction:column; overflow:hidden}
+.modal.guide-modal .x{position:static; float:none; flex:none; align-self:flex-end; width:40px; height:40px; font-size:18px}
+.guide-body{overflow-y:auto; overscroll-behavior:contain; min-height:0}
 @keyframes up{from{transform:translateY(16px); opacity:.6} to{transform:none; opacity:1}}
 .modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
 .modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
 /* Popup Chi tiet dia diem: nut X sat goc popup + thanh tab 1 hang */
-.modal.detail-modal{position:relative}
-.modal.detail-modal .x{position:absolute; top:8px; right:8px; float:none}
+.modal.detail-modal{display:flex; flex-direction:column; overflow:hidden}
+.modal.detail-modal .x{position:static; float:none; flex:none; align-self:flex-end; width:40px; height:40px; font-size:18px}
+.detail-body{overflow-y:auto; overscroll-behavior:contain; min-height:0}
 .pd-tabs{display:flex; gap:3px; margin:2px 0 12px; flex-wrap:nowrap}
 .pd-tabs button{flex:1 1 0; min-width:0; padding:7px 0; font-size:10.5px; font-weight:800; line-height:1.15; letter-spacing:-.2px; border-radius:999px; background:#F6E8DA; color:#7A5C3E; white-space:nowrap; border:2px solid transparent}
 .pd-tabs button.on{background:var(--coral); color:#fff; border-color:var(--coral)}
@@ -575,6 +580,7 @@ function lockScroll() {
     document.body.classList.add("modal-locked");
   }
   modalLockCount++;
+  if (modalLockCount === 1) { requestAnimationFrame(fitBg); setTimeout(fitBg, 350); }
 }
 function unlockScroll() {
   modalLockCount = Math.max(0, modalLockCount - 1);
@@ -582,6 +588,7 @@ function unlockScroll() {
     document.body.classList.remove("modal-locked");
     document.body.style.top = "";
     window.scrollTo(0, modalSavedY);
+    requestAnimationFrame(fitBg); setTimeout(fitBg, 350);
   }
 }
 function openModal(html, variant) {
@@ -1105,7 +1112,7 @@ function openGuidePopup(t) {
     (g.dayPlan && g.dayPlan.length ? "<h4>🗓️ Lịch trình gợi ý</h4>" + g.dayPlan.map((d, i) => '<div class="dp-day"><div class="dp-title">' + esc(d.title || ("Ngày " + (i + 1))) + '</div>' + (d.names && d.names.length ? '<div class="dp-names">' + d.names.map(esc).join(" · ") + "</div>" : "") + "</div>").join("") : "") +
     (g.sources && g.sources.length ? '<p class="tiny muted">Nguồn tham khảo: ' + g.sources.map(x => '<a href="' + esc(x.url) + '" target="_blank" rel="noreferrer">' + esc(x.title) + "</a>").join(" · ") + "</p>" : "") +
     '<p class="tiny muted">Giới thiệu và ảnh: Wikipedia (CC BY-SA) cùng nội dung biên soạn sẵn trong app.</p>';
-  openModal("<h3>📖 Cẩm nang " + esc(t.city) + "</h3>" + body, "guide");
+  openModal('<div class="guide-body"><h3>📖 Cẩm nang ' + esc(t.city) + "</h3>" + body + "</div>", "guide");
 }
 
 function openEditTripPopup(t) {
@@ -1160,7 +1167,7 @@ function openPlaceDetail(p, transportTips) {
     "<h3>" + esc(p.name) + "</h3>" +
     '<div class="pd-tabs">' + TABS.map(([k, lb]) => '<button data-pd-tab="' + k + '"' + (k === "detail" ? ' class="on"' : "") + ">" + lb + "</button>").join("") + "</div>" +
     TABS.map(([k]) => '<div class="pd-panel' + (k === "detail" ? " on" : "") + '" data-pd-panel="' + k + '">' + panels[k] + "</div>").join("");
-  const { root } = openModal(html, "detail");
+  const { root } = openModal('<div class="detail-body">' + html + "</div>", "detail");
   $$("[data-pd-tab]", root).forEach(b => b.onclick = () => {
     $$("[data-pd-tab]", root).forEach(x => x.classList.toggle("on", x === b));
     $$("[data-pd-panel]", root).forEach(pn => pn.classList.toggle("on", pn.dataset.pdPanel === b.dataset.pdTab));
@@ -1379,10 +1386,23 @@ function splashLeave() {
   // (thanh taskbar o trang Lich trinh bi neo theo chieu cao noi dung thay vi day man hinh)
   setTimeout(() => { if (v) v.classList.remove("app-enter"); }, 700);
 }
+/* Chi roi splash khi khung hien thi da on dinh (innerHeight khong doi qua 3 lan do
+   120ms) — tranh hieu ung co gian luc moi vao do khung bi gian ra sau khi hien trang. */
+let splashSettled = false, splashWanted = false;
+function splashAsk() { splashWanted = true; if (splashSettled) splashLeave(); }
+(function watchSettle() {
+  let last = -1, stable = 0; const t0 = Date.now();
+  const iv = setInterval(() => {
+    fitBg();
+    const h = window.innerHeight;
+    if (h === last) stable++; else { stable = 0; last = h; }
+    if (stable >= 2 || Date.now() - t0 > 2200) { splashSettled = true; clearInterval(iv); if (splashWanted) splashLeave(); }
+  }, 120);
+})();
 const splashEl = document.getElementById("splash");
-if (splashEl) splashEl.addEventListener("click", splashLeave);
-setTimeout(splashLeave, 1500);
-window.addEventListener("pageshow", (e) => { if (e.persisted) splashLeave(); });
+if (splashEl) splashEl.addEventListener("click", splashAsk);
+setTimeout(splashAsk, 1500);
+window.addEventListener("pageshow", (e) => { if (e.persisted) splashAsk(); });
 
 /* ================= Khoi dong ================= */
 (async function init() {
