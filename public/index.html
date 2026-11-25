@@ -24,10 +24,10 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0} html{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986; background-attachment:fixed}
+html,body{margin:0;padding:0} html{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
-  color:var(--ink); min-height:100vh; min-height:100dvh; position:relative;
+  color:var(--ink); height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; position:relative;
 }
 body::before{content:none}
 /* Nen MOT LOP DUY NHAT phu kin full-bleed tu mep nay sang mep kia, khop huong man hinh:
@@ -42,18 +42,20 @@ body::before{content:none}
    Khong con co che contain thanh cot + lam mo hai ben. */
 @media (orientation:portrait){
   html{
-    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986; background-attachment:fixed;
+    background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986;
   }
 }
-html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986; background-attachment:fixed}
+html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
 @media (orientation:portrait){
-  html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986; background-attachment:fixed}
+  html:has(.home-frame){background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% var(--bgh, 100lvh) no-repeat #638986}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
 input,select,textarea{font-family:inherit; font-size:16px; color:var(--ink)}
 img{display:block; max-width:100%}
-.wrap{max-width:none; margin:0; padding:calc(env(safe-area-inset-top, 0px) + 4px) 12px 40px}
+.wrap{max-width:none; margin:0; padding:calc(env(safe-area-inset-top, 0px) + 4px) 12px 40px; flex:1; min-height:0; display:flex; flex-direction:column}
+#view{flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; scrollbar-width:none}
+#view::-webkit-scrollbar{display:none}
 /* Trang chu: can giua toan bo khoi noi dung theo chieu doc trong khung nhin */
 .wrap:has(.home-frame){height:100vh; height:100dvh; display:flex; flex-direction:column; justify-content:center; padding-top:20px; padding-bottom:20px; overflow:hidden}
 body:has(.home-frame){min-height:0; height:100dvh; overflow:hidden}
@@ -249,7 +251,7 @@ body:has(.taskbar) .toast{bottom:106px}
 
 /* ===== Popup ===== */
 .modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:flex-end; justify-content:center; padding:0}
-body.modal-locked{position:fixed; left:0; right:0; width:100%; overflow:hidden}
+#view.scroll-locked{overflow-y:hidden}
 .modal{overscroll-behavior:contain}
 .modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px 26px 0 0; padding:20px 18px 26px; animation:up .18s ease}
 @media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
@@ -564,20 +566,20 @@ function citySearchList(country) {
 
 /* ================= Popup ================= */
 let modalLockCount = 0, modalSavedY = 0;
+function pinScroll() { const v = $("#view"); if (v && modalLockCount > 0 && v.scrollTop !== modalSavedY) v.scrollTop = modalSavedY; }
 function lockScroll() {
   if (modalLockCount === 0) {
-    modalSavedY = window.scrollY || 0;
-    document.body.style.top = -modalSavedY + "px";
-    document.body.classList.add("modal-locked");
+    const v = $("#view");
+    modalSavedY = v ? v.scrollTop : 0;
+    if (v) { v.classList.add("scroll-locked"); v.addEventListener("scroll", pinScroll, { passive: true }); }
   }
   modalLockCount++;
 }
 function unlockScroll() {
   modalLockCount = Math.max(0, modalLockCount - 1);
   if (modalLockCount === 0) {
-    document.body.classList.remove("modal-locked");
-    document.body.style.top = "";
-    window.scrollTo(0, modalSavedY);
+    const v = $("#view");
+    if (v) { v.classList.remove("scroll-locked"); v.removeEventListener("scroll", pinScroll); v.scrollTop = modalSavedY; }
   }
 }
 function openModal(html, variant) {
@@ -678,16 +680,16 @@ async function goTab(t) {
     try { curTrip = await api("/api/trips/" + selTripId); } catch {}
   }
   render();
-  window.scrollTo({ top: 0 });
+  const vTop = $("#view"); if (vTop) vTop.scrollTop = 0;
 }
 function render() {
-  const y = window.scrollY;
   const v = $("#view");
+  const y = v ? v.scrollTop : 0;
   if (tab === "home") renderHome(v);
   else if (tab === "itinerary") renderItinerary(v);
   else if (tab === "phrases") renderPhrases(v);
   else if (tab === "prep") renderPrep(v);
-  window.scrollTo({ top: y });
+  if (v) v.scrollTop = y;
 }
 
 /* ================= DANG NHAP & NHAT KY ================= */
@@ -860,7 +862,7 @@ function renderHome(v) {
       tab = "itinerary";
       toast("Đã tạo chuyến đi " + city + " 🎉");
       render();
-      window.scrollTo({ top: 0 });
+      const vTop = $("#view"); if (vTop) vTop.scrollTop = 0;
     } catch (e) { toast(e.message); }
   };
   bindNav(v);
@@ -996,7 +998,24 @@ function renderTripDetail(box) {
     const pl = (curTrip.days[curDay] || []).find(x => x.id === b.dataset.visited);
     if (!pl) return;
     pl.visited = !pl.visited;
-    render();
+    // Cap nhat ngay tai cho (the, chip, thanh tien do, o ngay) — khong ve lai ca trang nen khong nhay man hinh
+    const card = b.closest(".place-card");
+    if (card) {
+      card.classList.toggle("done", pl.visited);
+      b.classList.toggle("on", pl.visited);
+      b.title = pl.visited ? "Đã đi — ấn để bỏ đánh dấu" : "Đánh dấu đã đi";
+      const chip = card.querySelector(".vchip");
+      if (chip) { chip.className = "vchip " + (pl.visited ? "yes" : "no"); chip.textContent = pl.visited ? "✓ Đã đi" : "Chưa đi"; }
+    }
+    const placesNow = curTrip.days[curDay] || [];
+    const dnNow = placesNow.filter(p => p.visited).length;
+    const prog = box.querySelector(".day-progress");
+    if (prog && placesNow.length) {
+      const fill = prog.querySelector(".bar > div"); if (fill) fill.style.width = Math.round(dnNow / placesNow.length * 100) + "%";
+      const txt = prog.querySelector(".txt"); if (txt) txt.textContent = "Đã đi " + dnNow + "/" + placesNow.length + " điểm";
+    }
+    const tileChip = box.querySelector('.day-tile[data-day="' + curDay + '"] .chip');
+    if (tileChip) tileChip.textContent = placesNow.length + " điểm đến" + (dnNow ? " · ✓ " + dnNow + " đã đi" : "");
     try { await api("/api/trips/" + t.id + "/days/" + curDay + "/places/" + pl.id, "PUT", { visited: pl.visited }, { silent: true }); }
     catch (e) { try { curTrip = await api("/api/trips/" + t.id); } catch {} render(); toast("Chưa lưu được đánh dấu, bạn thử lại nhé"); }
   });
@@ -1385,13 +1404,14 @@ checkAppVersion();
 if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("/sw.js").catch(() => {}); } catch {} }
 function fitBg() {
   try {
-    const sa = window.navigator.standalone === true || (window.matchMedia && (matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches));
     const root = document.documentElement;
-    if (sa && window.screen && window.screen.height) {
-      const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
-      const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
+    if (!(window.screen && window.screen.height)) return;
+    const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
+    const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
+    let gap = vScreen - window.innerHeight;
+    const sa = window.navigator.standalone === true || (window.matchMedia && (matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches));
+    if (sa || (gap >= 1 && gap <= 120)) {
       root.style.setProperty("--bgh", vScreen + "px");
-      let gap = vScreen - window.innerHeight;
       if (!(gap > 0)) gap = 0; if (gap > 90) gap = 90;
       root.style.setProperty("--gap", gap + "px");
     } else { root.style.removeProperty("--bgh"); root.style.removeProperty("--gap"); }
@@ -1400,6 +1420,9 @@ function fitBg() {
 fitBg();
 addEventListener("resize", fitBg);
 addEventListener("orientationchange", fitBg);
+addEventListener("load", fitBg);
+setTimeout(fitBg, 400); setTimeout(fitBg, 1200);
+addEventListener("pointerdown", fitBg, { once: true });
 async function refreshData() {
   try {
     if (await checkAppVersion()) return;
@@ -1422,11 +1445,12 @@ function autoRefresh() {
 document.addEventListener("visibilitychange", () => { if (!document.hidden) autoRefresh(); });
 window.addEventListener("focus", autoRefresh);
 let ptrY = null, ptrD = 0;
-document.addEventListener("touchstart", (e) => { ptrD = 0; ptrY = (window.scrollY <= 0 && !(e.target.closest && e.target.closest("#modal-root"))) ? e.touches[0].clientY : null; }, { passive: true });
+function viewScrollTop() { const v = document.querySelector("#view"); return v ? v.scrollTop : 0; }
+document.addEventListener("touchstart", (e) => { ptrD = 0; ptrY = (viewScrollTop() <= 0 && !(e.target.closest && e.target.closest("#modal-root"))) ? e.touches[0].clientY : null; }, { passive: true });
 document.addEventListener("touchmove", (e) => {
   if (ptrY == null || ptrRefreshing) return;
   const dy = e.touches[0].clientY - ptrY, b = document.getElementById("ptr");
-  if (dy > 10 && window.scrollY <= 0) { ptrD = dy; if (b) b.classList.add("show"); }
+  if (dy > 10 && viewScrollTop() <= 0) { ptrD = dy; if (b) b.classList.add("show"); }
   else { ptrD = 0; if (b) b.classList.remove("show"); }
 }, { passive: true });
 document.addEventListener("touchend", async () => {
