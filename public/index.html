@@ -119,7 +119,7 @@ textarea.field{resize:vertical; min-height:64px}
 .suggest button:hover{background:#FFF4E4}
 .suggest .ct{color:var(--muted); font-size:12px; font-weight:700}
 .search-btn{width:100%; margin-top:16px; padding:15px; font-size:17px}
-.nav-grid{display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:10px; margin-top:12px}
+.nav-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
 .nav-tile{background:rgba(255,253,248,.92); border:2px solid var(--line); border-radius:20px; box-shadow:var(--shadow); padding:12px 8px 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; height:76px; gap:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; color:#274156}
 .nav-tile .ic{font-size:24px; line-height:1; height:26px; display:flex; align-items:center; justify-content:center}
 .nav-tile.on{background:var(--coral); border-color:var(--coral); color:#fff}
@@ -195,9 +195,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .spk .ic-svg{width:19px; height:19px}
 .nav-row:not(.tab-nav) button .ic-svg{display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:4px; color:var(--coral-d)}
 /* ===== Chuyen giua cac trang chinh: mo dan + truot len nhe ===== */
-#view.anim > *{animation:viewIn .3s ease both}
 #view > .taskbar{animation:none}
-@keyframes viewIn{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){#view > *{animation:none}}
 /* ===== Man hinh cho (splash) — sao dung hieu ung vao cua ban Muse:
    may bay chibi bay ngang qua vet dut net (chung chuyen dong voi hieu ung
@@ -217,8 +215,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .splash-name{margin-top:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:48px; line-height:1; color:#274156}
 /* Ban giao splash -> trang chu: trang ben duoi mo dan + troi len vao cho
    (class .app-enter gan vao #view ngay khi splash bat dau roi di) */
-@keyframes appEnter{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
-.app-enter{animation:appEnter .6s ease-out both}
+.app-enter{animation:none}
 @media (prefers-reduced-motion: reduce){.app-enter{animation:none}}
 .day-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px}
 .day-tile{background:#fff; border:2px solid var(--line); border-radius:var(--r-md); padding:10px 8px; text-align:center; box-shadow:var(--shadow)}
@@ -253,14 +250,13 @@ body:has(.taskbar) .toast{bottom:106px}
 .modal-bg{position:fixed; inset:0; background:rgba(62,50,35,.45); z-index:100; display:flex; align-items:center; justify-content:center; padding:22px 18px}
 html.modal-locked, body.modal-locked{overflow:hidden}
 .modal{overscroll-behavior:contain}
-.modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px; padding:20px 18px 26px; animation:up .18s ease}
+.modal{background:var(--card); width:100%; max-width:540px; max-height:92vh; overflow-y:auto; border-radius:26px; padding:20px 18px 26px}
 @media(min-width:600px){ .modal-bg{align-items:center; padding:20px} .modal{border-radius:26px} }
 .modal-bg.guide-bg{align-items:center; padding:22px 18px}
 html:has(body.modal-locked){background:#52625a}
 .modal.guide-modal{border-radius:26px; max-height:76vh; display:flex; flex-direction:column; overflow:hidden}
 .modal.guide-modal .x{position:static; float:none; flex:none; align-self:flex-end; width:40px; height:40px; font-size:18px}
 .guide-body{overflow-y:auto; overscroll-behavior:contain; min-height:0}
-@keyframes up{from{transform:translateY(16px); opacity:.6} to{transform:none; opacity:1}}
 .modal h3{font-family:"Baloo 2",sans-serif; font-size:22px; margin:0 34px 12px 0; color:#274156}
 .modal .x{position:sticky; top:0; float:right; width:34px; height:34px; border-radius:50%; background:var(--peach); font-size:17px; font-weight:800; z-index:2}
 /* Popup Chi tiet dia diem: nut X sat goc popup + thanh tab 1 hang */
@@ -326,7 +322,7 @@ html:has(body.modal-locked){background:#52625a}
 .cal-day.inrange{background:#FFE7D6; border-radius:14px}
 /* Popup lich: kich thuoc co dinh, hien phia tren man hinh (khong nam sat day) */
 .modal-bg.cal-bg{align-items:center; padding:22px 18px}
-.modal.cal-modal{width:100%; max-width:340px; height:440px; max-height:calc(100dvh - 44px); border-radius:26px; overflow:hidden; display:flex; flex-direction:column; animation:up .18s ease}
+.modal.cal-modal{width:100%; max-width:340px; height:440px; max-height:calc(100dvh - 44px); border-radius:26px; overflow:hidden; display:flex; flex-direction:column}
 @keyframes down{from{transform:translateY(-16px); opacity:.6} to{transform:none; opacity:1}}
 .modal.cal-modal .x{position:static; float:none; align-self:flex-end; flex:none}
 .cal-wrap{display:flex; flex-direction:column; flex:1; min-height:0}
@@ -418,10 +414,6 @@ html:has(body.modal-locked){background:#52625a}
 .home-frame.card{border-radius:0; border-left:none; border-right:none; border-top:none; box-shadow:none}
 .wrap:has(.home-frame) .auth-grid{padding-left:10px; padding-right:10px}
 .wrap:has(.home-frame) .nav-grid{padding-left:10px; padding-right:10px; padding-bottom:10px}
-@media (min-height:761px){
-  .wrap:has(.home-frame) .nav-grid{flex:1}
-  .wrap:has(.home-frame) .nav-tile{height:auto; min-height:76px}
-}
 
 /* ===== Man hinh lon (may tinh, tablet ngang >=1024px): noi dung CAN GIUA man hinh,
    khong tran ra het be ngang; hinh nen van phu kin toan bo khung nhinh ===== */
@@ -443,7 +435,7 @@ html:has(body.modal-locked){background:#52625a}
 <div id="modal-root"></div>
 <div id="toast-root"></div>
 <div id="ptr"><span class="ptr-ring"></span></div>
-<div id="loader" class="show" aria-hidden="true"><div class="fly-track"><div class="fly-plane"><img src="assets/plane-cutout.webp" alt=""></div></div><div class="load-text" id="loader-text">Đang tải Travel Plan… ✈️</div></div>
+<div id="loader" class="show" aria-hidden="true"><div class="fly-track"><div class="fly-plane"><img src="assets/plane-cutout.webp" alt=""></div></div></div>
 
 <script>
 "use strict";
@@ -467,7 +459,7 @@ function toast(msg) {
 }
 /* ===== Hieu ung dang tai: may bay dang bay ===== */
 let loadPending = 0, loadTimer = null, loadHold = false;
-function loaderShow(text) { const l = document.getElementById("loader"); if (!l) return; if (text) document.getElementById("loader-text").textContent = text; l.classList.add("show"); }
+function loaderShow() { const l = document.getElementById("loader"); if (!l) return; l.classList.add("show"); }
 function loaderHide() { const l = document.getElementById("loader"); if (l) l.classList.remove("show"); }
 function loaderOn() {
   loadPending++;
@@ -517,7 +509,7 @@ function imgOr(place, cls) {
 }
 
 /* ================= Trang thai ================= */
-let GUIDES = {}, CITYLIST = [], PHRASES = {};
+let GUIDES = {}, CITYLIST = [], PHRASES = {}, LO_TTS = {};
 let trips = [];              // danh sach tom tat
 let tab = "home";
 let curTrip = null;          // chuyen dang mo (full)
@@ -790,7 +782,6 @@ function bindAuthBar(v) {
   const bl = $("#btn-login", v);
   if (bl) bl.onclick = () => {
     if (!AUTH_OK) return toast("Chưa cấu hình đăng nhập Google 🔐 — xem mục hướng dẫn trong README nhé");
-    loaderHoldShow("Đang chuyển tới trang đăng nhập Google… ✈️");
     location.href = "/auth/google";
   };
   const ba = $("#btn-account", v);
@@ -807,9 +798,9 @@ function openAccountMenu() {
     '<button class="menu-item danger" id="acct-logout"><span class="ic">' + ic("logout") + '</span>Đăng xuất</button>' +
     "</div>");
   const sw = $("#acct-switch", root);
-  if (sw) sw.onclick = () => { loaderHoldShow("Đang chuyển tới trang đăng nhập Google… ✈️"); location.href = "/auth/google"; };
+  if (sw) sw.onclick = () => { location.href = "/auth/google"; };
   const lo = $("#acct-logout", root);
-  if (lo) lo.onclick = () => { loaderHoldShow("Đang đăng xuất… ✈️"); location.href = "/auth/logout"; };
+  if (lo) lo.onclick = () => { location.href = "/auth/logout"; };
 }
 async function openJournalPopup() {
   if (!ME) { toast("Bạn đăng nhập trước để xem Nhật ký nhé 🔐"); return; }
@@ -940,7 +931,6 @@ function renderHome(v) {
       trips = await api("/api/trips");
       curTrip = trip; selTripId = trip.id; curDay = 1; prepTripId = trip.id;
       tab = "itinerary";
-      toast("Đã tạo chuyến đi " + city + " 🎉");
       render();
       window.scrollTo({ top: 0 });
     } catch (e) { toast(e.message); }
@@ -1137,7 +1127,7 @@ function renderTripDetail(box) {
 }
 
 function stayHTML(t) {
-  if (!t.stay) return '<div class="stay-box"><div class="row-between"><b>🏨 Nơi lưu trú</b><button class="btn btn-teal btn-sm" id="btn-stay">' + ic("plus") + 'Thêm nơi lưu trú</button></div><div class="small muted" style="margin-top:6px">Ghi lại chỗ ở bạn đã đặt trước ở ' + esc(t.city) + " để xem nhanh khi cần.</div></div>";
+  if (!t.stay) return '<div class="stay-box"><div class="row-between"><b>🏨 Nơi lưu trú</b><button class="btn btn-teal btn-sm" id="btn-stay">' + ic("plus") + 'Thêm nơi lưu trú</button></div></div>';
   const s = t.stay;
   return '<div class="stay-box"><div class="row-between"><b>🏨 Nơi lưu trú</b><span><button class="btn btn-ghost btn-sm" id="btn-stay">' + ic("pen") + 'Sửa</button> <button class="btn btn-ghost btn-sm" id="btn-stay-del">✕</button></span></div>' +
     '<div style="margin-top:6px"><b>' + esc(s.name) + "</b>" +
@@ -1333,18 +1323,23 @@ function speakText(text, lang) {
       speechSynthesis.cancel(); speechSynthesis.speak(u);
     } catch { toast("Chưa phát được âm thanh 😢"); }
   };
-  try {
-    if (ttsAudio) { try { ttsAudio.pause(); } catch {} ttsAudio = null; }
-    const a = new Audio("/api/tts?tl=" + encodeURIComponent(tl) + "&q=" + encodeURIComponent(text));
-    ttsAudio = a;
-    let settled = false;
-    const fb = () => { if (!settled && ttsAudio === a) { settled = true; try { a.pause(); } catch {} fallback(); } };
-    a.addEventListener("playing", () => { settled = true; });
-    a.onerror = fb;
-    setTimeout(() => { if (!settled && ttsAudio === a && a.readyState < 3) fb(); }, 2500);
-    const pr = a.play();
-    if (pr && pr.catch) pr.catch(fb);
-  } catch { fallback(); }
+  const tryPlay = (url, failCb) => {
+    try {
+      if (ttsAudio) { try { ttsAudio.pause(); } catch {} ttsAudio = null; }
+      const a = new Audio(url);
+      ttsAudio = a;
+      let settled = false;
+      const fb = () => { if (!settled && ttsAudio === a) { settled = true; try { a.pause(); } catch {} failCb(); } };
+      a.addEventListener("playing", () => { settled = true; });
+      a.onerror = fb;
+      setTimeout(() => { if (!settled && ttsAudio === a && a.readyState < 3) fb(); }, 5000);
+      const pr = a.play();
+      if (pr && pr.catch) pr.catch(fb);
+    } catch { failCb(); }
+  };
+  const apiUrl = "/api/tts?tl=" + encodeURIComponent(tl) + "&q=" + encodeURIComponent(text);
+  if (main === "lo" && LO_TTS[text]) { tryPlay(LO_TTS[text], () => tryPlay(apiUrl, fallback)); return; }
+  tryPlay(apiUrl, fallback);
 }
 function renderPhrases(v) {
   let html = '';
@@ -1502,18 +1497,19 @@ window.addEventListener("pageshow", (e) => { if (e.persisted) splashAsk(); });
 (async function init() {
   loaderHoldShow("Đang tải Travel Plan… ✈️");
   try {
-    const [g, c, p, ts, gc, me] = await Promise.all([
+    const [g, c, p, ts, gc, me, loM] = await Promise.all([
       fetch("data/guides.json").then(r => r.json()),
       fetch("data/cities.json").then(r => r.json()),
       fetch("data/phrases.json").then(r => r.json()),
       api("/api/trips"),
       api("/api/guide-cache").catch(() => ({ cities: {} })),
-      api("/api/me").catch(() => ({ user: null, authConfigured: false }))
+      api("/api/me").catch(() => ({ user: null, authConfigured: false })),
+      fetch("data/tts-lo.json").then(r => r.json()).catch(() => ({}))
     ]);
     GUIDES = g.cities || {};
     for (const k in (gc.cities || {})) if (!GUIDES[k]) GUIDES[k] = gc.cities[k];
     CITYLIST = Array.isArray(c) ? c : (((c && c.cities) || []).map(a => ({ name: a[0], country: ((c && c.countries) || [])[a[1]] || "" })));
-    PHRASES = p.countries || {}; trips = ts || [];
+    PHRASES = p.countries || {}; trips = ts || []; LO_TTS = loM || {};
     ME = me.user || null; AUTH_OK = !!me.authConfigured;
     if (ME) {
       try { const j = await api("/api/journal"); journalIds = new Set(j.map(e => e.tripId)); } catch {}
