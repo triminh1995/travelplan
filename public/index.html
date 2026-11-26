@@ -24,7 +24,7 @@
   --r-lg:26px; --r-md:18px; --r-sm:12px;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0} html{background:#638986}
+html,body{margin:0;padding:0} html{background:#FFF6EC}
 body{
   font-family:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
   color:var(--ink); min-height:100vh; min-height:calc(100dvh + 2px); position:relative;
@@ -40,13 +40,13 @@ body::before{content:none}
    may bay phia tren va hang dia danh + mat nuoc phan chieu phia duoi deu thay du,
    do lech ti le chi ~4-5% nen tranh mau nuoc khong nhan ra meo.
    Khong con co che contain thanh cot + lam mo hai ben. */
-#bg{position:fixed; top:0; left:0; right:0; height:var(--bgh, 100lvh); z-index:0; pointer-events:none; background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #638986}
+#bg{position:fixed; top:0; left:0; right:0; height:var(--bgh, 100lvh); z-index:0; pointer-events:none; background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide.jpg") center/cover no-repeat #FFF6EC}
 @media (orientation:portrait){
-  #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat #638986}
+  #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat #FFF6EC}
 }
-html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #638986}
+html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-wide-home.jpg") center/cover no-repeat #FFF6EC}
 @media (orientation:portrait){
-  html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% auto no-repeat #638986}
+  html:has(.home-frame) #bg{background:linear-gradient(180deg, rgba(255,247,236,.24), rgba(255,247,236,.38)), url("assets/travel-bg-portrait-home.jpg") 50% 0/100% auto no-repeat #FFF6EC}
 }
 h1,h2,h3,.font-round{font-family:"Baloo 2","Be Vietnam Pro","Comic Sans MS","Chalkboard SE",system-ui,sans-serif}
 button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit}
@@ -200,19 +200,17 @@ body:has(.taskbar) .toast{bottom:106px}
 /* ===== Man hinh cho (splash) — sao dung hieu ung vao cua ban Muse:
    may bay chibi bay ngang qua vet dut net (chung chuyen dong voi hieu ung
    cho PlaneLoader cua app), ten app o duoi, tren nen artwork cua app ===== */
-#splash{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; overflow:hidden; background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-wide.jpg") center/cover no-repeat; transition:opacity .5s ease-out; animation:splashKill .6s ease 4.5s forwards}
+#splash{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; overflow:hidden; background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-wide.jpg") center/cover no-repeat}
 @media (orientation:portrait){ #splash{background:linear-gradient(rgba(255,246,236,.55), rgba(255,246,236,.55)), url("assets/travel-bg-portrait.jpg") 50% 0/100% auto no-repeat} }
 #splash{background-color:#FFF6EC}
-#splash.bye{opacity:0; pointer-events:none}
-#splash .splash-inner{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px; transition:transform .5s ease-out}
-#splash.bye .splash-inner{transform:translateY(-12px)}
-@keyframes splashKill{to{opacity:0; visibility:hidden}}
+#splash.bye{display:none}
+#splash .splash-inner{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 24px}
 .splash-track{position:relative; display:block; height:96px; width:304px; max-width:82vw}
 .splash-line{display:none}
 .splash-plane{position:absolute; top:10px; left:-88px; width:96px; animation:splashFlyAcross 3.2s linear infinite; will-change:left,transform; filter:drop-shadow(0 8px 12px rgba(229,80,47,.28))}
 @keyframes splashFlyAcross{0%{left:-88px; transform:translateY(0) rotate(-2deg)}25%{transform:translateY(-9px) rotate(1.5deg)}50%{transform:translateY(-2px) rotate(-1deg)}75%{transform:translateY(-10px) rotate(2deg)}100%{left:100%; transform:translateY(0) rotate(-2deg)}}
 @media (prefers-reduced-motion: reduce){.splash-plane{animation:none; left:50%; transform:translateX(-50%)}}
-.splash-name{margin-top:4px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:48px; line-height:1; color:#274156}
+.splash-name{margin:0; font-family:"Pacifico","Baloo 2",cursive; font-weight:400; font-size:52px; line-height:1.25; letter-spacing:0; padding:2px 6px 8px; background:linear-gradient(92deg,#ef5d3a 0%,#e75480 52%,#17808a 100%); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 3px rgba(39,65,86,.28))}
 /* Ban giao splash -> trang chu: trang ben duoi mo dan + troi len vao cho
    (class .app-enter gan vao #view ngay khi splash bat dau roi di) */
 .app-enter{animation:none}
@@ -428,7 +426,7 @@ html:has(body.modal-locked){background:#52625a}
 </head>
 <body>
 <div id="bg" aria-hidden="true"></div>
-<div id="splash" role="button" aria-label="Vào Travel Plan"><div class="splash-inner"><span class="splash-track"><span class="splash-line"></span><img class="splash-plane" src="assets/plane-cutout.webp" alt=""></span><div class="splash-name">Travel Plan</div></div></div>
+<div id="splash" role="button" aria-label="Vào Travel Plan"><div class="splash-inner"><div class="splash-name">Travel Plan</div></div></div>
 <div class="wrap" id="app">
   <div id="view"></div>
 </div>
@@ -1457,23 +1455,16 @@ async function renderPrep(v) {
   };
 }
 
-/* ================= Man hinh cho (splash) =================
-   Vong doi dung nhu ban Muse: "show" (~1.5s, hoac cham de vao ngay)
-   -> "leaving" (mo dan 0.5s, trang chu nhan .app-enter mo/troi vao)
-   -> "gone" (go khoi DOM sau 550ms). Chi hien o lan mo app dau tien. */
+/* ================= Man hinh vao (splash) =================
+   Chi con chu Travel Plan (kieu tieu de trang chu) o giua man hinh tren nen kem
+   full vien; het thoi gian cho la bien ngay, khong hieu ung mo dan/che tu tu.
+   Chi hien o lan mo app dau tien. */
 let splashState = "show";
 function splashLeave() {
   if (splashState !== "show") return;
-  splashState = "leaving";
+  splashState = "gone";
   const sp = document.getElementById("splash");
-  if (sp) sp.classList.add("bye");
-  const v = document.getElementById("view");
-  if (v) v.classList.add("app-enter");
-  setTimeout(() => { splashState = "gone"; if (sp && sp.parentNode) sp.remove(); }, 550);
-  // Go han class sau khi animation chay xong: neu de lai, keyframe cuoi giu transform
-  // tren #view -> #view thanh khung chua cua moi phan tu position:fixed ben trong
-  // (thanh taskbar o trang Lich trinh bi neo theo chieu cao noi dung thay vi day man hinh)
-  setTimeout(() => { if (v) v.classList.remove("app-enter"); }, 700);
+  if (sp && sp.parentNode) sp.remove();
 }
 /* Chi roi splash khi khung hien thi da on dinh (innerHeight khong doi qua 3 lan do
    120ms) — tranh hieu ung co gian luc moi vao do khung bi gian ra sau khi hien trang. */
