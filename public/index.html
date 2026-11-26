@@ -131,14 +131,14 @@ textarea.field{resize:vertical; min-height:64px}
 .tab-nav button .lb{font-size:12px; font-weight:700}
 
 /* ===== Taskbar co dinh duoi day (chi dung trong Lich trinh) ===== */
-.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; transform:translateY(var(--barshift, 0px)); background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(68px + env(safe-area-inset-bottom)); margin-bottom:-60px}
+.taskbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgb(255,253,248); border-top:2px solid var(--line); box-shadow:0 -6px 20px rgba(190,120,70,.14); padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px))}
 .taskbar-in{max-width:none; margin:0; display:flex; gap:6px}
 .taskbar button{flex:1; min-width:0; height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:4px 2px 3px; line-height:1.1; white-space:nowrap; color:var(--muted); border-radius:16px}
 .taskbar button .ic{font-size:21px; line-height:1; padding:3px 14px; border-radius:999px}
 .taskbar button .lb{font-size:12px; font-weight:700}
 .taskbar button.on{color:var(--coral-d)}
 .taskbar button.on .ic{background:var(--peach)}
-.taskbar-spacer{height:calc(116px + env(safe-area-inset-bottom, 0px))}
+.taskbar-spacer{height:calc(76px + env(safe-area-inset-bottom, 0px))}
 body:has(.taskbar) .toast{bottom:106px}
 
 /* ===== Lich trinh ===== */
@@ -572,30 +572,13 @@ function lockScroll() {
     document.body.classList.add("modal-locked");
   }
   modalLockCount++;
-  if (modalLockCount === 1) { requestAnimationFrame(() => { fitBg(); fixBarLock(); }); setTimeout(() => { fitBg(); fixBarLock(); }, 350); }
-}
-/* Luc khoa cuon (popup mo), khung hien thi bi co lai lam taskbar noi len khoi day
-   man hinh that va dai duoi chi con mau nen phang. Do truc tiep canh duoi cua thanh
-   so voi chieu cao man hinh that roi dich thanh xuong dung bang do lech do. */
-function fixBarLock() {
-  try {
-    const root = document.documentElement;
-    const bar = document.querySelector(".taskbar");
-    if (!bar || !window.screen || !window.screen.height) { root.style.setProperty("--lockshift", "0px"); return; }
-    const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
-    const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
-    const cur = parseFloat(getComputedStyle(root).getPropertyValue("--lockshift")) || 0;
-    let shift = Math.round(vScreen - bar.getBoundingClientRect().bottom + cur);
-    if (shift < 0) shift = 0; if (shift > 120) shift = 120;
-    root.style.setProperty("--lockshift", shift + "px");
-  } catch {}
+  if (modalLockCount === 1) { requestAnimationFrame(() => { fitBg(); }); setTimeout(() => { fitBg(); }, 350); }
 }
 function unlockScroll() {
   modalLockCount = Math.max(0, modalLockCount - 1);
   if (modalLockCount === 0) {
     document.documentElement.classList.remove("modal-locked");
     document.body.classList.remove("modal-locked");
-    document.documentElement.style.setProperty("--lockshift", "0px");
     requestAnimationFrame(fitBg); setTimeout(fitBg, 350);
   }
 }
@@ -762,7 +745,6 @@ function render() {
   else if (tab === "phrases") renderPhrases(v);
   else if (tab === "prep") renderPrep(v);
   window.scrollTo({ top: y });
-  requestAnimationFrame(fitBar);
 }
 
 /* ================= DANG NHAP & NHAT KY ================= */
@@ -1553,28 +1535,6 @@ function fitBg() {
   } catch {}
 }
 fitBg();
-function fitBar() {
-  try {
-    const root = document.documentElement;
-    const sa = window.navigator.standalone === true || (window.matchMedia && (matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches));
-    if (!sa || window.innerWidth > 1024) { root.style.setProperty("--barshift", "0px"); return; }
-    const bar = document.querySelector(".taskbar");
-    const lb = bar && bar.querySelector("button .lb");
-    if (!bar || !lb || !(window.screen && window.screen.height)) return;
-    const portrait = window.matchMedia && matchMedia("(orientation: portrait)").matches;
-    const vScreen = portrait ? Math.max(window.screen.width, window.screen.height) : Math.min(window.screen.width, window.screen.height);
-    const cur = parseFloat(getComputedStyle(root).getPropertyValue("--barshift")) || 0;
-    const delta = Math.round((vScreen - 28) - lb.getBoundingClientRect().bottom);
-    const next = Math.max(-60, Math.min(90, cur + delta));
-    root.style.setProperty("--barshift", next + "px");
-  } catch {}
-}
-fitBar();
-addEventListener("resize", fitBar);
-addEventListener("orientationchange", fitBar);
-addEventListener("load", fitBar);
-setTimeout(fitBar, 400); setTimeout(fitBar, 1200); setTimeout(fitBar, 2500);
-addEventListener("pointerdown", fitBar, { once: true });
 addEventListener("resize", fitBg);
 addEventListener("orientationchange", fitBg);
 addEventListener("load", fitBg);
