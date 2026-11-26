@@ -195,7 +195,7 @@ body:has(.taskbar) .toast{bottom:106px}
 .spk .ic-svg{width:19px; height:19px}
 .nav-row:not(.tab-nav) button .ic-svg{display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:4px; color:var(--coral-d)}
 /* ===== Chuyen giua cac trang chinh: mo dan + truot len nhe ===== */
-#view > *{animation:viewIn .3s ease both}
+#view.anim > *{animation:viewIn .3s ease both}
 #view > .taskbar{animation:none}
 @keyframes viewIn{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){#view > *{animation:none}}
@@ -753,7 +753,9 @@ function bindNav(scope) {
   $$("[data-tab]", scope).forEach(b => b.onclick = () => goTab(b.dataset.tab));
   $$("[data-journal]", scope).forEach(b => b.onclick = openJournalPopup);
 }
+let viewAnim = true;
 async function goTab(t) {
+  viewAnim = true;
   tab = t;
   if (t === "itinerary" && selTripId && (!curTrip || curTrip.id !== selTripId)) {
     try { curTrip = await api("/api/trips/" + selTripId); } catch {}
@@ -764,6 +766,7 @@ async function goTab(t) {
 function render() {
   const y = window.scrollY;
   const v = $("#view");
+  v.classList.toggle("anim", viewAnim); viewAnim = false;
   if (tab === "home") renderHome(v);
   else if (tab === "itinerary") renderItinerary(v);
   else if (tab === "phrases") renderPhrases(v);
@@ -992,6 +995,7 @@ function renderItinerary(v) {
   else if (selTripId) { api("/api/trips/" + selTripId).then(t => { curTrip = t; render(); }).catch(() => {}); }
 }
 
+function refreshDetail() { const d = document.getElementById("trip-detail"); if (d && curTrip) renderTripDetail(d); else render(); }
 function renderTripDetail(box) {
   if (!box || !curTrip) return;
   const t = curTrip, g = guideOf(t);
@@ -1040,7 +1044,7 @@ function renderTripDetail(box) {
       await api("/api/journal", "POST", { tripId: t.id });
       journalIds.add(t.id);
       toast("Đã lưu " + t.city + " vào Nhật ký 📓");
-      render();
+      const bj = $("#btn-save-journal", box); if (bj) { bj.classList.add("saved"); bj.title = "Đã lưu vào Nhật ký"; }
     } catch (e) { toast(e.message); }
   };
   $("#btn-edit-trip", box).onclick = () => openEditTripPopup(t);
@@ -1053,7 +1057,7 @@ function renderTripDetail(box) {
     }).catch(err => toast(err.message));
   };
   bindStay(box, t);
-  $$("[data-day]", box).forEach(b => b.onclick = () => { curDay = Number(b.dataset.day); render(); });
+  $$("[data-day]", box).forEach(b => b.onclick = () => { curDay = Number(b.dataset.day); refreshDetail(); });
   $$("[data-detail]", box).forEach(b => b.onclick = () => {
     const p = (curTrip.days[curDay] || []).find(x => x.id === b.dataset.detail);
     if (p) {
@@ -1143,7 +1147,7 @@ function stayHTML(t) {
 }
 function bindStay(box, t) {
   const b = $("#btn-stay", box); if (b) b.onclick = () => openStayPopup(t);
-  const d = $("#btn-stay-del", box); if (d) d.onclick = async () => { try { curTrip = await api("/api/trips/" + t.id + "/stay", "DELETE"); render(); } catch (e) { toast(e.message); } };
+  const d = $("#btn-stay-del", box); if (d) d.onclick = async () => { try { curTrip = await api("/api/trips/" + t.id + "/stay", "DELETE"); refreshDetail(); } catch (e) { toast(e.message); } };
 }
 function openStayPopup(t) {
   const s = t.stay || { name: "", address: "", checkin: "", checkout: "", note: "" };
@@ -1164,7 +1168,7 @@ function openStayPopup(t) {
     if (!name) return toast("Bạn nhập tên nơi lưu trú nhé");
     try {
       curTrip = await api("/api/trips/" + t.id + "/stay", "PUT", { name, address: $("#s-addr", root).value.trim(), checkin: form.checkin, checkout: form.checkout, note: $("#s-note", root).value.trim() });
-      close(); toast("Đã lưu nơi lưu trú 🏨"); render();
+      close(); toast("Đã lưu nơi lưu trú 🏨"); refreshDetail();
     } catch (e) { toast(e.message); }
   };
 }
@@ -1285,7 +1289,7 @@ function openAddPlacePopup(t, day) {
     try {
       for (const p of suggPlaces) await api("/api/trips/" + t.id + "/days/" + day + "/places", "POST", p);
       curTrip = await api("/api/trips/" + t.id);
-      close(); toast("Đã thêm " + suggPlaces.length + " địa điểm gợi ý ✨"); render();
+      close(); toast("Đã thêm " + suggPlaces.length + " địa điểm gợi ý ✨"); refreshDetail();
     } catch (e) { toast(e.message); }
   };
   addBtn.onclick = async () => {
@@ -1294,7 +1298,7 @@ function openAddPlacePopup(t, day) {
       const nm = $("#ap-name", root).value.trim();
       if (nm) await api("/api/trips/" + t.id + "/days/" + day + "/places", "POST", { name: nm, desc: $("#ap-desc", root).value.trim(), go: $("#ap-go", root).value.trim(), custom: true });
       curTrip = await api("/api/trips/" + t.id);
-      close(); toast("Đã thêm vào Ngày " + day + " 🎉"); render();
+      close(); toast("Đã thêm vào Ngày " + day + " 🎉"); refreshDetail();
     } catch (e) { toast(e.message); }
   };
   // Neu chi dien form tu do ma khong chon goi y, nut Them van dung cho form
